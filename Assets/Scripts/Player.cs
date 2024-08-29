@@ -14,6 +14,9 @@ public class Player : BaseCharacter
     [SerializeField]
     private float stopDistanceThreshold = 0.1f; // Threshold to stop the soldier when close enough to the target
 
+    private float minYPosition = -110.1f; // Minimum Y position
+    private float maxYPosition = 140f; // Maximum Y position
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -65,6 +68,10 @@ public class Player : BaseCharacter
             }
         }
 
+        // Clamp the player's position to the minimum and maximum Y values
+        float clampedY = Mathf.Clamp(transform.position.y, minYPosition, maxYPosition);
+        transform.position = new Vector3(transform.position.x, clampedY, transform.position.z);
+
         // Stop moving if the soldier dies
         if (!IsAlive)
         {
@@ -86,5 +93,12 @@ public class Player : BaseCharacter
         {
             Debug.LogWarning("PlayerAttributes is not assigned.");
         }
+    }
+
+    public void Revive()
+    {
+        health = 100;
+        IsAlive = true;
+        characterBase.PlayReviveAnim();
     }
 }

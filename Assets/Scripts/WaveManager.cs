@@ -21,9 +21,11 @@ public class WaveManager : MonoBehaviour
     private int spawnIndex;
 
     public WaveUIManager waveUIManager; // Reference to the WaveUIManager
+    private Player player; // Reference to the player object
 
     void Start()
     {
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
         // Define the waves with the indices of the enemies to spawn
         waves.Add(new List<int> { 0, 0, 0, 0 }); //0 == enemy1, 1 == enemy2
         waves.Add(new List<int> { 0, 0, 0, 1 });
@@ -59,6 +61,12 @@ public class WaveManager : MonoBehaviour
             {
                 waveInProgress = false;
                 waveTimer = timeBetweenWaves; // Reset the wave timer for the next wave
+
+                // Check for alive allies and revive the player if necessary
+                if (CheckForAliveAllies())
+                {
+                    RevivePlayer();
+                }
             }
         }
 
@@ -98,7 +106,6 @@ public class WaveManager : MonoBehaviour
             GameObject enemyPrefab = enemyPrefabs[enemyIndex];
 
             GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-            enemy.transform.localScale = new Vector3(20, 20, 20);
 
             enemiesToSpawn--;
             enemiesAlive++;
@@ -131,7 +138,6 @@ public class WaveManager : MonoBehaviour
         GameObject[] allies = GameObject.FindGameObjectsWithTag("Ally");
         foreach (GameObject ally in allies)
         {
-            // Check if the ally is already dead before destroying it
             Health allyHealth = ally.GetComponent<Health>();
             if (allyHealth != null && !allyHealth.IsAlive)
             {
@@ -140,10 +146,32 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    bool CheckForAliveAllies()
+    {
+        GameObject[] allies = GameObject.FindGameObjectsWithTag("Ally");
+        foreach (GameObject ally in allies)
+        {
+            Ally allyHealth = ally.GetComponent<Ally>();
+            if (allyHealth != null && allyHealth.IsAlive)
+            {
+                return true; // Found an alive ally
+            }
+        }
+        return false; // No alive allies found
+    }
+
+    void RevivePlayer()
+    {
+        Debug.Log("trying to revive revived!");
+        if (player != null && !player.IsAlive)
+        {
+            player.Revive();
+            Debug.Log("Player revived!");
+        }
+    }
+
     void UpdateWaveScore()
     {
         // This method can be removed or adjusted if using WaveUIManager for score updates
-        // TextMeshProUGUI waveScoreText = GameObject.Find("WavePanel").GetComponentInChildren<TextMeshProUGUI>();
-        // waveScoreText.text = "Wave: " + currentWave;
     }
 }

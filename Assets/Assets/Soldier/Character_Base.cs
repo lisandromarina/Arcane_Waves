@@ -38,4 +38,9 @@ public class Character_Base : MonoBehaviour
         animator.SetBool("isDead", true);
     }
 
+    public void PlayReviveAnim()
+    {
+        animator.SetBool("isDead", false);
+    }
+
 }

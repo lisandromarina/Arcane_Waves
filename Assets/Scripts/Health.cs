@@ -5,7 +5,7 @@ public class Health : MonoBehaviour
 {
     public int health = 100;
     public Action onDeath;
-    public bool IsAlive { get; private set; } = true;
+    public bool IsAlive { get; set; } = true;
 
     protected Character_Base characterBase;
     protected IMovement movement;
