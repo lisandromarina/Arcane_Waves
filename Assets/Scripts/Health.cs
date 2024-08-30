@@ -1,33 +1,71 @@
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    public int health = 100;
+    public int maxHealth = 100;
+    protected int health = 100;
     public Action onDeath;
     public bool IsAlive { get; set; } = true;
 
     protected Character_Base characterBase;
-    protected IMovement movement;
+    protected Image healthBar;
+    protected Transform healthBarTransform;
 
     protected virtual void Awake()
     {
+        health = maxHealth;
         characterBase = GetComponent<Character_Base>();
-        movement = GetComponent<IMovement>();
+        healthBarTransform = transform.Find("HealthBar");
+        if (healthBarTransform != null)
+        {
+            Transform canvasTransform = healthBarTransform.Find("Canvas");
+
+            if (canvasTransform != null)
+            {
+                Transform healtImageTransform = canvasTransform.Find("Health");
+
+                if (healtImageTransform != null)
+                {
+                    healthBar = healtImageTransform.GetComponent<Image>();
+                }
+            }
+
+            // Initially hide the health bar
+            healthBarTransform.gameObject.SetActive(false);
+        }
+    }
+
+    private void UpdateHealthBar()
+    {
+        if (healthBar != null)
+        {
+            // Show health bar only when health is less than maxHealth and character is alive
+            bool shouldShowHealthBar = (health < maxHealth && IsAlive);
+            healthBarTransform.gameObject.SetActive(shouldShowHealthBar);
+
+            if (shouldShowHealthBar)
+            {
+                healthBar.fillAmount = (float)health / maxHealth;
+            }
+        }
     }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
+       
         if (health <= 0)
         {
             Die();
         }
+
+        UpdateHealthBar();
     }
 
     protected virtual void Die()
     {
-        // Handle death (e.g., play animation, destroy game object)
         IsAlive = false;
         characterBase.PlayDeadAnim();
 
@@ -39,13 +77,10 @@ public class Health : MonoBehaviour
             onDeath.Invoke();
         }
 
-        if (movement != null)
-        {
-            movement.StopMoving();
-        }
-
         HandleDeathRewards();
-        //Destroy(gameObject);
+
+        // Hide the health bar when dead
+        healthBarTransform.gameObject.SetActive(false);
     }
 
     private void HandleDeathRewards()
