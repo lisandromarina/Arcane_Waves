@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Over Settings")]
     public GameObject gameOverPanel;
+    private bool isGameOver = false;
 
     private Player player;
     private List<Ally> allies = new List<Ally>();
@@ -120,7 +121,7 @@ public class GameManager : MonoBehaviour
 
     void UpgradePlayer()
     {
-        /*float cost = GetPlayerUpgradeCost();
+        float cost = GetPlayerUpgradeCost();
         if (CanAfford(cost))
         {
             DeductMoney(cost);
@@ -130,15 +131,13 @@ public class GameManager : MonoBehaviour
             UpdateButtonLabels();
 
             // Add logic to upgrade player stats or abilities here
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject playerGameObject = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
-                SoldierAttack playerStats = player.GetComponent<SoldierAttack>();
-                if (playerStats != null)
+                Player player = playerGameObject.GetComponent<Player>();
+                if (player != null)
                 {
-                    int increment = Mathf.RoundToInt(playerStats.GetDamage() * 0.1f);
-                    playerStats.SetDamage(playerStats.GetDamage() + increment);
-                    Debug.Log("Player's damage upgraded to: " + playerStats.GetDamage());
+                    player.UpgradeDamage();
                 }
                 else
                 {
@@ -153,7 +152,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Not enough money to upgrade player.");
-        }*/
+        }
     }
 
     void BuyTank()
@@ -238,6 +237,7 @@ public class GameManager : MonoBehaviour
             if (gameOverPanel != null)
             {
                 gameOverPanel.SetActive(true);
+                isGameOver = true;
             }
             else
             {
@@ -271,5 +271,10 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public bool IsGameOver()
+    {
+        return isGameOver;
     }
 }

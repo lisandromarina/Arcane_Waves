@@ -95,6 +95,13 @@ public class BaseCharacter : Health
         return baseDamage;
     }
 
+    public void UpgradeDamage()
+    {
+        int increment = Mathf.RoundToInt(baseDamage * 1.5f);
+        this.baseDamage = baseDamage + increment;
+        Debug.Log("Player's damage upgraded to: " + baseDamage);
+    }
+
     public void StartAttack()
     {
         if (!isAttacking)

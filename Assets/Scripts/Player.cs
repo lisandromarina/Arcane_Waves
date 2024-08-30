@@ -1,21 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class Player : BaseCharacter
 {
     private Rigidbody2D rb;
-    private Vector3 touchPosition;
+    private Vector2 movementInput;
     private bool isMoving = false;
 
     [SerializeField] public PlayerAttributes savedStats;
+    [SerializeField] private float stopDistanceThreshold = 0.1f;
+    private float minYPosition = -110.1f;
+    private float maxYPosition = 140f;
 
-    [SerializeField]
-    private float stopDistanceThreshold = 0.1f; // Threshold to stop the soldier when close enough to the target
-
-    private float minYPosition = -110.1f; // Minimum Y position
-    private float maxYPosition = 140f; // Maximum Y position
+    private PlayerInput playerInput;
+    private InputAction moveAction;
 
     void Start()
     {
@@ -24,55 +24,39 @@ public class Player : BaseCharacter
 
         Debug.Log(savedStats.speed);
         LoadAttributes();
+
+        playerInput = GetComponent<PlayerInput>();
+        moveAction = playerInput.actions["Move"];
     }
 
     void Update()
     {
         base.Update();
-        if (Input.touchCount > 0 && IsAlive)
+
+        // Get the movement input from joystick
+        movementInput = moveAction.ReadValue<Vector2>();
+
+        Vector3 direction = new Vector3(movementInput.x, movementInput.y, 0).normalized;
+
+        if (movementInput.magnitude > stopDistanceThreshold)
         {
-            Touch touch = Input.GetTouch(0);
-
-            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
-            {
-                return; // If the touch is over a UI element, don't process movement
-            }
-
-            Vector3 screenTouchPosition = touch.position;
-            screenTouchPosition.z = Camera.main.transform.position.z;
-
-            touchPosition = Camera.main.ScreenToWorldPoint(screenTouchPosition);
-            touchPosition.z = 0;
-
-            if (touch.phase == TouchPhase.Began)
-            {
-                // Start moving if the touch position is far enough from the current position
-                if (Vector3.Distance(transform.position, touchPosition) > stopDistanceThreshold)
-                {
-                    isMoving = true;
-                    characterBase.PlayMoveAnim((touchPosition - transform.position).normalized);
-                }
-            }
+            isMoving = true;
+            characterBase.PlayMoveAnim(direction);
+        }
+        else
+        {
+            isMoving = false;
+            characterBase.PlayMoveAnim(Vector3.zero);
         }
 
         if (isMoving && IsAlive)
         {
-            // Move the soldier frame-by-frame towards the target position
-            transform.position = Vector3.MoveTowards(transform.position, touchPosition, speed * Time.deltaTime);
-
-            // Check if the soldier is close enough to stop
-            if (Vector3.Distance(transform.position, touchPosition) <= stopDistanceThreshold)
-            {
-                isMoving = false;
-                characterBase.PlayMoveAnim(Vector3.zero); // Stop the animation when stopping
-            }
+            transform.position += (Vector3)direction * speed * Time.deltaTime;
         }
 
-        // Clamp the player's position to the minimum and maximum Y values
         float clampedY = Mathf.Clamp(transform.position.y, minYPosition, maxYPosition);
         transform.position = new Vector3(transform.position.x, clampedY, transform.position.z);
 
-        // Stop moving if the soldier dies
         if (!IsAlive)
         {
             isMoving = false;
@@ -100,5 +84,5 @@ public class Player : BaseCharacter
         health = 100;
         IsAlive = true;
         characterBase.PlayReviveAnim();
-    }
+    } 
 }
