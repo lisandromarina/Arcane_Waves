@@ -11,11 +11,15 @@ public class Player : BaseCharacter
 
     [SerializeField] public PlayerAttributes savedStats;
     [SerializeField] private float stopDistanceThreshold = 0.1f;
-    private float minYPosition = -110.1f;
-    private float maxYPosition = 140f;
 
     private PlayerInput playerInput;
     private InputAction moveAction;
+
+    // Screen boundaries
+    private float minYPosition = -110.1f;
+    private float maxYPosition = 140f;
+    private float minXPosition;
+    private float maxXPosition;
 
     void Start()
     {
@@ -27,6 +31,11 @@ public class Player : BaseCharacter
 
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
+
+        // Calculate screen boundaries
+        Camera cam = Camera.main;
+        minXPosition = cam.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
+        maxXPosition = cam.ViewportToWorldPoint(new Vector3(1, 0, 0)).x;
     }
 
     void Update()
@@ -54,8 +63,11 @@ public class Player : BaseCharacter
             transform.position += (Vector3)direction * speed * Time.deltaTime;
         }
 
+        // Clamp Y position
         float clampedY = Mathf.Clamp(transform.position.y, minYPosition, maxYPosition);
-        transform.position = new Vector3(transform.position.x, clampedY, transform.position.z);
+        // Clamp X position to screen boundaries
+        float clampedX = Mathf.Clamp(transform.position.x, minXPosition, maxXPosition);
+        transform.position = new Vector3(clampedX, clampedY, transform.position.z);
 
         if (!IsAlive)
         {
@@ -84,5 +96,5 @@ public class Player : BaseCharacter
         health = 100;
         IsAlive = true;
         characterBase.PlayReviveAnim();
-    } 
+    }
 }

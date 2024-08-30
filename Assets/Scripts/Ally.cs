@@ -12,11 +12,22 @@ public class Ally : IACharacter
     private Vector2 currentDirection;
     private bool isWithinBufferZone;
 
+    // Screen boundaries
+    private float minXPosition;
+    private float maxXPosition;
+    private float minYPosition = -110.1f; // Example min Y boundary
+    private float maxYPosition = 140f;    // Example max Y boundary
+
     private void Start()
     {
         currentState = State.Search;
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // Find the player by tag
         SetRandomDirection(); // Set initial random direction
+
+        // Calculate screen boundaries
+        Camera cam = Camera.main;
+        minXPosition = cam.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
+        maxXPosition = cam.ViewportToWorldPoint(new Vector3(1, 0, 0)).x;
     }
 
     public override void Search()
@@ -66,7 +77,26 @@ public class Ally : IACharacter
                 }
             }
         }
+
+        // Clamp the ally's position within screen boundaries
+        ClampPositionWithinScreenBounds();
+
         Detect();
+    }
+
+    private void Move(Vector2 direction)
+    {
+        transform.position += (Vector3)direction * speed * Time.deltaTime;
+        ClampPositionWithinScreenBounds();
+    }
+
+    private void ClampPositionWithinScreenBounds()
+    {
+        // Clamp Y position
+        float clampedY = Mathf.Clamp(transform.position.y, minYPosition, maxYPosition);
+        // Clamp X position to screen boundaries
+        float clampedX = Mathf.Clamp(transform.position.x, minXPosition, maxXPosition);
+        transform.position = new Vector3(clampedX, clampedY, transform.position.z);
     }
 
     private void SetRandomDirection()

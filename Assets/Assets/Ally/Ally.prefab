@@ -186,7 +186,7 @@ MonoBehaviour:
   - Enemy
   currentState: 1
   detectionRadius: 60
-  followRange: 90
+  followRange: 70
   moveInterval: 2
   bufferZone: 5
   speed: 5

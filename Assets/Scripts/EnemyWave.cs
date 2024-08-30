@@ -6,5 +6,11 @@ using UnityEngine;
 public class EnemyWave
 {
     public GameObject enemyPrefab;
-    public int count;
+    public int quantity;
+
+    public EnemyWave(GameObject prefab, int qty)
+    {
+        enemyPrefab = prefab;
+        quantity = qty;
+    }
 }

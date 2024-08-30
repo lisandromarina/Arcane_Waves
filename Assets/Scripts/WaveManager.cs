@@ -4,92 +4,92 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    public List<GameObject> enemyPrefabs; // List of enemy prefabs
+    [Header("Wave Configuration")]
+    public List<GameObject> enemyPrefabs;
     public Transform[] spawnPoints;
     public float timeBetweenWaves = 15f;
     public float spawnRate = 1f;
-
-    public List<List<int>> waves = new List<List<int>>(); // 2D list to define each wave's enemy sequence
+    public List<List<EnemyWave>> waves = new List<List<EnemyWave>>();
 
     private int currentWave = 0;
-    private int enemiesToSpawn;
     private int enemiesAlive;
     private bool waveInProgress;
-
     private float waveTimer;
     private float spawnTimer;
-    private int spawnIndex;
 
-    public WaveUIManager waveUIManager; // Reference to the WaveUIManager
-    private Player player; // Reference to the player object
+    private Queue<EnemyWave> enemySpawnQueue = new Queue<EnemyWave>();
+
+    [Header("References")]
+    public WaveUIManager waveUIManager;
+    private Player player;
 
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
-        // Define the waves with the indices of the enemies to spawn
-        waves.Add(new List<int> { 0, 0, 0, 0 }); //0 == enemy1, 1 == enemy2
-        waves.Add(new List<int> { 0, 0, 0, 1 });
-        waves.Add(new List<int> { 0, 0, 0, 1, 1 });
-        waves.Add(new List<int> { 0, 0, 0, 1, 1, 1 });
-        waves.Add(new List<int> { 0, 0, 0, 1, 1, 0, 0, 0 });
-
-        waveTimer = timeBetweenWaves;
-        waveInProgress = false;
+        InitializeWaves();
+        ResetWaveTimer();
     }
 
     void Update()
     {
-        if (!waveInProgress)
+        if (waveInProgress)
         {
-            waveTimer -= Time.deltaTime;
-            if (waveTimer <= 0f)
-            {
-                StartNextWave();
-            }
+            HandleSpawning();
+            CheckWaveCompletion();
         }
         else
         {
-            spawnTimer -= Time.deltaTime;
-            if (spawnTimer <= 0f && enemiesToSpawn > 0)
-            {
-                SpawnEnemy();
-                spawnTimer = spawnRate;
-            }
-
-            // Check if the wave is completed
-            if (enemiesToSpawn == 0 && enemiesAlive == 0)
-            {
-                waveInProgress = false;
-                waveTimer = timeBetweenWaves; // Reset the wave timer for the next wave
-
-                // Check for alive allies and revive the player if necessary
-                if (CheckForAliveAllies())
-                {
-                    RevivePlayer();
-                }
-            }
+            HandleWaveStart();
         }
-
-        UpdateWaveScore();
     }
 
-    void StartNextWave()
+    private void InitializeWaves()
     {
-        ClearExistingEnemies();
+        waves.Add(new List<EnemyWave> { 
+            new EnemyWave(enemyPrefabs[0], 4) 
+        });
+        
+        waves.Add(new List<EnemyWave> { 
+            new EnemyWave(enemyPrefabs[0], 7), 
+            new EnemyWave(enemyPrefabs[1], 2) 
+        });
+    }
+
+    private void HandleWaveStart()
+    {
+        waveTimer -= Time.deltaTime;
+        if (waveTimer <= 0f)
+        {
+            StartNextWave();
+        }
+    }
+
+    private void HandleSpawning()
+    {
+        spawnTimer -= Time.deltaTime;
+        if (spawnTimer <= 0f && enemySpawnQueue.Count > 0)
+        {
+            SpawnEnemyFromQueue();
+            spawnTimer = spawnRate;
+        }
+    }
+
+    private void CheckWaveCompletion()
+    {
+        if (enemySpawnQueue.Count == 0 && enemiesAlive == 0)
+        {
+            EndCurrentWave();
+        }
+    }
+
+    private void StartNextWave()
+    {
+        ClearExistingCharacters("Enemy");
         ClearExistingAllies();
 
         if (currentWave < waves.Count)
         {
-            currentWave++;
-            spawnIndex = 0;
-            enemiesToSpawn = waves[currentWave - 1].Count; // Set the number of enemies to spawn based on the current wave
-            enemiesAlive = 0;
-            waveInProgress = true;
-            waveTimer = 0f;
-            spawnTimer = 0f; // Start spawning immediately
-
-            waveUIManager.UpdateWaveScore(currentWave); // Update the wave score display
-            waveUIManager.ShowWavePanel(); // Show the wave panel
+            PrepareWave();
         }
         else
         {
@@ -97,39 +97,71 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    void SpawnEnemy()
+    private void PrepareWave()
     {
-        if (spawnIndex < waves[currentWave - 1].Count)
+        currentWave++;
+        foreach (EnemyWave enemyWave in waves[currentWave - 1])
         {
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-            int enemyIndex = waves[currentWave - 1][spawnIndex]; // Get the enemy index for this spawn
-            GameObject enemyPrefab = enemyPrefabs[enemyIndex];
-
-            GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-
-            enemiesToSpawn--;
-            enemiesAlive++;
-            spawnIndex++;
-
-            BaseCharacter baseCharacter = enemy.GetComponent<BaseCharacter>();
-            if (baseCharacter != null)
+            for (int i = 0; i < enemyWave.quantity; i++)
             {
-                baseCharacter.onDeath += OnEnemyDeath;
+                enemySpawnQueue.Enqueue(enemyWave);
             }
+        }
+        ResetWaveState();
+        waveUIManager.UpdateWaveScore(currentWave);
+        waveUIManager.ShowWavePanel();
+    }
+
+    private void ResetWaveState()
+    {
+        enemiesAlive = 0;
+        waveInProgress = true;
+        waveTimer = 0f;
+        spawnTimer = 0f;
+    }
+
+    private void EndCurrentWave()
+    {
+        waveInProgress = false;
+        ResetWaveTimer();
+        if (CheckForAliveAllies())
+        {
+            RevivePlayer();
         }
     }
 
-    void OnEnemyDeath()
+    private void ResetWaveTimer() => waveTimer = timeBetweenWaves;
+
+    private void SpawnEnemyFromQueue()
     {
-        enemiesAlive--;
+        if (enemySpawnQueue.Count > 0)
+        {
+            EnemyWave enemyWave = enemySpawnQueue.Dequeue();
+            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+            GameObject enemy = Instantiate(enemyWave.enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+
+            enemiesAlive++;
+            SubscribeToEnemyDeath(enemy);
+        }
     }
 
-    void ClearExistingEnemies()
+    private void SubscribeToEnemyDeath(GameObject enemy)
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject enemy in enemies)
+        BaseCharacter baseCharacter = enemy.GetComponent<BaseCharacter>();
+        if (baseCharacter != null)
         {
-            Destroy(enemy);
+            baseCharacter.onDeath += OnEnemyDeath;
+        }
+    }
+
+    void OnEnemyDeath() => enemiesAlive--;
+
+    private void ClearExistingCharacters(string tag)
+    {
+        GameObject[] characters = GameObject.FindGameObjectsWithTag(tag);
+        foreach (GameObject character in characters)
+        {
+            Destroy(character);
         }
     }
 
@@ -146,32 +178,26 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    bool CheckForAliveAllies()
+    private bool CheckForAliveAllies()
     {
         GameObject[] allies = GameObject.FindGameObjectsWithTag("Ally");
         foreach (GameObject ally in allies)
         {
-            Ally allyHealth = ally.GetComponent<Ally>();
-            if (allyHealth != null && allyHealth.IsAlive)
+            Ally allyComponent = ally.GetComponent<Ally>();
+            if (allyComponent != null && allyComponent.IsAlive)
             {
-                return true; // Found an alive ally
+                return true;
             }
         }
-        return false; // No alive allies found
+        return false;
     }
 
-    void RevivePlayer()
+    private void RevivePlayer()
     {
-        Debug.Log("trying to revive revived!");
         if (player != null && !player.IsAlive)
         {
             player.Revive();
             Debug.Log("Player revived!");
         }
-    }
-
-    void UpdateWaveScore()
-    {
-        // This method can be removed or adjusted if using WaveUIManager for score updates
     }
 }
