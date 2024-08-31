@@ -207,12 +207,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceaf2f55ff54aa246a37820980bc0737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  maxHealth: 100
   speed: 35
   attackRange: 25
   baseDamage: 100
   attackTags:
   - Enemy
+  - Barrel
   savedStats: {fileID: 11400000, guid: 3827bb6ed48da8d459ed8c4745ec8be3, type: 2}
   stopDistanceThreshold: 0.1
 --- !u!1001 &7990968587240639818

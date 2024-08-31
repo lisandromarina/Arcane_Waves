@@ -91,4 +91,20 @@ public class Health : MonoBehaviour
             GameManager.Instance.AddMoney(10);
         }
     }
+
+    public void Heal(int healAmount)
+    {
+        if (!IsAlive) return; // Cannot heal a dead character
+
+        health += healAmount;
+
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+
+        Debug.Log($"{gameObject.name} healed by {healAmount}. Current health: {health}");
+
+        UpdateHealthBar();
+    }
 }

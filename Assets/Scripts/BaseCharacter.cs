@@ -7,11 +7,11 @@ public class BaseCharacter : Health
     [SerializeField] protected float speed = 5f;
     [SerializeField] protected float attackRange = 1f;
     [SerializeField] protected int baseDamage = 10;
-    [SerializeField] protected List<string> attackTags = new List<string> { "Player", "Ally" }; // Tags to detect and attack
+    [SerializeField] protected List<string> attackTags = new List<string> { "Player", "Ally", "Barrel" }; // Tags to detect and attack
 
     protected bool isAttacking = false;
     protected Collider2D target = null;
-    private Dictionary<Collider2D, BaseCharacter> detectedTargets = new Dictionary<Collider2D, BaseCharacter>();
+    private Dictionary<Collider2D, Health> detectedTargets = new Dictionary<Collider2D, Health>();
 
     protected override void Awake()
     {
@@ -56,10 +56,10 @@ public class BaseCharacter : Health
         detectedTargets.Clear();
         foreach (var collider in targetsInRange)
         {
-            BaseCharacter character = collider.GetComponent<BaseCharacter>();
-            if (character != null && character.IsAlive && attackTags.Contains(collider.tag)) // Check if the tag is in the attack list
+            Health healthComponent = collider.GetComponent<Health>();
+            if (healthComponent != null && healthComponent.IsAlive && attackTags.Contains(collider.tag)) // Check if the tag is in the attack list
             {
-                detectedTargets[collider] = character;
+                detectedTargets[collider] = healthComponent;
             }
         }
     }
@@ -83,9 +83,9 @@ public class BaseCharacter : Health
     {
         if (target != null)
         {
-            if (detectedTargets.TryGetValue(target, out BaseCharacter targetCharacter))
+            if (detectedTargets.TryGetValue(target, out Health targetHealth))
             {
-                if (targetCharacter.IsAlive) targetCharacter.TakeDamage(CalculateDamage());
+                if (targetHealth.IsAlive) targetHealth.TakeDamage(CalculateDamage());
             }
         }
     }
@@ -138,8 +138,8 @@ public class BaseCharacter : Health
     private bool IsTargetValid(Collider2D currentTarget)
     {
         // Check if the target is alive and within range
-        BaseCharacter targetCharacter = currentTarget.GetComponent<BaseCharacter>();
-        if (targetCharacter == null || !targetCharacter.IsAlive)
+        Health targetHealth = currentTarget.GetComponent<Health>();
+        if (targetHealth == null || !targetHealth.IsAlive)
         {
             return false;
         }

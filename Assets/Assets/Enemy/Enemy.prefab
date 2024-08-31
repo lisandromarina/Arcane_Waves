@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5445028480045523067}
+  - component: {fileID: 712658440447574151}
+  - component: {fileID: -8167324032375038877}
   - component: {fileID: -6120252070672647064}
   - component: {fileID: -662146468339142188}
   - component: {fileID: 3409786471040882124}
   - component: {fileID: 8807180859852254205}
-  - component: {fileID: 712658440447574151}
-  - component: {fileID: -8167324032375038877}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
@@ -38,6 +38,39 @@ Transform:
   - {fileID: 75608452649091218}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &712658440447574151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3757002852581354689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 750f5952293ba264bb0b66f8da99c4e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8167324032375038877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3757002852581354689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d979f31f0aa866489197d2c52e2b1fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  speed: 20
+  attackRange: 25
+  baseDamage: 10
+  attackTags:
+  - Player
+  - Ally
+  currentState: 1
+  detectionRadius: 75
 --- !u!95 &-6120252070672647064
 Animator:
   serializedVersion: 5
@@ -183,39 +216,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &712658440447574151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3757002852581354689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 750f5952293ba264bb0b66f8da99c4e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-8167324032375038877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3757002852581354689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d979f31f0aa866489197d2c52e2b1fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 50
-  speed: 20
-  attackRange: 25
-  baseDamage: 10
-  attackTags:
-  - Player
-  - Ally
-  currentState: 1
-  detectionRadius: 75
 --- !u!1001 &6297120010363345354
 PrefabInstance:
   m_ObjectHideFlags: 0

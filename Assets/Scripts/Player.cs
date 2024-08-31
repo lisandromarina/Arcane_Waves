@@ -26,7 +26,6 @@ public class Player : BaseCharacter
         rb = GetComponent<Rigidbody2D>();
         characterBase = GetComponent<Character_Base>();
 
-        Debug.Log(savedStats.speed);
         LoadAttributes();
 
         playerInput = GetComponent<PlayerInput>();
