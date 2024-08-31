@@ -5,10 +5,12 @@ using UnityEngine;
 public class Character_Base : MonoBehaviour
 {
     private Animator animator;
+    private SpriteRenderer spriteRenderer; // Reference to the SpriteRenderer
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>(); // Get the SpriteRenderer component
     }
 
     public void PlayMoveAnim(Vector3 moveDir)
@@ -19,12 +21,10 @@ public class Character_Base : MonoBehaviour
         // Set animator speed parameter
         animator.SetFloat("speed", speed);
 
-        // Flip sprite based on direction (left or right)
+        // Flip the sprite based on direction (left or right)
         if (moveDir.x != 0)
         {
-            Vector3 newScale = transform.localScale;
-            newScale.x = Mathf.Sign(moveDir.x) * Mathf.Abs(newScale.x);
-            transform.localScale = newScale;
+            spriteRenderer.flipX = moveDir.x < 0; // Flip sprite when moving left
         }
     }
 
@@ -42,5 +42,4 @@ public class Character_Base : MonoBehaviour
     {
         animator.SetBool("isDead", false);
     }
-
 }
