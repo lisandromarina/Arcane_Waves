@@ -77,19 +77,8 @@ public class Health : MonoBehaviour
             onDeath.Invoke();
         }
 
-        HandleDeathRewards();
-
         // Hide the health bar when dead
         healthBarTransform.gameObject.SetActive(false);
-    }
-
-    private void HandleDeathRewards()
-    {
-        // Check if this is an enemy and reward money
-        if (gameObject.CompareTag("Enemy"))
-        {
-            GameManager.Instance.AddMoney(10);
-        }
     }
 
     public void Heal(int healAmount)

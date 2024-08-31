@@ -71,6 +71,7 @@ MonoBehaviour:
   - Ally
   currentState: 1
   detectionRadius: 90
+  moneyReward: 5
 --- !u!95 &8247484633393321533
 Animator:
   serializedVersion: 5

@@ -7,6 +7,7 @@ public class PrefabManager : MonoBehaviour
     public static PrefabManager Instance;
 
     [Header("Prefabs")]
+    public GameObject portalPrefab;
     public GameObject tankPrefab;
     /*public GameObject magePrefab;
     public GameObject warriorPrefab;*/

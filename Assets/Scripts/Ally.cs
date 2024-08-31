@@ -5,7 +5,6 @@ public class Ally : IACharacter
     [SerializeField] private float followRange = 15f; // Distance to maintain from the player
     [SerializeField] private float moveInterval = 1f; // Time in seconds before moving randomly
     [SerializeField] private float bufferZone = 2f; // Buffer zone distance to avoid constant toggling
-    [SerializeField] private float speed = 5f; // Movement speed
 
     private float moveTimer = 0f; // Timer for random movement
     private Transform playerTransform;

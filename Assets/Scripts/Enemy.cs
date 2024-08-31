@@ -4,6 +4,7 @@ public class Enemy : IACharacter
 {
 
     private Transform playerTransform; // Reference to the player's transform
+    [SerializeField] private int moneyReward;
 
     private void Start()
     {
@@ -41,5 +42,16 @@ public class Enemy : IACharacter
 
         // Continue detecting other targets or potentially switch to chasing
         Detect();
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+        HandleDeathRewards();
+    }
+
+    private void HandleDeathRewards()
+    {
+       GameManager.Instance.AddMoney(moneyReward);
     }
 }

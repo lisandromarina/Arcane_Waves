@@ -185,7 +185,7 @@ MonoBehaviour:
   baseDamage: 10
   attackTags:
   - Enemy
-  currentState: 1
+  currentState: 4
   detectionRadius: 60
   followRange: 70
   moveInterval: 2

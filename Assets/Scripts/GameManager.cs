@@ -166,17 +166,17 @@ public class GameManager : MonoBehaviour
             tankUpgradeLevel++;
             UpdateButtonLabels();
 
-            GameObject tankPrefab = PrefabManager.Instance.tankPrefab;
-            Vector3 spawnPosition = new Vector3(0, 0, 0); // Set the desired position
-            Quaternion spawnRotation = Quaternion.identity; // Set the desired rotation
-            //Instantiate(tankPrefab, spawnPosition, spawnRotation);
 
-            GameObject tankObject = Instantiate(tankPrefab, spawnPosition, spawnRotation);
-            Ally tankHealth = tankObject.GetComponent<Ally>();
+            GameObject tankObject = PortalManager.CreatePortal(new Vector3(0, 0, 0), PrefabManager.Instance.tankPrefab);
+
+            Debug.Log("tankObject == null " + (tankObject == null)); // Ensure null check is correct
+
+            Ally tankHealth = tankObject != null ? tankObject.GetComponent<Ally>() : null;
             if (tankHealth != null)
             {
                 RegisterAlly(tankHealth);
             }
+           
         }
         else
         {
