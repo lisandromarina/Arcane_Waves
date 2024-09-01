@@ -15,7 +15,6 @@ public abstract class IACharacter : BaseCharacter
     public float detectionRadius = 10f; // Radius to detect targets
     protected Transform targetTransform;
 
-
     protected override void Update()
     {
         base.Update(); // Ensure base functionality runs
@@ -55,7 +54,7 @@ public abstract class IACharacter : BaseCharacter
 
     private void HandleDeath()
     {
-        
+        // Handle death logic here if needed
         return;
     }
 
@@ -81,7 +80,7 @@ public abstract class IACharacter : BaseCharacter
                 break;
 
             case State.Attacking:
-               
+                // Implement attacking logic here
                 break;
 
             case State.Dead:

@@ -42,4 +42,9 @@ public class Character_Base : MonoBehaviour
     {
         animator.SetBool("isDead", false);
     }
+
+    public void PlayHealingAnim(bool isHealing)
+    {
+        animator.SetBool("isHealing", isHealing);
+    }
 }

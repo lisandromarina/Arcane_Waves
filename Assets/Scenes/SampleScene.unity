@@ -6342,14 +6342,14 @@ MonoBehaviour:
   - {fileID: 6219940023327947844, guid: 287a22211c757964eb4178175304247b, type: 3}
   - {fileID: 3757002852581354689, guid: cccd097440d45ea4fa26100869f19742, type: 3}
   - {fileID: 6605815102354720358, guid: ca16cd1954fce6248b66f91e46c9d820, type: 3}
+  - {fileID: 8252835633019604496, guid: 63ccbf91e9e56174a97ecc14511c9bd6, type: 3}
   spawnPoints:
-  - {fileID: 0}
+  - {fileID: 1666715509}
   - {fileID: 1664468431}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 252357366}
+  - {fileID: 1083936964}
   - {fileID: 1502929017}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 585751275}
   timeBetweenWaves: 1
   spawnRate: 1
   waveUIManager: {fileID: 1109830283}
@@ -6403,6 +6403,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef25224e0e8976439c93c7bd89dd357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectilKingGoblin: {fileID: 7270143132747714411, guid: c5bf45d0cecf9a0408d5887316dcf3f3,
+    type: 3}
   portalPrefab: {fileID: 3466751762791701885, guid: fbae4fc3a9f9bf44f88a6028a94398c2,
     type: 3}
   tankPrefab: {fileID: 8120088069031237535, guid: 8d51127ec0b6c4f4da2fdeda6b7f6c8b,
@@ -6769,12 +6771,12 @@ PrefabInstance:
     - target: {fileID: 2708812363284043761, guid: d8f9cc40cf4580446a910f7da9b380db,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 111.900085
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 2708812363284043761, guid: d8f9cc40cf4580446a910f7da9b380db,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -98.40686
+      value: -99
       objectReference: {fileID: 0}
     - target: {fileID: 2708812363284043761, guid: d8f9cc40cf4580446a910f7da9b380db,
         type: 3}
@@ -7750,7 +7752,7 @@ PrefabInstance:
     - target: {fileID: 5292069968016390607, guid: 31ed620e0d7d93d40a17351003113b8d,
         type: 3}
       propertyPath: maxHealth
-      value: 150
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 5292069968016390607, guid: 31ed620e0d7d93d40a17351003113b8d,
         type: 3}
