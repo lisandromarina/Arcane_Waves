@@ -6350,7 +6350,7 @@ MonoBehaviour:
   - {fileID: 1083936964}
   - {fileID: 1502929017}
   - {fileID: 585751275}
-  timeBetweenWaves: 1
+  timeBetweenWaves: 5
   spawnRate: 1
   waveUIManager: {fileID: 1109830283}
 --- !u!4 &1109830280
@@ -7632,7 +7632,7 @@ PrefabInstance:
     - target: {fileID: -2912401725061381691, guid: 31ed620e0d7d93d40a17351003113b8d,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2017500373387490843, guid: 31ed620e0d7d93d40a17351003113b8d,
         type: 3}
@@ -7752,7 +7752,7 @@ PrefabInstance:
     - target: {fileID: 5292069968016390607, guid: 31ed620e0d7d93d40a17351003113b8d,
         type: 3}
       propertyPath: maxHealth
-      value: 500
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 5292069968016390607, guid: 31ed620e0d7d93d40a17351003113b8d,
         type: 3}

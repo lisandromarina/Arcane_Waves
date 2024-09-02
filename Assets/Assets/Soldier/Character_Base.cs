@@ -47,4 +47,9 @@ public class Character_Base : MonoBehaviour
     {
         animator.SetBool("isHealing", isHealing);
     }
+
+    public void PlaySpecialSkillAnim(string skill)
+    {
+        animator.SetTrigger(skill);
+    }
 }

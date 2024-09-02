@@ -1,24 +1,38 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    private Vector3 targetPosition;
     private Transform target;
     private float speed;
     private int damage = 10;
-    private Animator animator; // Reference to the Animator component
-    private bool isDestroying = false; // To avoid multiple calls
-    private SpriteRenderer spriteRenderer; // Reference to the SpriteRenderer component
+    private Animator animator;
+    private bool isDestroying = false;
+    private SpriteRenderer spriteRenderer;
+    private List<string> attackTargets;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>(); // Get the Animator component
-        spriteRenderer = GetComponent<SpriteRenderer>(); // Get the SpriteRenderer component
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void SetTarget(Transform target)
     {
         this.target = target;
-        FlipSprite(); // Flip sprite initially towards the target
+        FlipSprite();
+    }
+
+    public void SetColliderTargets(List<string> attackTargets)
+    {
+        this.attackTargets = attackTargets;
+    }
+
+    public void SetTarget(Vector3 position)
+    {
+        this.targetPosition = position;
+        FlipSprite();
     }
 
     public void SetDamage(int damage)
@@ -33,75 +47,99 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        if (isDestroying) return; // Stop updating if in the process of destroying
+        if (isDestroying) return;
 
-        if (target == null)
+        if (target != null)
         {
-            TriggerDestroy();
-            return;
+            MoveTowardsTarget(target.position);
         }
+        else if (targetPosition != Vector3.zero)
+        {
+            MoveTowardsTarget(targetPosition);
+        }
+    }
 
-        // Move towards the target
-        Vector3 direction = (target.position - transform.position).normalized;
+    private void MoveTowardsTarget(Vector3 destination)
+    {
+        Vector3 direction = (destination - transform.position).normalized;
         transform.position += direction * speed * Time.deltaTime;
 
         // Flip the sprite based on the direction
         FlipSprite();
 
-        // Check if the projectile has reached the target
-        if (Vector3.Distance(transform.position, target.position) < 0.1f)
+        // Check if the projectile has reached the destination
+        if (Vector3.Distance(transform.position, destination) < 0.1f)
         {
-            HitTarget();
+            if (target != null) HitTarget();
+            else TriggerDestroy();
         }
     }
 
     private void FlipSprite()
     {
-        // Flip the sprite horizontally based on the x direction
         if (target != null)
         {
             Vector3 direction = (target.position - transform.position).normalized;
-            if (direction.x > 0)
-            {
-                spriteRenderer.flipX = false; // Facing right
-            }
-            else if (direction.x < 0)
-            {
-                spriteRenderer.flipX = true; // Facing left
-            }
+            spriteRenderer.flipX = direction.x < 0;
+        }
+        else if (targetPosition != Vector3.zero)
+        {
+            Vector3 direction = (targetPosition - transform.position).normalized;
+            spriteRenderer.flipX = direction.x < 0;
         }
     }
 
     private void HitTarget()
     {
-        Health targetHealth = target.GetComponent<Health>();
-        if (targetHealth != null)
+        if (target != null)
         {
-            targetHealth.TakeDamage(damage);
+            Health targetHealth = target.GetComponent<Health>();
+            if (targetHealth != null && targetHealth.IsAlive)
+            {
+                targetHealth.TakeDamage(damage);
+            }
         }
 
-        TriggerDestroy(); // Play destruction animation instead of directly destroying
+        TriggerDestroy();
     }
 
     private void TriggerDestroy()
     {
-        if (isDestroying) return; // Avoid multiple triggers
+        if (isDestroying) return;
 
         isDestroying = true;
-        animator.SetTrigger("Destroy"); // Trigger the destroy animation
+        animator.SetTrigger("Destroy");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isDestroying) return;
+
+        Debug.Log("Collision with: " + collision.tag);
+
         if (collision.transform == target)
         {
-            HitTarget();
+            // Check if the target is alive before applying damage
+            Health targetHealth = collision.GetComponent<Health>();
+            if (targetHealth != null && targetHealth.IsAlive)
+            {
+                targetHealth.TakeDamage(damage);
+                TriggerDestroy();
+            }
+        }
+        else if (attackTargets.Contains(collision.tag))
+        {
+            Health targetHealth = collision.GetComponent<Health>();
+            if (targetHealth != null && targetHealth.IsAlive)
+            {
+                targetHealth.TakeDamage(damage);
+                TriggerDestroy();
+            }
         }
     }
 
-    // This method is called at the end of the destroy animation
     public void OnDestroyAnimationEnd()
     {
-        Destroy(gameObject); // Destroy the projectile
+        Destroy(gameObject);
     }
 }
