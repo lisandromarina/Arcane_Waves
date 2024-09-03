@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [Header("Game Config")]
+    public GameConfig gameConfig; // Reference to the ScriptableObject
+
     [Header("Money Settings")]
     public int moneyAmount = 1000;
     public TextMeshProUGUI moneyText;
@@ -42,6 +45,8 @@ public class GameManager : MonoBehaviour
     private Player player;
     private List<Ally> allies = new List<Ally>();
 
+    private WaveManager waveManager;
+
     void Awake()
     {
         if (Instance == null)
@@ -59,6 +64,8 @@ public class GameManager : MonoBehaviour
     {
         UpdateMoneyUI();
         UpdateButtonLabels();
+
+        waveManager = GetComponent<WaveManager>();
 
         // Assign button listeners
         upgradePlayerButton.onClick.AddListener(UpgradePlayer);
@@ -238,11 +245,27 @@ public class GameManager : MonoBehaviour
             {
                 gameOverPanel.SetActive(true);
                 isGameOver = true;
+                SaveGameData(); // Save data when the game is over
             }
             else
             {
                 Debug.LogWarning("GameOver panel is not assigned in the GameManager.");
             }
+        }
+    }
+
+    private void SaveGameData()
+    {
+        if (gameConfig != null)
+        {
+            // Update the gameConfig with the current game state
+            gameConfig.lastGameWave = 10;//waveManager.GetCurrentWave();
+
+            Debug.Log($"Game data saved. LAST GAME Wave: {gameConfig.lastGameWave}");
+        }
+        else
+        {
+            Debug.LogWarning("GameConfig is not assigned in GameManager.");
         }
     }
 

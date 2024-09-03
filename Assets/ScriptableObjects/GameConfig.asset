@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   bestWave: 10
-  moneyAmount: 0
+  moneyAmount: 100
+  lastGameWave: 10

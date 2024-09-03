@@ -6380,6 +6380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8a450d5f859f548ab7f5ed058f9efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameConfig: {fileID: 11400000, guid: fd68644109163b04d8f367900b869459, type: 2}
   moneyAmount: 200
   moneyText: {fileID: 182042133}
   playerUpgradeLevel: 0
@@ -7752,7 +7753,7 @@ PrefabInstance:
     - target: {fileID: 5292069968016390607, guid: 31ed620e0d7d93d40a17351003113b8d,
         type: 3}
       propertyPath: maxHealth
-      value: 150
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5292069968016390607, guid: 31ed620e0d7d93d40a17351003113b8d,
         type: 3}

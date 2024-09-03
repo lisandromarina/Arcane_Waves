@@ -6,6 +6,11 @@ public class CameraFollow : MonoBehaviour
     public Vector3 offset;       // Offset from the player position
     public float smoothSpeed = 0.125f; // Speed at which the camera follows
 
+    private void Start()
+    {
+        player = FindFirstObjectByType<PlayerMainMenu>().transform;
+    }
+
     private void LateUpdate()
     {
         if (player != null)

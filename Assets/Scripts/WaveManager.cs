@@ -222,4 +222,9 @@ public class WaveManager : MonoBehaviour
             Debug.Log("Player revived!");
         }
     }
+
+    public int GetCurrentWave()
+    {
+        return currentWave;
+    }
 }
