@@ -170,6 +170,7 @@ public class EnemyRange : IACharacter
             // Set the projectile's extended target position and speed
             projectileComponent.SetTarget(extendedTargetPosition);
             projectileComponent.SetSpeed(projectileSpeed);
+            projectileComponent.SetColliderTargets(attackTags);
             projectileComponent.SetDamage(CalculateDamage());
         }
         else
