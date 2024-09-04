@@ -110,6 +110,8 @@ public class PlayerMainMenu : MonoBehaviour
         Debug.Log("Stop");
         isMoving = false; // Set moving state to false
         animator.PlayMoveAnim(Vector3.zero); // Play idle animation
+
+        gameConfig.bestWave = gameConfig.lastGameWave;
     }
 
     public void LoadPlayerState()

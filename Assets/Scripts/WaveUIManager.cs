@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class WaveUIManager : MonoBehaviour, IWaveUIManager
 {
-    public CanvasGroup wavePanel;
+    [SerializeField] private CanvasGroup wavePanel;
+    [SerializeField] private TextMeshProUGUI waveText;
     public float fadeDuration = 1f;
 
     private TextMeshProUGUI waveScoreText;
@@ -44,6 +45,7 @@ public class WaveUIManager : MonoBehaviour, IWaveUIManager
         if (waveScoreText != null)
         {
             waveScoreText.text = "Wave: " + currentWave;
+            waveText.text = currentWave.ToString();
         }
     }
 

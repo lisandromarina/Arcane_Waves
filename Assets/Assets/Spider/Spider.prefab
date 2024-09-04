@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d979f31f0aa866489197d2c52e2b1fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 20
   speed: 30
   attackRange: 15
   baseDamage: 10
@@ -71,7 +71,7 @@ MonoBehaviour:
   - Ally
   currentState: 1
   detectionRadius: 90
-  moneyReward: 5
+  moneyReward: 1
 --- !u!95 &8247484633393321533
 Animator:
   serializedVersion: 5

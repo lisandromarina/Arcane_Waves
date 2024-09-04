@@ -6122,7 +6122,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 50
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6315,8 +6315,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1109830280}
   - component: {fileID: 1109830281}
-  - component: {fileID: 1109830279}
   - component: {fileID: 1109830282}
+  - component: {fileID: 1109830279}
   - component: {fileID: 1109830283}
   - component: {fileID: 1109830284}
   m_Layer: 0
@@ -6423,6 +6423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wavePanel: {fileID: 1298275165}
+  waveText: {fileID: 1009519985}
   fadeDuration: 1
 --- !u!114 &1109830284
 MonoBehaviour:
@@ -7753,7 +7754,7 @@ PrefabInstance:
     - target: {fileID: 5292069968016390607, guid: 31ed620e0d7d93d40a17351003113b8d,
         type: 3}
       propertyPath: maxHealth
-      value: 1
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 5292069968016390607, guid: 31ed620e0d7d93d40a17351003113b8d,
         type: 3}

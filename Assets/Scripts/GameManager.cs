@@ -254,12 +254,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void SaveGameData()
+    public void SaveGameData()
     {
         if (gameConfig != null)
         {
+            if (isGameOver)
+            {
+                gameConfig.lastGameWave = waveManager.GetCurrentWave() - 1;
+            }
+            else
+            {
+                gameConfig.lastGameWave = waveManager.GetCurrentWave();
+            }
             // Update the gameConfig with the current game state
-            gameConfig.lastGameWave = 10;//waveManager.GetCurrentWave();
+           
 
             Debug.Log($"Game data saved. LAST GAME Wave: {gameConfig.lastGameWave}");
         }

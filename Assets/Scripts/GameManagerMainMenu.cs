@@ -21,6 +21,11 @@ public class GameManagerMainMenu : MonoBehaviour
             isFirstLoad = true;
             Debug.Log("First Instance");
             DontDestroyOnLoad(gameObject); // Make this object persistent across scenes
+
+            if (gameConfig.bestWave < gameConfig.lastGameWave)
+            {
+                gameConfig.bestWave = gameConfig.lastGameWave;
+            }
         }
         else
         {

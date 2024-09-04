@@ -10389,7 +10389,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &1499367902
 RectTransform:
@@ -10443,11 +10443,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameConfig: {fileID: 11400000, guid: fd68644109163b04d8f367900b869459, type: 2}
-  waypoints:
-  - {fileID: 188463545}
-  - {fileID: 226882332}
-  - {fileID: 565392988}
-  - {fileID: 1193121417}
   playerPrefab: {fileID: 7142928708313894304, guid: 9e161cdf3290ea743be5b9e9545592fd,
     type: 3}
 --- !u!4 &1539777013

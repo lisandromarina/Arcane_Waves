@@ -207,10 +207,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceaf2f55ff54aa246a37820980bc0737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 150
   speed: 35
   attackRange: 25
-  baseDamage: 100
+  baseDamage: 10
   attackTags:
   - Enemy
   - Barrel

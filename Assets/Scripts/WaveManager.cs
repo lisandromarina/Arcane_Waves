@@ -45,31 +45,36 @@ public class WaveManager : MonoBehaviour
 
     private void InitializeWaves()
     {
+        waves.Add(new List<EnemyWave> {
+            new EnemyWave(enemyPrefabs[0], 1)
+        });
+
         waves.Add(new List<EnemyWave> { 
-            new EnemyWave(enemyPrefabs[0], 20) 
+            new EnemyWave(enemyPrefabs[0], 10),
+            new EnemyWave(enemyPrefabs[1], 1),
         });
         
         waves.Add(new List<EnemyWave> { 
-            new EnemyWave(enemyPrefabs[1], 7), 
-            new EnemyWave(enemyPrefabs[2], 2) 
+            new EnemyWave(enemyPrefabs[1], 1), 
+            new EnemyWave(enemyPrefabs[2], 1) 
         });
 
         waves.Add(new List<EnemyWave> {
-            new EnemyWave(enemyPrefabs[0], 2),
-            new EnemyWave(enemyPrefabs[1], 2),
-            new EnemyWave(enemyPrefabs[2], 2),
-            new EnemyWave(enemyPrefabs[0], 2),
-            new EnemyWave(enemyPrefabs[1], 2),
-            new EnemyWave(enemyPrefabs[2], 2),
-            new EnemyWave(enemyPrefabs[0], 2),
-            new EnemyWave(enemyPrefabs[1], 2),
-            new EnemyWave(enemyPrefabs[2], 2),
-            new EnemyWave(enemyPrefabs[0], 2),
-            new EnemyWave(enemyPrefabs[1], 2),
-            new EnemyWave(enemyPrefabs[0], 2),
-            new EnemyWave(enemyPrefabs[1], 2),
-            new EnemyWave(enemyPrefabs[0], 2),
-            new EnemyWave(enemyPrefabs[1], 2)
+            new EnemyWave(enemyPrefabs[0], 1),
+            new EnemyWave(enemyPrefabs[1], 1),
+            new EnemyWave(enemyPrefabs[2], 1),
+            new EnemyWave(enemyPrefabs[0], 1),
+            new EnemyWave(enemyPrefabs[1], 1),
+            new EnemyWave(enemyPrefabs[2], 1),
+            new EnemyWave(enemyPrefabs[0], 1),
+            new EnemyWave(enemyPrefabs[1], 1),
+            new EnemyWave(enemyPrefabs[2], 1),
+            new EnemyWave(enemyPrefabs[0], 1),
+            new EnemyWave(enemyPrefabs[1], 1),
+            new EnemyWave(enemyPrefabs[0], 1),
+            new EnemyWave(enemyPrefabs[1], 1),
+            new EnemyWave(enemyPrefabs[0], 1),
+            new EnemyWave(enemyPrefabs[1], 1)
         });
 
         waves.Add(new List<EnemyWave> {
@@ -115,6 +120,7 @@ public class WaveManager : MonoBehaviour
         }
         else
         {
+            GameManager.Instance.SaveGameData();
             Debug.Log("All waves completed!");
         }
     }
