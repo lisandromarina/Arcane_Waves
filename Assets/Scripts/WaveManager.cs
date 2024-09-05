@@ -51,30 +51,30 @@ public class WaveManager : MonoBehaviour
 
         waves.Add(new List<EnemyWave> { 
             new EnemyWave(enemyPrefabs[0], 10),
-            new EnemyWave(enemyPrefabs[1], 1),
+            new EnemyWave(enemyPrefabs[1], 10),
         });
         
         waves.Add(new List<EnemyWave> { 
-            new EnemyWave(enemyPrefabs[1], 1), 
-            new EnemyWave(enemyPrefabs[2], 1) 
+            new EnemyWave(enemyPrefabs[2], 1), 
+            new EnemyWave(enemyPrefabs[3], 1) 
         });
 
         waves.Add(new List<EnemyWave> {
             new EnemyWave(enemyPrefabs[0], 1),
-            new EnemyWave(enemyPrefabs[1], 1),
+            new EnemyWave(enemyPrefabs[2], 1),
+            new EnemyWave(enemyPrefabs[3], 1),
+            new EnemyWave(enemyPrefabs[0], 1),
+            new EnemyWave(enemyPrefabs[2], 1),
+            new EnemyWave(enemyPrefabs[3], 1),
+            new EnemyWave(enemyPrefabs[0], 1),
+            new EnemyWave(enemyPrefabs[2], 1),
+            new EnemyWave(enemyPrefabs[3], 1),
+            new EnemyWave(enemyPrefabs[0], 1),
             new EnemyWave(enemyPrefabs[2], 1),
             new EnemyWave(enemyPrefabs[0], 1),
-            new EnemyWave(enemyPrefabs[1], 1),
             new EnemyWave(enemyPrefabs[2], 1),
             new EnemyWave(enemyPrefabs[0], 1),
-            new EnemyWave(enemyPrefabs[1], 1),
-            new EnemyWave(enemyPrefabs[2], 1),
-            new EnemyWave(enemyPrefabs[0], 1),
-            new EnemyWave(enemyPrefabs[1], 1),
-            new EnemyWave(enemyPrefabs[0], 1),
-            new EnemyWave(enemyPrefabs[1], 1),
-            new EnemyWave(enemyPrefabs[0], 1),
-            new EnemyWave(enemyPrefabs[1], 1)
+            new EnemyWave(enemyPrefabs[2], 1)
         });
 
         waves.Add(new List<EnemyWave> {
@@ -122,6 +122,7 @@ public class WaveManager : MonoBehaviour
         {
             GameManager.Instance.SaveGameData();
             Debug.Log("All waves completed!");
+            Loader.Load(Loader.Scene.MainMenu);
         }
     }
 

@@ -6340,6 +6340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 6219940023327947844, guid: 287a22211c757964eb4178175304247b, type: 3}
+  - {fileID: 3889248353369251134, guid: b5bc4c6f195be7943b565dc019dbb517, type: 3}
   - {fileID: 3757002852581354689, guid: cccd097440d45ea4fa26100869f19742, type: 3}
   - {fileID: 6605815102354720358, guid: ca16cd1954fce6248b66f91e46c9d820, type: 3}
   - {fileID: 8252835633019604496, guid: 63ccbf91e9e56174a97ecc14511c9bd6, type: 3}
