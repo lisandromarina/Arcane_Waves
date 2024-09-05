@@ -6344,6 +6344,7 @@ MonoBehaviour:
   - {fileID: 3757002852581354689, guid: cccd097440d45ea4fa26100869f19742, type: 3}
   - {fileID: 6605815102354720358, guid: ca16cd1954fce6248b66f91e46c9d820, type: 3}
   - {fileID: 8252835633019604496, guid: 63ccbf91e9e56174a97ecc14511c9bd6, type: 3}
+  - {fileID: 3293456627579721526, guid: c1ebf4f2c89b23e44ab3c2fe703a8925, type: 3}
   spawnPoints:
   - {fileID: 1666715509}
   - {fileID: 1664468431}

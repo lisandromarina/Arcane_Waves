@@ -129,7 +129,7 @@ public class BaseCharacter : Health
 
     protected void Move(Vector2 direction)
     {
-        if (IsAlive)
+        if (IsAlive && !isAttacking)
         {
             transform.position += (Vector3)direction * speed * Time.deltaTime;
         }

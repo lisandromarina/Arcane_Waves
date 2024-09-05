@@ -6,7 +6,7 @@ public class Enemy : IACharacter
     private Transform playerTransform; // Reference to the player's transform
     [SerializeField] private int moneyReward;
 
-    private void Start()
+    public void Start()
     {
         // Find the player at the start of the game
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -53,5 +53,10 @@ public class Enemy : IACharacter
     private void HandleDeathRewards()
     {
        GameManager.Instance.AddMoney(moneyReward);
+    }
+
+    public Transform GetPlayerTransform()
+    {
+        return playerTransform;
     }
 }

@@ -6,6 +6,12 @@ public class EnemyRange : Enemy
     [SerializeField] private float projectileSpeed = 100f;
     [SerializeField] private float rangedAttackCooldown = 2f; // Time between ranged attacks
 
+    protected void Start()
+    {
+        base.Start();
+
+    }
+
     public override void DamageTrigger()
     {
         if (targetTransform == null || !IsTargetAlive(targetTransform)) return;

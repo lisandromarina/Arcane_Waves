@@ -1,12 +1,8 @@
 using UnityEngine;
 
-public class Boss : IACharacter
+public class Boss : EnemyRange
 {
-    private Transform playerTransform;
     [SerializeField] private int moneyReward;
-    [SerializeField] private GameObject projectilePrefab; // Reference to projectile prefab
-    [SerializeField] private float projectileSpeed = 100f;
-    [SerializeField] private float rangedAttackCooldown = 2f; // Time between ranged attacks
     [SerializeField] private float specialSkillCooldown = 5f; // Cooldown for the special skill
     [SerializeField] private SpriteRenderer damageRadiusIndicator; // Reference to the sprite renderer for damage radius indicator
     [SerializeField] private int damageAmount = 100;
@@ -21,15 +17,7 @@ public class Boss : IACharacter
 
     private void Start()
     {
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        if (playerObject != null)
-        {
-            playerTransform = playerObject.transform;
-        }
-        else
-        {
-            Debug.LogWarning("Player not found in the scene. Make sure the player has the correct tag.");
-        }
+        base.Start(); // Call the base class Start method
 
         // Ensure the indicator is hidden at the start
         if (damageRadiusIndicator != null)
@@ -68,47 +56,20 @@ public class Boss : IACharacter
             CastHealing();
             return; // Stop further processing in this frame
         }
-
-        // Check if the target is still within range
-        if (targetTransform != null)
-        {
-            if (IsTargetInRange(targetTransform))
-            {
-                // Do nothing if in range
-                Debug.Log("target in range");
-            }
-            else
-            {
-                Debug.Log("Move towards target");
-                // Chase the target if it moves out of range
-                MoveTowards(targetTransform);
-            }
-        }
-        else if (playerTransform != null)
-        {
-            Debug.Log("Move towards player");
-            // Move towards the player if no specific target is found
-            MoveTowards(playerTransform);
-        }
-        else
-        {
-            // Implement alternative behavior if the player is also not found
-            Debug.Log("No target detected and player position is unknown.");
-        }
-
-        // Continue detecting other targets or potentially switch to chasing
-        Detect();
     }
 
-    private bool IsTargetInRange(Transform target)
+    public override void DamageTrigger()
     {
-        return Vector3.Distance(transform.position, target.position) <= attackRange;
-    }
+        base.DamageTrigger(); // Call base class method for ranged attack
 
-    private bool IsPlayerInSkillRange()
-    {
-        if (target.transform == null) return false;
-        return Vector3.Distance(transform.position, target.transform.position) <= jumpSkillScript.GetRadius(); // Use the radius from JumpSkillScript
+        // Increment the ranged attack counter
+        rangedAttackCount++;
+
+        // Check if it's time to cast the special skill
+        if (rangedAttackCount >= 2 && isSpecialSkillReady)
+        {
+            isPreparingForSpecialSkill = true; // Set flag to start preparing for the special skill
+        }
     }
 
     private bool IsHealthBelowThreshold(float threshold)
@@ -148,65 +109,14 @@ public class Boss : IACharacter
         GameManager.Instance.AddMoney(moneyReward);
     }
 
-    private void RangedAttack()
-    {
-        if (targetTransform == null || !IsTargetAlive(targetTransform)) return;
-
-        // Store the target's position at the moment of attack
-        Vector3 targetPositionAtShot = targetTransform.position;
-
-        // Calculate the direction from the shooter to the target
-        Vector3 directionToTarget = (targetPositionAtShot - transform.position).normalized;
-
-        // Define a maximum distance for the projectile to travel
-        float maxProjectileDistance = 1000f; // Set this to the desired maximum range
-
-        // Calculate the extended target position further along the direction
-        Vector3 extendedTargetPosition = transform.position + directionToTarget * maxProjectileDistance;
-
-        // Instantiate a projectile towards the extended target position
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        Projectile projectileComponent = projectile.GetComponent<Projectile>();
-
-        if (projectileComponent != null)
-        {
-            // Set the projectile's extended target position and speed
-            projectileComponent.SetTarget(extendedTargetPosition);
-            projectileComponent.SetSpeed(projectileSpeed);
-            projectileComponent.SetColliderTargets(attackTags);
-            projectileComponent.SetDamage(CalculateDamage());
-        }
-        else
-        {
-            Debug.LogWarning("Projectile component is missing on the instantiated object.");
-        }
-
-        Debug.Log("Attacking range");
-
-        // Increment the ranged attack counter
-        rangedAttackCount++;
-
-        // Check if it's time to cast the special skill
-        if (rangedAttackCount >= 2 && isSpecialSkillReady)
-        {
-            isPreparingForSpecialSkill = true; // Set flag to start preparing for the special skill
-        }
-    }
-
-    private bool IsTargetAlive(Transform target)
-    {
-        Health targetHealth = target.GetComponent<Health>();
-        return targetHealth != null && targetHealth.IsAlive;
-    }
-
     private void PrepareForSpecialSkill()
     {
-        if (playerTransform == null) return;
+        if (GetPlayerTransform() == null) return;
 
         // Move towards the player until within damage radius
         if (!IsPlayerInSkillRange())
         {
-            MoveTowards(playerTransform);
+            MoveTowards(GetPlayerTransform());
         }
         else
         {
@@ -243,7 +153,6 @@ public class Boss : IACharacter
         isSpecialSkillReady = true;
     }
 
-    // This method will be called via an animation event when the boss touches the ground
     public void OnSpecialSkillLanding()
     {
         Debug.Log("Special skill landed, dealing damage!");
@@ -263,6 +172,12 @@ public class Boss : IACharacter
         {
             damageRadiusIndicator.enabled = false;
         }
+    }
+
+    private bool IsPlayerInSkillRange()
+    {
+        if (targetTransform == null) return false;
+        return Vector3.Distance(transform.position, targetTransform.position) <= jumpSkillScript.GetRadius();
     }
 
     private void OnDrawGizmosSelected()
