@@ -12,10 +12,10 @@ public class Ally : IACharacter
     private bool isWithinBufferZone;
 
     // Screen boundaries
-    private float minXPosition;
-    private float maxXPosition;
-    private float minYPosition = -110.1f; // Example min Y boundary
-    private float maxYPosition = 140f;    // Example max Y boundary
+    private float minYPosition = -402f;
+    private float maxYPosition = 150f;
+    private float minXPosition = -349;
+    private float maxXPosition = 315;
 
     private void Start()
     {

@@ -16,10 +16,10 @@ public class Player : BaseCharacter
     private InputAction moveAction;
 
     // Screen boundaries
-    private float minYPosition = -110.1f;
-    private float maxYPosition = 140f;
-    private float minXPosition;
-    private float maxXPosition;
+    private float minYPosition = -402f;
+    private float maxYPosition = 150f;
+    private float minXPosition = -349;
+    private float maxXPosition = 315;
 
     void Start()
     {
@@ -32,9 +32,6 @@ public class Player : BaseCharacter
         moveAction = playerInput.actions["Move"];
 
         // Calculate screen boundaries
-        Camera cam = Camera.main;
-        minXPosition = cam.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
-        maxXPosition = cam.ViewportToWorldPoint(new Vector3(1, 0, 0)).x;
     }
 
     void Update()
