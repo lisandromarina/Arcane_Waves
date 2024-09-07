@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class GameManagerMainMenu : MonoBehaviour
 {
@@ -9,6 +12,7 @@ public class GameManagerMainMenu : MonoBehaviour
 
     [SerializeField] private GameObject playerPrefab;
     private PlayerMainMenu player;
+
     private void Awake()
     {
         Instance = this;

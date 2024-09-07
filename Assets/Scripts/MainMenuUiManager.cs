@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,8 +11,13 @@ public class MainMenuUiManager : MonoBehaviour
     [SerializeField] private Transform upgradeDetailsPanel; // Reference for upgradeDetailsPanel
     [SerializeField] private Transform cardsPanel; // Reference for Grid component
 
-    [SerializeField] private GameObject playerPrefab; // Reference for Play button\
-    [SerializeField] private GameObject allyPrefab; // Reference for Play button
+    [SerializeField] private GameObject[] playerPrefabs; // Reference for Play button\
+    [SerializeField] private GameObject buttonPrefab; // Reference to your button prefab
+    public Transform buttonParent;  // Parent object to hold the buttons (Canvas or Panel)
+
+
+    private Dictionary<Button, GameObject> buttonPrefabMap = new Dictionary<Button, GameObject>();
+
 
     private GameObject selectedPrefab;
 
@@ -26,6 +32,7 @@ public class MainMenuUiManager : MonoBehaviour
 
         adventureCameraPosition = Camera.main.transform.position;
 
+        InstantiateButtonGrid();
     }
 
 
@@ -35,6 +42,12 @@ public class MainMenuUiManager : MonoBehaviour
         if (isShowingAdventure)
         {
             adventureCameraPosition = Camera.main.transform.position;
+        }
+
+        //JUST TO MAKE SURE THAT THE PLAYER/ALLY DOES NOT MOVE FROM THAT POSITION
+        if (selectedPrefab != null)
+        {
+            selectedPrefab.transform.position = new Vector3(-23, 122, 0);
         }
 
     }
@@ -91,21 +104,69 @@ public class MainMenuUiManager : MonoBehaviour
         }
     }
 
-    public void onUpgradeCardClick()
+    public void onUpgradeCardClick(Button clickedButton)
     {
-        selectedPrefab = GameManagerMainMenu.Instance.RespawnPrefab(playerPrefab, new Vector2(-23, 122));
+        if (buttonPrefabMap.TryGetValue(clickedButton, out GameObject associatedPrefab))
+        {
+            selectedPrefab = GameManagerMainMenu.Instance.RespawnPrefab(associatedPrefab, new Vector2(-23, 122));
+            selectedPrefab.transform.localScale = new Vector3(150, 150, 0);
+            BaseCharacter character = selectedPrefab.GetComponent<BaseCharacter>();
+            character.SetAttackRange(100);
 
-        cardsPanel.gameObject.SetActive(false);
-        upgradeDetailsPanel.gameObject.SetActive(true);
-        //prefab.transform.localScale = new Vector3();
+            cardsPanel.gameObject.SetActive(false);
+            upgradeDetailsPanel.gameObject.SetActive(true);
+        }
     }
 
     public void onBackClick()
     {
         Destroy(selectedPrefab);
-
+        selectedPrefab = null;
         upgradeDetailsPanel.gameObject.SetActive(false);
         cardsPanel.gameObject.SetActive(true);
         //prefab.transform.localScale = new Vector3();
+    }
+
+    private void InstantiateButtonGrid()
+    {
+        for (int i = 0; i < playerPrefabs.Length; i++)
+        {
+            // Instantiate the button
+            GameObject newButton = Instantiate(buttonPrefab, buttonParent);
+            Button button = newButton.GetComponent<Button>();
+
+            // Store prefab in dictionary with button as key
+            buttonPrefabMap[button] = playerPrefabs[i];
+
+            // Find the child by name and get the Image component
+            Transform childTransform = newButton.transform.Find("ChildImageName"); // Replace "ChildImageName" with the actual name of your child object
+            if (childTransform != null)
+            {
+                Image buttonImage = childTransform.GetComponent<Image>();
+                if (buttonImage != null)
+                {
+                    // Access the SpriteRenderer component from the prefab
+                    SpriteRenderer prefabSpriteRenderer = playerPrefabs[i].GetComponent<SpriteRenderer>();
+
+                    if (prefabSpriteRenderer != null)
+                    {
+                        buttonImage.sprite = prefabSpriteRenderer.sprite;
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("childTransform not found");
+            }
+
+            // Add onClick listener
+            button.onClick.AddListener(() => onUpgradeCardClick(button));
+
+            // Position the button (if needed)
+            /* RectTransform buttonRect = newButton.GetComponent<RectTransform>();
+               int row = i / buttonsPerRow;
+               int col = i % buttonsPerRow;
+               buttonRect.anchoredPosition = new Vector2(col * (buttonRect.sizeDelta.x + spacing), -row * (buttonRect.sizeDelta.y + spacing)); */
+        }
     }
 }

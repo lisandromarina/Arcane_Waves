@@ -7,7 +7,7 @@ public class BaseCharacter : Health
     [SerializeField] protected float speed = 5f;
     [SerializeField] protected float attackRange = 1f;
     [SerializeField] protected int baseDamage = 10;
-    [SerializeField] protected List<string> attackTags = new List<string> { "Player", "Ally", "Barrel" };
+    [SerializeField] protected List<string> attackTags = new List<string> { "Player", "Ally", "Barrel", "Training" };
 
     protected bool isAttacking = false;
     protected Collider2D target = null;
@@ -113,6 +113,11 @@ public class BaseCharacter : Health
     protected virtual int CalculateDamage()
     {
         return baseDamage;
+    }
+
+    public void SetAttackRange(int attackRange)
+    {
+        this.attackRange = attackRange;
     }
 
     public void UpgradeDamage()
