@@ -268,7 +268,7 @@ public class GameManager : MonoBehaviour
             }
             // Update the gameConfig with the current game state
            
-
+            gameConfig.hasToMove = true;
             Debug.Log($"Game data saved. LAST GAME Wave: {gameConfig.lastGameWave}");
         }
         else

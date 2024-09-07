@@ -12,7 +12,7 @@ public class EnemyRange : Enemy
 
     }
 
-    public override void DamageTrigger()
+    protected override void DamageTrigger()
     {
         if (targetTransform == null || !IsTargetAlive(targetTransform)) return;
 

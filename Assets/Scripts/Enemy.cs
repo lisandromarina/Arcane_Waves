@@ -50,7 +50,7 @@ public class Enemy : IACharacter
         HandleDeathRewards();
     }
 
-    private void HandleDeathRewards()
+    protected void HandleDeathRewards()
     {
        GameManager.Instance.AddMoney(moneyReward);
     }

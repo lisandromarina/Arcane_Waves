@@ -44,7 +44,7 @@ public class PlayerMainMenu : MonoBehaviour
 
     public void StartMovement(int maxWave)
     {
-        Debug.Log(maxWave);
+        Debug.Log("maxWave " + maxWave);
         currentWaypointIndex = CalculateWaypointIndex(maxWave);
         Debug.Log("currentWaypointIndex:" + currentWaypointIndex);
         if (currentWaypointIndex > 0)

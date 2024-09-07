@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Boss : EnemyRange
 {
-    [SerializeField] private int moneyReward;
     [SerializeField] private float specialSkillCooldown = 5f; // Cooldown for the special skill
     [SerializeField] private SpriteRenderer damageRadiusIndicator; // Reference to the sprite renderer for damage radius indicator
     [SerializeField] private int damageAmount = 100;
@@ -58,7 +57,7 @@ public class Boss : EnemyRange
         }
     }
 
-    public override void DamageTrigger()
+    protected override void DamageTrigger()
     {
         base.DamageTrigger(); // Call base class method for ranged attack
 
@@ -97,18 +96,6 @@ public class Boss : EnemyRange
     {
         Heal(maxHealth);
     }
-
-    protected override void Die()
-    {
-        base.Die();
-        HandleDeathRewards();
-    }
-
-    private void HandleDeathRewards()
-    {
-        GameManager.Instance.AddMoney(moneyReward);
-    }
-
     private void PrepareForSpecialSkill()
     {
         if (GetPlayerTransform() == null) return;

@@ -8,6 +8,7 @@ TagManager:
   - Ally
   - Stick
   - Barrel
+  - Training
   layers:
   - Default
   - TransparentFX

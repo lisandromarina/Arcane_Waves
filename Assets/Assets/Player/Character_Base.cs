@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Character_Base : MonoBehaviour
@@ -51,5 +49,10 @@ public class Character_Base : MonoBehaviour
     public void PlaySpecialSkillAnim(string skill)
     {
         animator.SetTrigger(skill);
+    }
+
+    public void PlayTakeDamageAnim()
+    {
+        animator.SetTrigger("TakeDamage");
     }
 }

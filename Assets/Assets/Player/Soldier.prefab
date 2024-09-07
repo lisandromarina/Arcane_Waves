@@ -214,6 +214,7 @@ MonoBehaviour:
   attackTags:
   - Enemy
   - Barrel
+  - Training
   savedStats: {fileID: 11400000, guid: 3827bb6ed48da8d459ed8c4745ec8be3, type: 2}
   stopDistanceThreshold: 0.1
 --- !u!1001 &7990968587240639818

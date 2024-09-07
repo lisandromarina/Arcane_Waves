@@ -79,13 +79,33 @@ public class BaseCharacter : Health
         }
     }
 
-    public virtual void DamageTrigger()
+    protected virtual void DamageTrigger()
     {
         if (target != null)
         {
             if (detectedTargets.TryGetValue(target, out Health targetHealth))
             {
-                if (targetHealth.IsAlive) targetHealth.TakeDamage(CalculateDamage());
+                if (targetHealth.IsAlive)
+                {
+                    targetHealth.TakeDamage(CalculateDamage());
+
+                    Debug.Log("Target GameObject: " + target.gameObject.name);
+
+                    // Get the Character_Base component from the GameObject associated with the Collider2D
+                    Character_Base characterBase = target.gameObject.GetComponent<Character_Base>();
+
+                    if (characterBase != null)
+                    {
+                        // Component found, play the animation
+                        Debug.Log("Character_Base component found!");
+                        characterBase.PlayTakeDamageAnim();
+                    }
+                    else
+                    {
+                        // Component not found
+                        Debug.LogWarning("Character_Base component not found on the target GameObject.");
+                    }
+                }
             }
         }
     }

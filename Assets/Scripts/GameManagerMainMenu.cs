@@ -6,33 +6,25 @@ public class GameManagerMainMenu : MonoBehaviour
     public static GameManagerMainMenu Instance;
 
     public GameConfig gameConfig;
-    private bool isFirstLoad;
 
     [SerializeField] private GameObject playerPrefab;
     private PlayerMainMenu player;
     private void Awake()
     {
-        // Check if an instance already exists
-        GameObject playerGO = Instantiate(playerPrefab, Vector2.zero, Quaternion.identity);
-        player = playerGO.GetComponent<PlayerMainMenu>();
-        if (Instance == null)
-        {
-            Instance = this; // Set the instance to the current object
-            isFirstLoad = true;
-            Debug.Log("First Instance");
-            DontDestroyOnLoad(gameObject); // Make this object persistent across scenes
+        Instance = this;
 
-            if (gameConfig.bestWave < gameConfig.lastGameWave)
-            {
-                gameConfig.bestWave = gameConfig.lastGameWave;
-            }
+        GameObject playerGO = RespawnPrefab(playerPrefab, Vector2.zero);
+        GameObject gridGO = GameObject.Find("AdventurePanel");
+
+        player = playerGO.GetComponent<PlayerMainMenu>();
+        if (gridGO != null)
+        {
+            // Set the player's parent to the grid GameObject's transform
+            playerGO.transform.SetParent(gridGO.transform, false);
         }
         else
         {
-            Debug.Log("Duplicate GameManagerMainMenu instance detected and destroyed.");
-            Destroy(gameObject); // Destroy any duplicate instances
-            player.StartMovement(gameConfig.lastGameWave);
-            isFirstLoad = false;
+            Debug.LogWarning("Grid GameObject not found. Make sure it exists in the scene.");
         }
     }
 
@@ -43,17 +35,25 @@ public class GameManagerMainMenu : MonoBehaviour
 
     private void InitializeGame()
     {
-        if (gameConfig != null)
+        if (gameConfig.bestWave < gameConfig.lastGameWave)
         {
-            Debug.Log($"bestWave: {gameConfig.bestWave}");
-            Debug.Log($"moneyAmount: {gameConfig.moneyAmount}");
-            // Initialize other game settings
+            if (!gameConfig.hasToMove)
+            {
+                gameConfig.bestWave = gameConfig.lastGameWave;
+            }
+            else
+            {
+                Debug.Log("gameConfig.lastGameWave " + gameConfig.lastGameWave);
+                player.StartMovement(gameConfig.lastGameWave);
+            }
         }
+        gameConfig.hasToMove = false;
     }
 
-    public bool IsFirstLoad()
+    public GameObject RespawnPrefab(GameObject prefabs, Vector3 position)
     {
-        return isFirstLoad;
+        // Instantiate the prefab at the specified spawn point
+        return Instantiate(prefabs, position, Quaternion.identity);
     }
 
 }
