@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
+    public static WaveManager Instance;
+
+
     [Header("Wave Configuration")]
     public List<GameObject> enemyPrefabs;
     public Transform[] spawnPoints;
@@ -25,6 +28,8 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
+        Instance = this;
+
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         InitializeWaves();
         ResetWaveTimer();

@@ -263,11 +263,11 @@ public class GameManager : MonoBehaviour
         {
             if (isGameOver)
             {
-                gameConfig.lastGameWave =10;
+                gameConfig.lastGameWave = WaveManager.Instance.GetCurrentWave() - 1;
             }
             else
             {
-                gameConfig.lastGameWave = 10;
+                gameConfig.lastGameWave = WaveManager.Instance.GetCurrentWave();
             }
             // Update the gameConfig with the current game state
            
