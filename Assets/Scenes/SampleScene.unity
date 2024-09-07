@@ -6315,6 +6315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1109830280}
   - component: {fileID: 1109830281}
+  - component: {fileID: 1109830285}
   - component: {fileID: 1109830282}
   - component: {fileID: 1109830279}
   - component: {fileID: 1109830283}
@@ -6394,6 +6395,7 @@ MonoBehaviour:
   buyMageButton: {fileID: 0}
   buyWarriorButton: {fileID: 0}
   gameOverPanel: {fileID: 405033506}
+  saveManager: {fileID: 1109830285}
 --- !u!114 &1109830282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6441,6 +6443,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystickRectTransform: {fileID: 1731893259}
   barPanelRectTransform: {fileID: 908119554}
+--- !u!114 &1109830285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109830278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f6430a3fb7101545a53817c6a6101cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameConfig: {fileID: 11400000, guid: fd68644109163b04d8f367900b869459, type: 2}
 --- !u!1 &1219178919
 GameObject:
   m_ObjectHideFlags: 0
@@ -7761,7 +7776,7 @@ PrefabInstance:
     - target: {fileID: 5292069968016390607, guid: 31ed620e0d7d93d40a17351003113b8d,
         type: 3}
       propertyPath: baseDamage
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6540248514585821606, guid: 31ed620e0d7d93d40a17351003113b8d,
         type: 3}

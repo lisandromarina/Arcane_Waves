@@ -47,6 +47,9 @@ public class GameManager : MonoBehaviour
 
     private WaveManager waveManager;
 
+    [Header("Persistent objects")]
+    public SaveManager saveManager;
+
     void Awake()
     {
         if (Instance == null)
@@ -260,15 +263,16 @@ public class GameManager : MonoBehaviour
         {
             if (isGameOver)
             {
-                gameConfig.lastGameWave = waveManager.GetCurrentWave() - 1;
+                gameConfig.lastGameWave =10;
             }
             else
             {
-                gameConfig.lastGameWave = waveManager.GetCurrentWave();
+                gameConfig.lastGameWave = 10;
             }
             // Update the gameConfig with the current game state
            
             gameConfig.hasToMove = true;
+            saveManager.SaveGameConfigToJson();
             Debug.Log($"Game data saved. LAST GAME Wave: {gameConfig.lastGameWave}");
         }
         else

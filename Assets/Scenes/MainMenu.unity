@@ -1933,7 +1933,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!156049354 &416983966
 Grid:
   m_ObjectHideFlags: 0
@@ -2081,7 +2081,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 62.75
+  m_fontSize: 72
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11110,7 +11110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &907546141
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11229,7 +11229,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!156049354 &1037458691
 Grid:
   m_ObjectHideFlags: 0
@@ -11744,6 +11744,8 @@ GameObject:
   - component: {fileID: 1539777013}
   - component: {fileID: 1539777012}
   - component: {fileID: 1539777014}
+  - component: {fileID: 1539777016}
+  - component: {fileID: 1539777015}
   m_Layer: 0
   m_Name: GameManagerMainMenu
   m_TagString: Untagged
@@ -11764,6 +11766,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameConfig: {fileID: 11400000, guid: fd68644109163b04d8f367900b869459, type: 2}
+  saveManager: {fileID: 1539777016}
+  loadManager: {fileID: 1539777015}
   playerPrefab: {fileID: 7142928708313894304, guid: 9e161cdf3290ea743be5b9e9545592fd,
     type: 3}
 --- !u!4 &1539777013
@@ -11804,6 +11808,32 @@ MonoBehaviour:
   buttonPrefab: {fileID: 4933131569039084519, guid: 41246c25659487f4e963186760303d0c,
     type: 3}
   buttonParent: {fileID: 1971203298}
+--- !u!114 &1539777015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539777011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b273f961452db694f9b500ca510d5ccd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameConfig: {fileID: 11400000, guid: fd68644109163b04d8f367900b869459, type: 2}
+--- !u!114 &1539777016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539777011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f6430a3fb7101545a53817c6a6101cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameConfig: {fileID: 11400000, guid: fd68644109163b04d8f367900b869459, type: 2}
 --- !u!4 &1566940751 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4551398150153605279, guid: 340342903336c2248a5bda82591f0a59,

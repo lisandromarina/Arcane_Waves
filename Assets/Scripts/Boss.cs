@@ -89,7 +89,9 @@ public class Boss : EnemyRange
     public void OnHealAnimationEnds()
     {
         characterBase.PlayHealingAnim(false);
+        characterBase.PlayAttackAnim(true);
         isCastingHealing = false;
+        currentState = State.Search;
     }
 
     public void OnHealAnimation()

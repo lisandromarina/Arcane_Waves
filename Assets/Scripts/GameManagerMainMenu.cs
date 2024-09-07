@@ -9,6 +9,8 @@ public class GameManagerMainMenu : MonoBehaviour
     public static GameManagerMainMenu Instance;
 
     public GameConfig gameConfig;
+    public SaveManager saveManager;
+    public LoadManager loadManager;
 
     [SerializeField] private GameObject playerPrefab;
     private PlayerMainMenu player;
@@ -39,6 +41,9 @@ public class GameManagerMainMenu : MonoBehaviour
 
     private void InitializeGame()
     {
+        loadManager.LoadGameConfigFromJson();
+
+
         if (gameConfig.bestWave < gameConfig.lastGameWave)
         {
             if (!gameConfig.hasToMove)
@@ -52,6 +57,8 @@ public class GameManagerMainMenu : MonoBehaviour
             }
         }
         gameConfig.hasToMove = false;
+
+        saveManager.SaveGameConfigToJson();
     }
 
     public GameObject RespawnPrefab(GameObject prefabs, Vector3 position)
