@@ -14,8 +14,8 @@ public class Ally : IACharacter
     // Screen boundaries
     private float minYPosition = -402f;
     private float maxYPosition = 150f;
-    private float minXPosition = -349;
-    private float maxXPosition = 315;
+    private float minXPosition = -349f;
+    private float maxXPosition = 315f;
 
     private void Start()
     {

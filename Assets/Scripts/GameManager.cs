@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
         // Assign button listeners
         upgradePlayerButton.onClick.AddListener(UpgradePlayer);
         buyTankButton.onClick.AddListener(BuyTank);
-        //buyMageButton.onClick.AddListener(BuyMage);
+        buyMageButton.onClick.AddListener(BuyMage);
         //buyWarriorButton.onClick.AddListener(BuyWarrior);
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -179,8 +179,6 @@ public class GameManager : MonoBehaviour
 
             GameObject tankObject = PortalManager.CreatePortal(new Vector3(0, 0, 0), PrefabManager.Instance.tankPrefab);
 
-            Debug.Log("tankObject == null " + (tankObject == null)); // Ensure null check is correct
-
             Ally tankHealth = tankObject != null ? tankObject.GetComponent<Ally>() : null;
             if (tankHealth != null)
             {
@@ -204,6 +202,14 @@ public class GameManager : MonoBehaviour
 
             mageUpgradeLevel++;
             UpdateButtonLabels();
+
+            GameObject tankObject = PortalManager.CreatePortal(new Vector3(0, 0, 0), PrefabManager.Instance.spaceCadet);
+
+            Ally tankHealth = tankObject != null ? tankObject.GetComponent<Ally>() : null;
+            if (tankHealth != null)
+            {
+                RegisterAlly(tankHealth);
+            }
 
             // Add logic to spawn a mage or upgrade its abilities here
         }

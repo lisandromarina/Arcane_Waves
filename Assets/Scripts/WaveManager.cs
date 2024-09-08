@@ -84,7 +84,11 @@ public class WaveManager : MonoBehaviour
         });
 
         waves.Add(new List<EnemyWave> {
-            new EnemyWave(enemyPrefabs[4], 1)
+            new EnemyWave(enemyPrefabs[4], 1) //boss
+        });
+
+        waves.Add(new List<EnemyWave> {
+            new EnemyWave(enemyPrefabs[5], 5)
         });
 
         waves.Add(new List<EnemyWave> {

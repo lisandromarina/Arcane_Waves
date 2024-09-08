@@ -11805,6 +11805,7 @@ MonoBehaviour:
   playerPrefabs:
   - {fileID: 2017500373387490843, guid: 31ed620e0d7d93d40a17351003113b8d, type: 3}
   - {fileID: 8120088069031237535, guid: 8d51127ec0b6c4f4da2fdeda6b7f6c8b, type: 3}
+  - {fileID: 4815037163129316720, guid: 5bb419bc404dd0e4fa89a2ea8694b872, type: 3}
   buttonPrefab: {fileID: 4933131569039084519, guid: 41246c25659487f4e963186760303d0c,
     type: 3}
   buttonParent: {fileID: 1971203298}

@@ -10,6 +10,7 @@ public class PrefabManager : MonoBehaviour
     public GameObject projectilKingGoblin;
     public GameObject portalPrefab;
     public GameObject tankPrefab;
+    public GameObject spaceCadet;
     /*public GameObject magePrefab;
     public GameObject warriorPrefab;*/
 
