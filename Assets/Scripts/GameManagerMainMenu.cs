@@ -37,6 +37,7 @@ public class GameManagerMainMenu : MonoBehaviour
     private void Start()
     {
         InitializeGame();
+        SoundManager.PlaySound(SoundManager.Sound.PlayMainMenuMusic, true);
     }
 
     private void InitializeGame()
