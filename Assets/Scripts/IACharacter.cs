@@ -18,7 +18,7 @@ public abstract class IACharacter : BaseCharacter
     protected override void Update()
     {
         base.Update(); // Ensure base functionality runs
-        if (currentState != State.Dead)
+        if (IsAlive)
         {
             if (target == null)
             {
@@ -84,6 +84,7 @@ public abstract class IACharacter : BaseCharacter
                 break;
 
             case State.Dead:
+                Debug.Log("Deadddd");
                 // Logic for dead state
                 break;
         }

@@ -1,9 +1,12 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MainMenuUiManager : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI moneyText;
+
     [SerializeField] private Transform AdventurePanel; // Reference for Grid component
     [SerializeField] private Transform TeamPanel; // Reference for Grid component
     [SerializeField] private Button playButton; // Reference for Play button
@@ -15,6 +18,7 @@ public class MainMenuUiManager : MonoBehaviour
     [SerializeField] private GameObject buttonPrefab; // Reference to your button prefab
     public Transform buttonParent;  // Parent object to hold the buttons (Canvas or Panel)
 
+    [SerializeField] private Button upgradeCharacterButton; // Reference for upgrade character button
 
     private Dictionary<Button, GameObject> buttonPrefabMap = new Dictionary<Button, GameObject>();
 
@@ -28,11 +32,15 @@ public class MainMenuUiManager : MonoBehaviour
     {
 
         playButton.onClick.AddListener(onPlayClick);
+        
+        upgradeCharacterButton.onClick.AddListener(onUpgradeCharacterClick);
 
 
         adventureCameraPosition = Camera.main.transform.position;
 
         InstantiateButtonGrid();
+
+        moneyText.text = GameManagerMainMenu.Instance.GetAmountOfMoney().ToString();
     }
 
 
@@ -50,6 +58,11 @@ public class MainMenuUiManager : MonoBehaviour
             selectedPrefab.transform.position = new Vector3(-23, 122, 0);
         }
 
+    }
+
+    public void UpdateUI()
+    {
+        moneyText.text = GameManagerMainMenu.Instance.GetAmountOfMoney().ToString();
     }
 
     public void onPlayClick()
@@ -161,12 +174,11 @@ public class MainMenuUiManager : MonoBehaviour
 
             // Add onClick listener
             button.onClick.AddListener(() => onUpgradeCardClick(button));
-
-            // Position the button (if needed)
-            /* RectTransform buttonRect = newButton.GetComponent<RectTransform>();
-               int row = i / buttonsPerRow;
-               int col = i % buttonsPerRow;
-               buttonRect.anchoredPosition = new Vector2(col * (buttonRect.sizeDelta.x + spacing), -row * (buttonRect.sizeDelta.y + spacing)); */
         }
+    }
+
+    private void onUpgradeCharacterClick()
+    {
+        Debug.Log("Ea");
     }
 }

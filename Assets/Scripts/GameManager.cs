@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
         // Update the button labels with the current prices
         upgradePlayerButton.GetComponentInChildren<TextMeshProUGUI>().text = GetPlayerUpgradeCost().ToString();
         buyTankButton.GetComponentInChildren<TextMeshProUGUI>().text = GetTankCost().ToString();
-        //buyMageButton.GetComponentInChildren<TextMeshProUGUI>().text = GetMageCost().ToString();
+        buyMageButton.GetComponentInChildren<TextMeshProUGUI>().text = GetMageCost().ToString();
         //buyWarriorButton.GetComponentInChildren<TextMeshProUGUI>().text = GetWarriorCost().ToString();
     }
 

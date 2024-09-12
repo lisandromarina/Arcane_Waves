@@ -14,7 +14,7 @@ public class EnemyRange : Enemy
 
     protected override void DamageTrigger()
     {
-        if (targetTransform == null || !IsTargetAlive(targetTransform)) return;
+        if (targetTransform == null || !IsTargetAlive(targetTransform)) Detect();
 
         // Store the target's position at the moment of attack
         Vector3 targetPositionAtShot = targetTransform.position;

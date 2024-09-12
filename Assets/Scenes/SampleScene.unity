@@ -40463,7 +40463,7 @@ GameObject:
   - component: {fileID: 1567358357}
   - component: {fileID: 1567358356}
   m_Layer: 5
-  m_Name: PlayerButton (1)
+  m_Name: MageButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

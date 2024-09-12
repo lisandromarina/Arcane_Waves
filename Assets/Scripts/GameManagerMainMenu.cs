@@ -12,6 +12,8 @@ public class GameManagerMainMenu : MonoBehaviour
     public SaveManager saveManager;
     public LoadManager loadManager;
 
+    private int amountMoney = 0;
+
     [SerializeField] private GameObject playerPrefab;
     private PlayerMainMenu player;
 
@@ -43,13 +45,15 @@ public class GameManagerMainMenu : MonoBehaviour
     private void InitializeGame()
     {
         loadManager.LoadGameConfigFromJson();
-
+        Debug.Log("gameConfig.amountMoney " + gameConfig.moneyAmount);
+        this.amountMoney += gameConfig.moneyAmount + 20 * gameConfig.lastGameWave;
 
         if (gameConfig.bestWave < gameConfig.lastGameWave)
         {
             if (!gameConfig.hasToMove)
             {
                 gameConfig.bestWave = gameConfig.lastGameWave;
+
             }
             else
             {
@@ -57,7 +61,13 @@ public class GameManagerMainMenu : MonoBehaviour
                 player.StartMovement(gameConfig.lastGameWave);
             }
         }
+        
+
+        GetComponent<MainMenuUiManager>().UpdateUI();
+
         gameConfig.hasToMove = false;
+        gameConfig.lastGameWave = 0;
+        gameConfig.moneyAmount = this.amountMoney;
 
         saveManager.SaveGameConfigToJson();
     }
@@ -66,6 +76,11 @@ public class GameManagerMainMenu : MonoBehaviour
     {
         // Instantiate the prefab at the specified spawn point
         return Instantiate(prefabs, position, Quaternion.identity);
+    }
+
+    public int GetAmountOfMoney()
+    {
+        return amountMoney;
     }
 
 }
