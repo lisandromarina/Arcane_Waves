@@ -53,6 +53,7 @@ public class GameManagerMainMenu : MonoBehaviour
             if (!gameConfig.hasToMove)
             {
                 gameConfig.bestWave = gameConfig.lastGameWave;
+                gameConfig.lastGameWave = 0;
 
             }
             else
@@ -60,13 +61,14 @@ public class GameManagerMainMenu : MonoBehaviour
                 Debug.Log("gameConfig.lastGameWave " + gameConfig.lastGameWave);
                 player.StartMovement(gameConfig.lastGameWave);
             }
+            
         }
         
 
         GetComponent<MainMenuUiManager>().UpdateUI();
 
         gameConfig.hasToMove = false;
-        gameConfig.lastGameWave = 0;
+        
         gameConfig.moneyAmount = this.amountMoney;
 
         saveManager.SaveGameConfigToJson();

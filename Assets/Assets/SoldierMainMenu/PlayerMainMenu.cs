@@ -49,9 +49,8 @@ public class PlayerMainMenu : MonoBehaviour
         Debug.Log("currentWaypointIndex:" + currentWaypointIndex);
         if (currentWaypointIndex > 0)
         {
+            Debug.Log("Move");
             isMoving = true;
-            Debug.Log("isMoving = true");
-            Debug.Log(waypoints.Count);
         }
     }
 
@@ -71,6 +70,7 @@ public class PlayerMainMenu : MonoBehaviour
         if (Vector3.Distance(transform.position, targetWaypoint) < 0.1f)
         {
             StopMovement();
+
         }
     }
 
@@ -108,10 +108,12 @@ public class PlayerMainMenu : MonoBehaviour
     private void StopMovement()
     {
         Debug.Log("Stop");
+        Debug.Log("gameConfig.lastGameWave" + gameConfig.lastGameWave);
+        gameConfig.bestWave = gameConfig.lastGameWave;
+        gameConfig.lastGameWave = 0;
         isMoving = false; // Set moving state to false
         animator.PlayMoveAnim(Vector3.zero); // Play idle animation
 
-        gameConfig.bestWave = gameConfig.lastGameWave;
     }
 
     public void LoadPlayerState()
@@ -122,6 +124,7 @@ public class PlayerMainMenu : MonoBehaviour
         Debug.Log("currentWaypointIndex: " + currentWaypointIndex);
         if (currentWaypointIndex >= 0 && currentWaypointIndex < waypoints.Count)
         {
+            Debug.Log("Here");
             transform.position = waypoints[currentWaypointIndex]; // Set player position to the saved waypoint
         }
         else
