@@ -26,8 +26,6 @@ public class Player : BaseCharacter
         rb = GetComponent<Rigidbody2D>();
         characterBase = GetComponent<Character_Base>();
 
-        LoadAttributes();
-
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
 
@@ -69,21 +67,6 @@ public class Player : BaseCharacter
         {
             isMoving = false;
             characterBase.PlayMoveAnim(Vector3.zero);
-        }
-    }
-
-    private void LoadAttributes()
-    {
-        if (savedStats != null)
-        {
-            speed = savedStats.speed;
-            attackRange = savedStats.attackRange;
-            baseDamage = savedStats.baseDamage;
-            Debug.Log("Loaded");
-        }
-        else
-        {
-            Debug.LogWarning("PlayerAttributes is not assigned.");
         }
     }
 

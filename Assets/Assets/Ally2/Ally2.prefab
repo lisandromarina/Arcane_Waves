@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3022323882573073027}
   - component: {fileID: 1524332660876691899}
   - component: {fileID: 8342629614408942441}
+  - component: {fileID: 3627038169378917050}
   m_Layer: 8
   m_Name: Ally2
   m_TagString: Ally
@@ -219,6 +220,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3627038169378917050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4815037163129316720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffbe9fe3685a6724c8bd68347eabc9ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabName: Ally_Space
 --- !u!1001 &6854162096719977507
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -58,8 +58,10 @@ public class GameManagerMainMenu : MonoBehaviour
             }
             else
             {
-                Debug.Log("gameConfig.lastGameWave " + gameConfig.lastGameWave);
-                player.StartMovement(gameConfig.lastGameWave);
+                player.StartMovement(gameConfig.lastGameWave, () => {
+                    gameConfig.bestWave = gameConfig.lastGameWave;
+                    gameConfig.lastGameWave = 0;
+                });
             }
             
         }
@@ -83,6 +85,14 @@ public class GameManagerMainMenu : MonoBehaviour
     public int GetAmountOfMoney()
     {
         return amountMoney;
+    }
+
+    public void DeductMoney(int moneyDeducted)
+    {
+        amountMoney -= moneyDeducted;
+        gameConfig.moneyAmount = this.amountMoney;
+
+        saveManager.SaveGameConfigToJson();
     }
 
 }

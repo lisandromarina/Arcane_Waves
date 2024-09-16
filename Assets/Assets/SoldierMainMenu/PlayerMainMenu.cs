@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Linq;
+using System;
 using System.Collections.Generic;
 
 public class PlayerMainMenu : MonoBehaviour
@@ -14,6 +15,7 @@ public class PlayerMainMenu : MonoBehaviour
     private Character_Base animator;   // Reference to the animation handler
     public GameConfig gameConfig;       // Reference to the GameConfig ScriptableObject
 
+    private Action stopMovementAction;
     void Awake()
     {
         waypoints = new List<Vector3>
@@ -42,7 +44,7 @@ public class PlayerMainMenu : MonoBehaviour
         }
     }
 
-    public void StartMovement(int maxWave)
+    public void StartMovement(int maxWave, Action onStopMovement)
     {
         Debug.Log("maxWave " + maxWave);
         currentWaypointIndex = CalculateWaypointIndex(maxWave);
@@ -51,6 +53,8 @@ public class PlayerMainMenu : MonoBehaviour
         {
             Debug.Log("Move");
             isMoving = true;
+
+            stopMovementAction = onStopMovement;
         }
     }
 
@@ -107,12 +111,10 @@ public class PlayerMainMenu : MonoBehaviour
 
     private void StopMovement()
     {
-        Debug.Log("Stop");
-        Debug.Log("gameConfig.lastGameWave" + gameConfig.lastGameWave);
-        gameConfig.bestWave = gameConfig.lastGameWave;
-        gameConfig.lastGameWave = 0;
         isMoving = false; // Set moving state to false
         animator.PlayMoveAnim(Vector3.zero); // Play idle animation
+
+        stopMovementAction?.Invoke();
 
     }
 

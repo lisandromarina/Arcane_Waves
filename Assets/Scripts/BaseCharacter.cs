@@ -43,6 +43,14 @@ public class BaseCharacter : Health
         }
     }
 
+    public void SetAttributes(PrefabStats stats)
+    {
+        health = stats.health;
+        maxHealth = stats.health;
+        speed = stats.speed;
+        baseDamage = stats.attackPower;
+    }
+
     private void UpdateTarget()
     {
         DetectTargets();

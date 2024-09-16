@@ -44,7 +44,6 @@ public class MainMenuUiManager : MonoBehaviour
     }
 
 
-    // Update is called once per frame
     void Update()
     {
         if (isShowingAdventure)
@@ -56,6 +55,20 @@ public class MainMenuUiManager : MonoBehaviour
         if (selectedPrefab != null)
         {
             selectedPrefab.transform.position = new Vector3(-23, 122, 0);
+
+            TextMeshProUGUI[] texts = upgradeCharacterButton.GetComponentsInChildren<TextMeshProUGUI>();
+            foreach (TextMeshProUGUI text in texts)
+            {
+                if (text.name == "Cost") // Match the text name
+                {
+                    PrefabStatsLoader characterLoader = selectedPrefab.GetComponent<PrefabStatsLoader>();
+                    PrefabStatsManager statsManager = FindObjectOfType<PrefabStatsManager>();
+                    PrefabStats stats = statsManager.GetPrefabStats(characterLoader.prefabName);
+                    Debug.Log(statsManager.CalculateUpgradeCost(stats));
+                    text.text = statsManager.CalculateUpgradeCost(stats).ToString();
+                    break;
+                }
+            }
         }
 
     }
@@ -137,7 +150,6 @@ public class MainMenuUiManager : MonoBehaviour
         selectedPrefab = null;
         upgradeDetailsPanel.gameObject.SetActive(false);
         cardsPanel.gameObject.SetActive(true);
-        //prefab.transform.localScale = new Vector3();
     }
 
     private void InstantiateButtonGrid()
@@ -179,6 +191,10 @@ public class MainMenuUiManager : MonoBehaviour
 
     private void onUpgradeCharacterClick()
     {
-        Debug.Log("Ea");
+        PrefabStatsLoader characterLoader = selectedPrefab.GetComponent<PrefabStatsLoader>();
+
+        PrefabStatsManager prefabStatsManager = FindObjectOfType<PrefabStatsManager>();
+        prefabStatsManager.TryUpgradePrefab(characterLoader.prefabName);
+        UpdateUI();
     }
 }

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5298544508667037105}
   - component: {fileID: 5621055526999966560}
   - component: {fileID: 5292069968016390607}
+  - component: {fileID: 4383394169563885351}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Player
@@ -217,6 +218,19 @@ MonoBehaviour:
   - Training
   savedStats: {fileID: 11400000, guid: 3827bb6ed48da8d459ed8c4745ec8be3, type: 2}
   stopDistanceThreshold: 0.1
+--- !u!114 &4383394169563885351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017500373387490843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffbe9fe3685a6724c8bd68347eabc9ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabName: Player_1
 --- !u!1001 &7990968587240639818
 PrefabInstance:
   m_ObjectHideFlags: 0
