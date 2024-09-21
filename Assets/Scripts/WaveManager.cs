@@ -19,6 +19,7 @@ public class WaveManager : MonoBehaviour
     private CustomTimer customTimer;
 
     private WaveUIManager waveUIManager;
+    private bool isStarted = false;
 
 
     void Start()
@@ -29,30 +30,36 @@ public class WaveManager : MonoBehaviour
 
         this.customTimer = GetComponent<CustomTimer>();
         InitializeWaves();
-
-        // Start the wave spawning process
-        StartWave();
     }
 
     void Update()
     {
-       
+        if (!isStarted)
+        {
+            // Start the wave spawning process
+            StartWave();
+            isStarted = true;
+        }
     }
 
     void StartWave()
     {
-        
         if (currentWave < waves.Count)
         {
-            waveUIManager.UpdateWaveScore(currentWave);
+            waveUIManager.UpdateWaveScore(currentWave + 1);
             waveUIManager.ShowWavePanel();
             Debug.Log($"Starting Wave {currentWave + 1}");
 
-            // Spawn all enemies for the current wave
+            // Get the current wave's enemy list
             List<EnemyWave> wave = waves[currentWave];
+            int totalEnemies = 0;  // Counter to track total enemies to be spawned
+            int spawnedEnemies = 0;  // Counter to track how many enemies have been spawned
+
             foreach (EnemyWave enemyWave in wave)
             {
-                for (int i = 0; i <= enemyWave.quantity; i++)
+                totalEnemies += enemyWave.quantity;  // Count total enemies in this wave
+
+                for (int i = 0; i < enemyWave.quantity; i++)
                 {
                     float delay = i * spawnRate;
 
@@ -60,17 +67,23 @@ public class WaveManager : MonoBehaviour
                     customTimer.StartTimer(delay, () =>
                     {
                         SpawnEnemy(enemyWave.enemyPrefab);
+                        spawnedEnemies++;
+
+                        // Check if all enemies have been spawned
+                        if (spawnedEnemies == totalEnemies)
+                        {
+                            Debug.Log("All enemies spawned, preparing next wave.");
+
+                            // After all enemies are spawned, start timer for the next wave
+                            customTimer.StartTimer(timeBetweenWaves, () =>
+                            {
+                                currentWave++;
+                                StartWave();  // Start the next wave
+                            });
+                        }
                     });
                 }
             }
-
-            customTimer.StartTimer(timeBetweenWaves, () =>
-            {
-                currentWave++;
-
-                StartWave();  // Call the next wave after the timer
-            });
-
         }
         else
         {
@@ -89,7 +102,7 @@ public class WaveManager : MonoBehaviour
     private void InitializeWaves()
     {
         waves.Add(new List<EnemyWave> {
-            new EnemyWave(enemyPrefabs[0], 5)
+            new EnemyWave(enemyPrefabs[0], 15)
         });
 
         waves.Add(new List<EnemyWave> {
