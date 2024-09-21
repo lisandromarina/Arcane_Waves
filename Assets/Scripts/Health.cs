@@ -77,8 +77,12 @@ public class Health : MonoBehaviour
             onDeath.Invoke();
         }
 
+
+
         // Hide the health bar when dead
         healthBarTransform.gameObject.SetActive(false);
+
+        Destroy(gameObject, 5f);
     }
 
     public void Heal(int healAmount)
