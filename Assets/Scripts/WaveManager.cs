@@ -21,6 +21,10 @@ public class WaveManager : MonoBehaviour
     private WaveUIManager waveUIManager;
     private bool isStarted = false;
 
+    private List<GameObject> activeEnemies = new List<GameObject>();
+
+    private bool allWavesCompleted = false;
+
 
     void Start()
     {
@@ -39,6 +43,12 @@ public class WaveManager : MonoBehaviour
             // Start the wave spawning process
             StartWave();
             isStarted = true;
+        }
+        if (allWavesCompleted && activeEnemies.Count == 0)
+        {
+            Debug.Log("All waves and enemies are completed!");
+            // Perform any final actions when all waves and enemies are defeated
+            GameCompleted();
         }
     }
 
@@ -88,6 +98,7 @@ public class WaveManager : MonoBehaviour
         else
         {
             Debug.Log("All waves completed!");
+            allWavesCompleted = true;
         }
     }
 
@@ -96,7 +107,16 @@ public class WaveManager : MonoBehaviour
         Debug.Log("Spawn");
         int randomSpawnIndex = UnityEngine.Random.Range(0, spawnPoints.Length);
         Transform spawnPoint = spawnPoints[randomSpawnIndex];
-        Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+
+        // Instantiate the enemy and add it to the activeEnemies list
+        GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        activeEnemies.Add(spawnedEnemy);
+
+        // Add a listener to the enemy's death event to remove it from the list when it dies
+        spawnedEnemy.GetComponent<Enemy>().onDeath += () =>
+        {
+            activeEnemies.Remove(spawnedEnemy);  // Remove enemy from list when it dies
+        };
     }
 
     private void InitializeWaves()
@@ -156,5 +176,16 @@ public class WaveManager : MonoBehaviour
     public int GetCurrentWave()
     {
         return currentWave;
+    }
+
+    public void GameCompleted()
+    {
+        customTimer.StartTimer(5f, () =>
+        {
+            GameManager.Instance.SaveGameData();
+            Debug.Log("All waves completed!");
+            Loader.Load(Loader.Scene.MainMenu);
+
+        });
     }
 }

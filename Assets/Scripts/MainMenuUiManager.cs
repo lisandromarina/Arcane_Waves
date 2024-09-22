@@ -14,6 +14,10 @@ public class MainMenuUiManager : MonoBehaviour
     [SerializeField] private Transform upgradeDetailsPanel; // Reference for upgradeDetailsPanel
     [SerializeField] private Transform cardsPanel; // Reference for Grid component
 
+    private string currentFilterTag = "Player"; // Can be set to "Player" or "Hero"
+    [SerializeField] private Button heroFilterButton; // Reference for Play button
+    [SerializeField] private Button allyFilterButton; // Reference for Play button
+
     [SerializeField] private GameObject[] playerPrefabs; // Reference for Play button\
     [SerializeField] private GameObject buttonPrefab; // Reference to your button prefab
     public Transform buttonParent;  // Parent object to hold the buttons (Canvas or Panel)
@@ -39,6 +43,9 @@ public class MainMenuUiManager : MonoBehaviour
         adventureCameraPosition = Camera.main.transform.position;
 
         InstantiateButtonGrid();
+
+        heroFilterButton.onClick.AddListener(() => SetFilter("Player"));
+        allyFilterButton.onClick.AddListener(() => SetFilter("Ally"));
 
         moneyText.text = GameManagerMainMenu.Instance.GetAmountOfMoney().ToString();
     }
@@ -111,6 +118,12 @@ public class MainMenuUiManager : MonoBehaviour
         }
     }
 
+    public void SetFilter(string filterTag)
+    {
+        currentFilterTag = filterTag;
+        InstantiateButtonGrid(); // Re-instantiate buttons based on the new filter
+    }
+
     private void changeCameraSetting(Vector3 position, bool isOffsetEnabled)
     {
         GameObject cameraObject = Camera.main.gameObject;
@@ -154,8 +167,20 @@ public class MainMenuUiManager : MonoBehaviour
 
     private void InstantiateButtonGrid()
     {
+        foreach (Transform child in buttonParent)
+        {
+            // Clear existing buttons (if necessary)
+            Destroy(child.gameObject);
+        }
+
         for (int i = 0; i < playerPrefabs.Length; i++)
         {
+            // Check if the prefab's tag matches the current filter
+            if (playerPrefabs[i].tag != currentFilterTag)
+            {
+                continue; // Skip prefabs that don't match the filter
+            }
+
             // Instantiate the button
             GameObject newButton = Instantiate(buttonPrefab, buttonParent);
             Button button = newButton.GetComponent<Button>();

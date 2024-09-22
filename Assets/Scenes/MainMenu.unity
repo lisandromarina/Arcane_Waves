@@ -12015,6 +12015,8 @@ MonoBehaviour:
   playButton: {fileID: 907546142}
   upgradeDetailsPanel: {fileID: 1948137333}
   cardsPanel: {fileID: 591595296}
+  heroFilterButton: {fileID: 1911078692}
+  allyFilterButton: {fileID: 1999642094}
   playerPrefabs:
   - {fileID: 2017500373387490843, guid: 31ed620e0d7d93d40a17351003113b8d, type: 3}
   - {fileID: 8120088069031237535, guid: 8d51127ec0b6c4f4da2fdeda6b7f6c8b, type: 3}
