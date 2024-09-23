@@ -36,7 +36,7 @@ public class Ally : IACharacter
             // Move towards detected target
             MoveTowards(targetTransform);
         }
-        else if (playerTransform != null)
+        /*else if (playerTransform != null)
         {
             // Calculate the distance to the player
             float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
@@ -75,19 +75,19 @@ public class Ally : IACharacter
                     characterBase.PlayMoveAnim(currentDirection);
                 }
             }
-        }
+        }*/
 
         // Clamp the ally's position within screen boundaries
-        ClampPositionWithinScreenBounds();
+        //ClampPositionWithinScreenBounds();
 
         Detect();
     }
 
-    private void Move(Vector2 direction)
+    /*private void Move(Vector2 direction)
     {
         transform.position += (Vector3)direction * speed * Time.deltaTime;
         ClampPositionWithinScreenBounds();
-    }
+    }*/
 
     private void ClampPositionWithinScreenBounds()
     {

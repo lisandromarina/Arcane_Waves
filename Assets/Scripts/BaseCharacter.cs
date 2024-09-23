@@ -9,8 +9,8 @@ public class BaseCharacter : Health
     [SerializeField] protected int baseDamage = 10;
     [SerializeField] protected List<string> attackTags = new List<string> { "Player", "Ally", "Barrel", "Training" };
 
-    protected bool isAttacking = false;
-    protected Collider2D target = null;
+    public bool isAttacking = false;
+    public Collider2D target = null;
     private Dictionary<Collider2D, Health> detectedTargets = new Dictionary<Collider2D, Health>();
 
     protected override void Awake()
@@ -137,21 +137,15 @@ public class BaseCharacter : Health
 
     public void StartAttack()
     {
-        if (!isAttacking)
-        {
-            isAttacking = true;
-            PlayAttackAnimation(true);
-        }
+        isAttacking = true;
+        PlayAttackAnimation(true);
     }
 
     public void EndAttack()
     {
-        if (isAttacking)
-        {
-            isAttacking = false;
-            target = null;
-            PlayAttackAnimation(false);
-        }
+        isAttacking = false;
+        target = null;
+        PlayAttackAnimation(false);   
     }
 
     protected virtual void PlayAttackAnimation(bool isAttacking)

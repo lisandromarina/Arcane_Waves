@@ -84,7 +84,6 @@ public abstract class IACharacter : BaseCharacter
                 break;
 
             case State.Dead:
-                Debug.Log("Deadddd");
                 // Logic for dead state
                 break;
         }
