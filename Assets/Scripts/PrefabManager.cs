@@ -7,8 +7,11 @@ public class PrefabManager : MonoBehaviour
     public static PrefabManager Instance;
 
     [Header("Prefabs")]
-    public GameObject projectilKingGoblin;
     public GameObject portalPrefab;
+    public GameObject projectilKingGoblin;
+
+    public GameObject playerPrefab;
+    //ALLIES HERE
     public GameObject tankPrefab;
     public GameObject spaceCadet;
     /*public GameObject magePrefab;
@@ -26,5 +29,10 @@ public class PrefabManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public List<GameObject> GetAllies()
+    {
+        return new List<GameObject> { playerPrefab, tankPrefab, spaceCadet /*, magePrefab, warriorPrefab*/ };
     }
 }

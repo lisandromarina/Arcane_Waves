@@ -37,6 +37,11 @@ public class GameManager : MonoBehaviour
     public Button buyTankButton;
     public Button buyMageButton;
     public Button buyWarriorButton;
+    public Transform buttonsParent;
+    public GameObject buttonPrefab;
+
+    private Dictionary<Button, GameObject> buttonPrefabMap = new Dictionary<Button, GameObject>();
+
 
     [Header("Game Over Settings")]
     public GameObject gameOverPanel;
@@ -44,6 +49,7 @@ public class GameManager : MonoBehaviour
 
     private Player player;
     private List<Ally> allies = new List<Ally>();
+
 
     private WaveManager waveManager;
 
@@ -66,7 +72,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         UpdateMoneyUI();
-        UpdateButtonLabels();
 
         waveManager = GetComponent<WaveManager>();
 
@@ -82,6 +87,9 @@ public class GameManager : MonoBehaviour
         {
             player.onDeath += CheckGameOver;
         }
+
+        InstantiateButtonGrid();
+        UpdateButtonLabels();
     }
 
     void UpdateMoneyUI()
@@ -89,13 +97,93 @@ public class GameManager : MonoBehaviour
         moneyText.text = $"{moneyAmount}";
     }
 
+    private void InstantiateButtonGrid()
+    {
+        // Clear existing buttons if necessary
+        foreach (Transform child in buttonsParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        List<GameObject> alliesList = PrefabManager.Instance.GetAllies();
+
+        for (int i = 0; i < alliesList.Count; i++)
+        {
+            // Check if the prefab's tag matches the current filter
+            if (alliesList[i].tag != "Ally" && alliesList[i].tag != "Player")
+            {
+                continue; // Skip prefabs that don't match the filter
+            }
+
+            // Instantiate the button
+            GameObject newButton = Instantiate(buttonPrefab, buttonsParent);
+            Button button = newButton.GetComponent<Button>();
+
+            // Store the button and corresponding prefab in the dictionary
+            buttonPrefabMap[button] = alliesList[i];
+
+            // Find the child by name and get the Image component
+            Transform childTransform = newButton.transform.Find("upgradePlayerButton");
+            if (childTransform != null)
+            {
+                Image buttonImage = childTransform.GetComponent<Image>();
+                if (buttonImage != null)
+                {
+                    // Access the SpriteRenderer component from the prefab
+                    SpriteRenderer prefabSpriteRenderer = alliesList[i].GetComponent<SpriteRenderer>();
+                    if (prefabSpriteRenderer != null)
+                    {
+                        buttonImage.sprite = prefabSpriteRenderer.sprite;
+                    }
+                }
+            }
+
+            string prefabName = alliesList[i].name;
+            if (prefabName.Contains("Player"))
+            {
+                button.onClick.AddListener(() => UpgradePlayer());
+            }
+            else if (prefabName.Contains("Tank"))
+            {
+                button.onClick.AddListener(() => BuyUnit(PrefabManager.Instance.tankPrefab, ref tankUpgradeLevel, tankBaseCost, tankScalingFactor));
+            }
+            else if (prefabName.Contains("Space"))
+            {
+                button.onClick.AddListener(() => BuyUnit(PrefabManager.Instance.spaceCadet, ref mageUpgradeLevel, mageBaseCost, mageScalingFactor));
+            }
+            // You can add more unit types here if needed
+        }
+    }
+
     void UpdateButtonLabels()
     {
-        // Update the button labels with the current prices
-        upgradePlayerButton.GetComponentInChildren<TextMeshProUGUI>().text = GetPlayerUpgradeCost().ToString();
-        buyTankButton.GetComponentInChildren<TextMeshProUGUI>().text = GetTankCost().ToString();
-        buyMageButton.GetComponentInChildren<TextMeshProUGUI>().text = GetMageCost().ToString();
-        //buyWarriorButton.GetComponentInChildren<TextMeshProUGUI>().text = GetWarriorCost().ToString();
+        foreach (var entry in buttonPrefabMap)
+        {
+            Button button = entry.Key;
+            GameObject prefab = entry.Value;
+
+            // Find the child TextMeshProUGUI in the button
+            TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
+
+            if (buttonText != null)
+            {
+                string prefabName = prefab.name;
+
+                if (prefabName.Contains("Player"))
+                {
+                    buttonText.text = GetPlayerUpgradeCost().ToString();
+                }
+                else if (prefabName.Contains("Tank"))
+                {
+                    buttonText.text = GetTankCost().ToString();
+                }
+                else if (prefabName.Contains("Space"))
+                {
+                    buttonText.text = GetMageCost().ToString();
+                }
+                // You can add more cases if needed
+            }
+        }
     }
 
     bool CanAfford(float cost)
@@ -162,6 +250,34 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Not enough money to upgrade player.");
+        }
+    }
+
+    void BuyUnit(GameObject unitPrefab, ref int upgradeLevel, float baseCost, float scalingFactor)
+    {
+        float cost = baseCost * Mathf.Pow(1 + scalingFactor, upgradeLevel);
+
+        if (CanAfford(cost))
+        {
+            DeductMoney(cost);
+            upgradeLevel++;
+            UpdateButtonLabels();
+
+            GameObject unitObject = PortalManager.CreatePortal(new Vector3(0, 0, 0), unitPrefab);
+            Ally unitAlly = unitObject != null ? unitObject.GetComponent<Ally>() : null;
+
+            if (unitAlly != null)
+            {
+                RegisterAlly(unitAlly);
+            }
+            else
+            {
+                Debug.LogWarning("Unit does not have an Ally component.");
+            }
+        }
+        else
+        {
+            Debug.Log("Not enough money to buy unit.");
         }
     }
 

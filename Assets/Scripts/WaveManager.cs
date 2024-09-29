@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 
 public class WaveManager : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class WaveManager : MonoBehaviour
     public List<List<EnemyWave>> waves = new List<List<EnemyWave>>();
     public Transform[] spawnPoints;
     public float spawnRate = 50f;
-    public float timeBetweenWaves = 50f;
+    public float timeBetweenWaves = 500f;
     public List<GameObject> enemyPrefabs = new List<GameObject>();
 
     private int currentWave = 0;
@@ -64,6 +65,7 @@ public class WaveManager : MonoBehaviour
             List<EnemyWave> wave = waves[currentWave];
             int totalEnemies = 0;  // Counter to track total enemies to be spawned
             int spawnedEnemies = 0;  // Counter to track how many enemies have been spawned
+            bool isBossWave = (currentWave + 1) % 5 == 0; // Check if it's a boss wave
 
             foreach (EnemyWave enemyWave in wave)
             {
@@ -84,12 +86,26 @@ public class WaveManager : MonoBehaviour
                         {
                             Debug.Log("All enemies spawned, preparing next wave.");
 
-                            // After all enemies are spawned, start timer for the next wave
-                            customTimer.StartTimer(timeBetweenWaves, () =>
+                            // If it's a boss wave, wait until all enemies are dead before proceeding
+                            if (isBossWave)
                             {
-                                currentWave++;
-                                StartWave();  // Start the next wave
-                            });
+                                StartCoroutine(WaitForAllEnemiesDefeated(() =>
+                                {
+                                    Debug.Log("Boss and all enemies defeated. Starting the next wave.");
+                                    currentWave++;
+                                    StartWave();
+                                }));
+                            }
+                            else
+                            {
+                                // After all enemies are spawned, start timer for the next wave
+                                customTimer.StartTimer(timeBetweenWaves, () =>
+                                {
+                                    Debug.Log("Next wave started");
+                                    currentWave++;
+                                    StartWave();  // Start the next wave
+                                });
+                            }
                         }
                     });
                 }
@@ -100,6 +116,19 @@ public class WaveManager : MonoBehaviour
             Debug.Log("All waves completed!");
             allWavesCompleted = true;
         }
+    }
+
+    // Coroutine to wait until all enemies are defeated before proceeding
+    IEnumerator WaitForAllEnemiesDefeated(Action onAllEnemiesDefeated)
+    {
+        // Wait until the activeEnemies list is empty
+        while (activeEnemies.Count > 0)
+        {
+            yield return null; // Wait for the next frame
+        }
+
+        // All enemies are defeated, invoke the next step
+        onAllEnemiesDefeated.Invoke();
     }
 
     void SpawnEnemy(GameObject enemyPrefab)

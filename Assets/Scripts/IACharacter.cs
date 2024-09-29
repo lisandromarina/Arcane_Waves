@@ -80,11 +80,11 @@ public abstract class IACharacter : BaseCharacter
                 break;
 
             case State.Attacking:
-                // Implement attacking logic here
+                // Logic implemented in base
                 break;
 
             case State.Dead:
-                // Logic for dead state
+                
                 break;
         }
     }
