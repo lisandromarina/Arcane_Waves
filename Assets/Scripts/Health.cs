@@ -55,7 +55,9 @@ public class Health : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-       
+        Debug.Log($"{gameObject.name} taking damage");
+        DamagePopup.Create(gameObject.transform.position + new Vector3(0, 15), damage);
+
         if (health <= 0)
         {
             Die();

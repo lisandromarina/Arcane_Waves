@@ -34,9 +34,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Buttons")]
     public Button upgradePlayerButton;
-    public Button buyTankButton;
-    public Button buyMageButton;
-    public Button buyWarriorButton;
     public Transform buttonsParent;
     public GameObject buttonPrefab;
 
@@ -74,12 +71,6 @@ public class GameManager : MonoBehaviour
         UpdateMoneyUI();
 
         waveManager = GetComponent<WaveManager>();
-
-        // Assign button listeners
-        upgradePlayerButton.onClick.AddListener(UpgradePlayer);
-        buyTankButton.onClick.AddListener(BuyTank);
-        buyMageButton.onClick.AddListener(BuyMage);
-        //buyWarriorButton.onClick.AddListener(BuyWarrior);
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 

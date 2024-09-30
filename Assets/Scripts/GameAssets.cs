@@ -12,6 +12,8 @@ public class GameAssets : MonoBehaviour
         i = this;
     }
 
+    public Transform damagePopup;
+
     public SoundAudioClip[] soundAudioClipArray;
 
     [System.Serializable]
