@@ -12063,7 +12063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c0f6aa1193e3240ac1caf736a2af23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  earningPopup: {fileID: 2777836775749732521, guid: 69549d8f5cbe622498b14a1370bd1204,
+  damagePopup: {fileID: 2777836775749732521, guid: 69549d8f5cbe622498b14a1370bd1204,
     type: 3}
   soundAudioClipArray:
   - sound: 0
