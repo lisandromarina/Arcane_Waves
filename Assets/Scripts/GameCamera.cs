@@ -4,12 +4,26 @@ using UnityEngine;
 
 public class GameCamera : MonoBehaviour
 {
-    public Transform player; // Reference to the player's transform
+    private Transform player; // Reference to the player's transform
     public float smoothSpeed = 0.125f; // Smooth speed for camera movement
     public Vector3 offset; // Offset from the player
 
     public float minX, maxX; // Minimum and maximum X boundaries
     public float minY, maxY; // Minimum and maximum Y boundaries
+
+    void Start()
+    {
+        // Find the player object by its tag and get the transform component
+        GameObject playerObject = GameObject.FindWithTag("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+        }
+        else
+        {
+            Debug.LogError("Player object not found! Make sure it is tagged as 'Player'.");
+        }
+    }
 
     void LateUpdate()
     {
