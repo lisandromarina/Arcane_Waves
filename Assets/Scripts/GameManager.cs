@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        SoundManager.PlaySound(SoundManager.Sound.BattleMusic, true, 0.16f);
+        //SoundManager.PlaySound(SoundManager.Sound.BattleMusic, true, 0.16f);
 
         UpdateMoneyUI();
 
@@ -316,7 +316,25 @@ public class GameManager : MonoBehaviour
             upgradeLevel++;
             UpdateButtonLabels();
 
-            GameObject unitObject = PortalManager.CreatePortal(new Vector3(0, 0, 0), unitPrefab);
+            GameObject playerGO = GameObject.FindWithTag("Player");
+
+            Vector3 portalPosition = new Vector3(0,0,0);
+            if (playerGO != null)
+            {
+                // Get player's position
+                Vector3 playerPosition = playerGO.transform.position;
+
+                // Define the offset where the portal will appear (e.g., 2 units to the right)
+                Vector3 portalOffset = new Vector3(2, 0, 0); // You can modify this offset as needed
+
+                // Calculate the portal's position relative to the player
+                portalPosition = playerPosition + portalOffset;
+
+                // Create the portal at the calculated position
+            }
+            
+            GameObject unitObject = PortalManager.CreatePortal(portalPosition, unitPrefab);
+
             Ally unitAlly = unitObject != null ? unitObject.GetComponent<Ally>() : null;
 
             if (unitAlly != null)
@@ -330,7 +348,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not enough money to buy unit.");
+            Debug.LogWarning("Player not found!");
         }
     }
 
