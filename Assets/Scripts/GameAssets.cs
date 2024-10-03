@@ -9,7 +9,16 @@ public class GameAssets : MonoBehaviour
 
     void Awake()
     {
-        i = this;
+        // Check if an instance of GameAssets already exists
+        if (i == null)
+        {
+            i = this;
+            DontDestroyOnLoad(gameObject); // Keep this GameObject across scenes
+        }
+        else
+        {
+            Destroy(gameObject); // Destroy duplicate instances if any
+        }
     }
 
     public Transform damagePopup;

@@ -7,10 +7,12 @@ public static class SoundManager {
 
     public enum Sound
     {
-        PlayMainMenuMusic
+        PlayMainMenuMusic,
+        BattleMusic,
+        MeleeAttack
     }
 
-    public static void PlaySound(Sound sound, bool loop = false)
+    public static void PlaySound(Sound sound, bool loop = false, float volume = 1f)
     {
         GameObject soundGameObject = new GameObject("Sound");
         AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
@@ -20,8 +22,12 @@ public static class SoundManager {
         if (clipToPlay != null)
         {
             audioSource.clip = clipToPlay;
+            audioSource.volume = volume;
             audioSource.loop = loop;  // Set loop to true or false based on the parameter
             audioSource.Play();
+
+            SoundDestroyer soundDestroyer = soundGameObject.AddComponent<SoundDestroyer>();
+            soundDestroyer.Setup(audioSource);  // Pass the AudioSource to the destroyer
         }
         else
         {
@@ -31,8 +37,6 @@ public static class SoundManager {
 
     private static AudioClip GetAudioClip(Sound sound)
     {
-        Debug.Log("GET AUDIO CLIP");
-        Debug.Log("Lenght: " + GameAssets.i.soundAudioClipArray.Length);
         foreach (GameAssets.SoundAudioClip soundAudioClip in GameAssets.i.soundAudioClipArray)
         {
             if (soundAudioClip.sound == sound)

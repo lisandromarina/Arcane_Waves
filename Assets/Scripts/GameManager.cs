@@ -71,6 +71,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        SoundManager.PlaySound(SoundManager.Sound.BattleMusic, true, 0.16f);
+
         UpdateMoneyUI();
 
         PrefabStatsManager.Instance.LoadStatsFromJson();
@@ -115,14 +117,6 @@ public class GameManager : MonoBehaviour
                 gameCamera.enabled = true;
                 Debug.Log("GameCamera component enabled.");
             }
-            else
-            {
-                Debug.LogError("GameCamera component not found on the main camera!");
-            }
-        }
-        else
-        {
-            Debug.LogError("Main camera not found!");
         }
     }
 
@@ -163,13 +157,39 @@ public class GameManager : MonoBehaviour
                 Image buttonImage = childTransform.GetComponent<Image>();
                 if (buttonImage != null)
                 {
-                    // Access the SpriteRenderer component from the prefab
-                    SpriteRenderer prefabSpriteRenderer = alliesList[i].GetComponent<SpriteRenderer>();
-                    if (prefabSpriteRenderer != null)
+
+                    PrefabStatsLoader characterLoader = alliesList[i].GetComponent<PrefabStatsLoader>();
+
+                    Debug.Log("characterLoader.prefabName " + (characterLoader.prefabName));
+                    string[] skins = FindFirstObjectByType<PrefabStatsManager>().GetListOfSkins(characterLoader.prefabName);
+
+
+                    SpriteRenderer prefabSpriteRenderer = null;
+                    if (skins.Length > 0 && alliesList[i].tag == "Player")//FOR THE MOMENT THE ONLY ONE WITH SKIN IS THE PLAYER!
                     {
-                        buttonImage.sprite = prefabSpriteRenderer.sprite;
+                        Player player = alliesList[i].GetComponent<Player>();
+
+                        string skinSelected = PrefabStatsManager.Instance.GetSkinSelected(characterLoader.prefabName);
+
+                        buttonImage.sprite = player.GetSpriteRenderer(skinSelected);
                     }
+                    else
+                    {
+                        prefabSpriteRenderer = alliesList[i].GetComponent<SpriteRenderer>();
+
+                        if (prefabSpriteRenderer != null)
+                        {
+                            buttonImage.sprite = prefabSpriteRenderer.sprite;
+                        }
+                    }
+
+                    // Access the SpriteRenderer component from the prefab
+
                 }
+            }
+            else
+            {
+                Debug.Log("childTransform not found");
             }
 
             string prefabName = alliesList[i].name;

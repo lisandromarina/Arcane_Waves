@@ -40,7 +40,7 @@ public class GameManagerMainMenu : MonoBehaviour
     private void Start()
     {
         InitializeGame();
-        SoundManager.PlaySound(SoundManager.Sound.PlayMainMenuMusic, true);
+        SoundManager.PlaySound(SoundManager.Sound.PlayMainMenuMusic, false, 0.16f);
     }
 
     private void InitializeGame()

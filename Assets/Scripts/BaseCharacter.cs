@@ -141,6 +141,22 @@ public class BaseCharacter : Health
         PlayAttackAnimation(true);
     }
 
+    public void AttackSound()
+    {
+        if(gameObject.tag == "Player")
+        {
+            SoundManager.PlaySound(SoundManager.Sound.MeleeAttack, false);
+        }
+    }
+
+    public void AttackSound2()
+    {
+        if (gameObject.tag == "Player")
+        {
+            SoundManager.PlaySound(SoundManager.Sound.MeleeAttack, false);
+        }
+    }
+
     public void EndAttack()
     {
         isAttacking = false;
