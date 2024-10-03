@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,7 +46,42 @@ public class GameManagerMainMenu : MonoBehaviour
     private void InitializeGame()
     {
         loadManager.LoadGameConfigFromJson();
+        
         Debug.Log("gameConfig.amountMoney " + gameConfig.moneyAmount);
+
+        if (gameConfig.deleteFiles)
+        {
+            string filePath = Path.Combine(Application.persistentDataPath, "gameConfig.json");
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+                Debug.Log("File deleted successfully.");
+            }
+
+            filePath = Path.Combine(Application.persistentDataPath, "prefabs_stats.json");
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+                Debug.Log("prefabs_stats.json deleted successfully.");
+            }
+
+            gameConfig.deleteFiles = false;
+            gameConfig.bestWave = 0;
+            gameConfig.moneyAmount = 0;
+            gameConfig.lastGameWave = 0;
+            gameConfig.hasToMove = false;
+            saveManager.SaveGameConfigToJson();
+
+            PrefabStatsManager.Instance.LoadStatsFromJson();
+            PrefabStatsManager.Instance.CheckAndAddMissingPrefabs();
+
+            return;
+        }
+
+        PrefabStatsManager.Instance.LoadStatsFromJson();
+
         this.amountMoney += gameConfig.moneyAmount + 20 * gameConfig.lastGameWave;
 
         if (gameConfig.bestWave < gameConfig.lastGameWave)
@@ -62,8 +98,7 @@ public class GameManagerMainMenu : MonoBehaviour
                     gameConfig.bestWave = gameConfig.lastGameWave;
                     gameConfig.lastGameWave = 0;
                 });
-            }
-            
+            }   
         }
         
 

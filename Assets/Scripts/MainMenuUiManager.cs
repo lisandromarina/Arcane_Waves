@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -24,10 +25,13 @@ public class MainMenuUiManager : MonoBehaviour
 
     [SerializeField] private Button upgradeCharacterButton; // Reference for upgrade character button
 
+    [SerializeField] private Button changeSkinButton; // Reference for upgrade character button
+
     private Dictionary<Button, GameObject> buttonPrefabMap = new Dictionary<Button, GameObject>();
 
 
     private GameObject selectedPrefab;
+    private Button buttonSelected;
 
     private bool isShowingAdventure = true;
     private Vector3 adventureCameraPosition;
@@ -41,8 +45,6 @@ public class MainMenuUiManager : MonoBehaviour
 
 
         adventureCameraPosition = Camera.main.transform.position;
-
-        InstantiateButtonGrid();
 
         heroFilterButton.onClick.AddListener(() => SetFilter("Player"));
         allyFilterButton.onClick.AddListener(() => SetFilter("Ally"));
@@ -92,6 +94,7 @@ public class MainMenuUiManager : MonoBehaviour
 
     public void onTeamClick()
     {
+        InstantiateButtonGrid();
         playButton.gameObject.SetActive(false);
         AdventurePanel.gameObject.SetActive(false);
         isShowingAdventure = false;
@@ -147,6 +150,7 @@ public class MainMenuUiManager : MonoBehaviour
     {
         if (buttonPrefabMap.TryGetValue(clickedButton, out GameObject associatedPrefab))
         {
+            buttonSelected = clickedButton;
             selectedPrefab = GameManagerMainMenu.Instance.RespawnPrefab(associatedPrefab, new Vector2(-23, 122));
             selectedPrefab.transform.localScale = new Vector3(150, 150, 0);
             BaseCharacter character = selectedPrefab.GetComponent<BaseCharacter>();
@@ -154,6 +158,21 @@ public class MainMenuUiManager : MonoBehaviour
 
             cardsPanel.gameObject.SetActive(false);
             upgradeDetailsPanel.gameObject.SetActive(true);
+
+
+            //VERIFY IF THE PREFABS HAS SOME SKIN
+            PrefabStatsLoader characterLoader = selectedPrefab.GetComponent<PrefabStatsLoader>();
+            string currentSkin = PrefabStatsManager.Instance.GetSkinSelected(characterLoader.prefabName);
+            string[] skins = PrefabStatsManager.Instance.GetListOfSkins(characterLoader.prefabName);
+
+            if(skins.Length <= 0)
+            {
+                changeSkinButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                changeSkinButton.gameObject.SetActive(true);
+            }
         }
     }
 
@@ -161,6 +180,7 @@ public class MainMenuUiManager : MonoBehaviour
     {
         Destroy(selectedPrefab);
         selectedPrefab = null;
+        buttonSelected = null;
         upgradeDetailsPanel.gameObject.SetActive(false);
         cardsPanel.gameObject.SetActive(true);
     }
@@ -195,13 +215,34 @@ public class MainMenuUiManager : MonoBehaviour
                 Image buttonImage = childTransform.GetComponent<Image>();
                 if (buttonImage != null)
                 {
-                    // Access the SpriteRenderer component from the prefab
-                    SpriteRenderer prefabSpriteRenderer = playerPrefabs[i].GetComponent<SpriteRenderer>();
 
-                    if (prefabSpriteRenderer != null)
+                    PrefabStatsLoader characterLoader = playerPrefabs[i].GetComponent<PrefabStatsLoader>();
+
+                    Debug.Log("characterLoader.prefabName " + (characterLoader.prefabName));
+                    string[] skins = FindFirstObjectByType<PrefabStatsManager>().GetListOfSkins(characterLoader.prefabName);
+
+
+                    SpriteRenderer prefabSpriteRenderer = null;
+                    if (skins.Length > 0 && playerPrefabs[i].tag == "Player")//FOR THE MOMENT THE ONLY ONE WITH SKIN IS THE PLAYER!
                     {
-                        buttonImage.sprite = prefabSpriteRenderer.sprite;
+                        Player player = playerPrefabs[i].GetComponent<Player>();
+
+                        string skinSelected = PrefabStatsManager.Instance.GetSkinSelected(characterLoader.prefabName);
+
+                        buttonImage.sprite = player.GetSpriteRenderer(skinSelected);
                     }
+                    else
+                    {
+                        prefabSpriteRenderer = playerPrefabs[i].GetComponent<SpriteRenderer>();
+
+                        if (prefabSpriteRenderer != null)
+                        {
+                            buttonImage.sprite = prefabSpriteRenderer.sprite;
+                        }
+                    }
+
+                    // Access the SpriteRenderer component from the prefab
+
                 }
             }
             else
@@ -218,8 +259,46 @@ public class MainMenuUiManager : MonoBehaviour
     {
         PrefabStatsLoader characterLoader = selectedPrefab.GetComponent<PrefabStatsLoader>();
 
-        PrefabStatsManager prefabStatsManager = FindObjectOfType<PrefabStatsManager>();
-        prefabStatsManager.TryUpgradePrefab(characterLoader.prefabName);
+        PrefabStatsManager.Instance.TryUpgradePrefab(characterLoader.prefabName);
         UpdateUI();
+    }
+
+    public void onSkinChange()
+    {
+        PrefabStatsLoader characterLoader = selectedPrefab.GetComponent<PrefabStatsLoader>();
+        // Get current skin selected
+        string currentSkin = PrefabStatsManager.Instance.GetSkinSelected(characterLoader.prefabName);
+
+        // Get the list of skins
+        string[] skins = PrefabStatsManager.Instance.GetListOfSkins(characterLoader.prefabName);
+
+        // Find the index of the current skin
+        int currentIndex = Array.IndexOf(skins, currentSkin);
+
+        // Calculate the index for the next skin (looping back to 0 if we are at the end of the list)
+        int nextIndex = (currentIndex + 1) % skins.Length;
+
+        // Set the new skin
+        PrefabStatsManager.Instance.SetSkinSelected(characterLoader.prefabName, skins[nextIndex]);
+
+        // Debug log to show the new skin selected
+        Debug.Log("New skin selected: " + skins[nextIndex]);
+        
+        Destroy(selectedPrefab);
+        selectedPrefab = null;
+        
+        if (buttonPrefabMap.TryGetValue(buttonSelected, out GameObject associatedPrefab))
+        {
+            selectedPrefab = GameManagerMainMenu.Instance.RespawnPrefab(associatedPrefab, new Vector2(-23, 122));
+            selectedPrefab.transform.localScale = new Vector3(150, 150, 0);
+            BaseCharacter character = selectedPrefab.GetComponent<BaseCharacter>();
+            character.SetAttackRange(100);
+
+            cardsPanel.gameObject.SetActive(false);
+            upgradeDetailsPanel.gameObject.SetActive(true);
+
+            InstantiateButtonGrid();
+        }
+
     }
 }

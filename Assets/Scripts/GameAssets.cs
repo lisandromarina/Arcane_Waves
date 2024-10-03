@@ -7,7 +7,7 @@ public class GameAssets : MonoBehaviour
 {
     public static GameAssets i { get; private set; }
 
-    void Start()
+    void Awake()
     {
         i = this;
     }

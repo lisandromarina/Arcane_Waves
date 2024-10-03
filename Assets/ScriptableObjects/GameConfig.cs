@@ -3,6 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameConfig", menuName = "Game/Config")]
 public class GameConfig : ScriptableObject
 {
+    public bool deleteFiles;
+
     public int bestWave;
     public int moneyAmount;
 

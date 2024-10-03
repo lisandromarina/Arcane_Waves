@@ -12,5 +12,7 @@ public class PrefabStats
     public float costMultiplier;    // Multiplier that increases cost with each upgrade level
 
     public bool isSelected;
+    public string skinSelected;
+    public string[] listOfSkins;
     // Add any other stats as needed
 }

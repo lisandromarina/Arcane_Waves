@@ -4,56 +4,71 @@ using System.Collections.Generic;
 
 public class PrefabStatsManager : MonoBehaviour
 {
+    public static PrefabStatsManager Instance { get; private set; }
+
     public PrefabStatsCollection prefabStatsCollection; // Holds the main prefab stats
 
     private string filePath;
 
     // The single list of default prefabs
     private List<PrefabStats> defaultPrefabs = new List<PrefabStats>
-{
-    new PrefabStats {
-        prefabName = "Player_1",
-        health = 150,
-        attackPower = 10,
-        attackRange = 25,
-        speed = 45,
-        levelUpgrade = 0,
-        baseCost = 100,            // Set the base cost for Player_1 upgrades
-        costMultiplier = 1.2f      // Set the cost multiplier for Player_1 upgrades
-    },
-    new PrefabStats {
-        prefabName = "Ally_Tank",
-        health = 700,
-        attackPower = 10,
-        attackRange = 15,
-        speed = 25,
-        levelUpgrade = 0,
-        baseCost = 150,            // Set the base cost for Ally_Tank upgrades
-        costMultiplier = 1.3f      // Set the cost multiplier for Ally_Tank upgrades
-    },
-    new PrefabStats {
-        prefabName = "Ally_Space",
-        health = 75,
-        attackPower = 20,
-        attackRange = 100,
-        speed = 30,
-        levelUpgrade = 0,
-        baseCost = 120,            // Set the base cost for Ally_Space upgrades
-        costMultiplier = 1.4f      // Set the cost multiplier for Ally_Space upgrades
-    }
-    // Add more default prefabs here as needed
-};
+    {
+        new PrefabStats {
+            prefabName = "Player_1",
+            health = 150,
+            attackPower = 10,
+            attackRange = 25,
+            speed = 45,
+            levelUpgrade = 0,
+            baseCost = 100,            // Set the base cost for Player_1 upgrades
+            costMultiplier = 1.2f,     // Set the cost multiplier for Player_1 upgrades
+            skinSelected = "male",
+            listOfSkins = new string[] { "male", "female" }
+
+        },
+        new PrefabStats {
+            prefabName = "Ally_Tank",
+            health = 700,
+            attackPower = 10,
+            attackRange = 15,
+            speed = 25,
+            levelUpgrade = 0,
+            baseCost = 150,            // Set the base cost for Ally_Tank upgrades
+            costMultiplier = 1.3f,
+            skinSelected = null,
+            listOfSkins =  new string[]{ }
+        },
+        new PrefabStats {
+            prefabName = "Ally_Space",
+            health = 75,
+            attackPower = 20,
+            attackRange = 100,
+            speed = 30,
+            levelUpgrade = 0,
+            baseCost = 120,            // Set the base cost for Ally_Space upgrades
+            costMultiplier = 1.4f,      // Set the cost multiplier for Ally_Space upgrades
+            skinSelected = null,
+            listOfSkins =  new string[]{ }
+        }
+        // Add more default prefabs here as needed
+    };
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Destroy this instance if it is not the singleton instance
+            return;
+        }
+        Instance = this;
         // Define the path where the JSON file will be saved
         filePath = Path.Combine(Application.persistentDataPath, "prefabs_stats.json");
 
         // Load the stats at the start of the game
-        LoadStatsFromJson();
+        //LoadStatsFromJson();
 
         // Check for missing prefabs and add them if necessary
-        CheckAndAddMissingPrefabs();
+        //CheckAndAddMissingPrefabs();
     }
 
     // Load stats from JSON or create default if not found
@@ -78,7 +93,7 @@ public class PrefabStatsManager : MonoBehaviour
     }
 
     // Check for missing prefabs and add them if necessary
-    private void CheckAndAddMissingPrefabs()
+    public void CheckAndAddMissingPrefabs()
     {
         bool statsUpdated = false;
 
@@ -171,6 +186,26 @@ public class PrefabStatsManager : MonoBehaviour
 
         // After upgrade, save the updated stats
         SaveStatsToJson();
+    }
+
+    public string GetSkinSelected(string prefabName)
+    {
+        return GetPrefabStats(prefabName).skinSelected;
+    }
+
+    public void SetSkinSelected(string prefabName, string newSkin)
+    {
+        PrefabStats stats = GetPrefabStats(prefabName);
+        stats.skinSelected = newSkin;
+
+        SaveStatsToJson();
+    }
+
+    public string[] GetListOfSkins(string prefabName)
+    {
+        PrefabStats stats = GetPrefabStats(prefabName);
+
+        return stats.listOfSkins;
     }
 
     private void UpgradeTank(PrefabStats prefabStats)

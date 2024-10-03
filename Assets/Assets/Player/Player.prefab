@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5621055526999966560}
   - component: {fileID: 5292069968016390607}
   - component: {fileID: 4383394169563885351}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -220,6 +220,15 @@ MonoBehaviour:
   target: {fileID: 0}
   savedStats: {fileID: 11400000, guid: 3827bb6ed48da8d459ed8c4745ec8be3, type: 2}
   stopDistanceThreshold: 0.1
+  characterAnimators:
+  - characterType: male
+    animatorController: {fileID: 9100000, guid: 64fe8b1f92dd5ec4db31eb6523680fcc,
+      type: 2}
+    spriteRenderer: {fileID: -957765653, guid: 7335d3bfc6595d046a4d2f55638c1846, type: 3}
+  - characterType: female
+    animatorController: {fileID: 9100000, guid: b8eebf06267bd7b47a1add573965f63d,
+      type: 2}
+    spriteRenderer: {fileID: 107026210, guid: 13f847beb3ad18941825a0e722ede25e, type: 3}
 --- !u!114 &4383394169563885351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,10 +250,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3238350697715211537}
     m_Modifications:
+    - target: {fileID: 575806820104524446, guid: a19e49366f3184a4898bc3f50fe26bb6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4258540523003463857, guid: a19e49366f3184a4898bc3f50fe26bb6,
         type: 3}
       propertyPath: m_Name
       value: HealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258540523003463857, guid: a19e49366f3184a4898bc3f50fe26bb6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5383504739682640139, guid: a19e49366f3184a4898bc3f50fe26bb6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5752358529322506305, guid: a19e49366f3184a4898bc3f50fe26bb6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6228267408731969880, guid: a19e49366f3184a4898bc3f50fe26bb6,
         type: 3}
@@ -295,6 +324,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694291620143309783, guid: a19e49366f3184a4898bc3f50fe26bb6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

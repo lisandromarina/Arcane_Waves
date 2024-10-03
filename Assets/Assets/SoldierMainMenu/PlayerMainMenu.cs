@@ -56,6 +56,10 @@ public class PlayerMainMenu : MonoBehaviour
 
             stopMovementAction = onStopMovement;
         }
+        else
+        {
+            onStopMovement.Invoke();
+        }
     }
 
     private void MoveToWaypoint()

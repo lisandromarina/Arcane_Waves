@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 public class Player : BaseCharacter
 {
     private Rigidbody2D rb;
@@ -12,8 +11,11 @@ public class Player : BaseCharacter
     [SerializeField] public PlayerAttributes savedStats;
     [SerializeField] private float stopDistanceThreshold = 0.1f;
 
+    [SerializeField] private List<CharacterAnimator> characterAnimators; // List of character types and their animators
+
     private PlayerInput playerInput;
     private InputAction moveAction;
+    private Animator animator;
 
     // Screen boundaries
     private float minYPosition = -402f;
@@ -27,9 +29,14 @@ public class Player : BaseCharacter
         characterBase = GetComponent<Character_Base>();
 
         playerInput = GetComponent<PlayerInput>();
-        moveAction = playerInput.actions["Move"];
+        if (playerInput)
+        {
+            moveAction = playerInput.actions["Move"];
+        }
 
-        // Calculate screen boundaries
+        animator = GetComponent<Animator>();
+
+        LoadAnimator();
     }
 
     void Update()
@@ -75,5 +82,48 @@ public class Player : BaseCharacter
         health = 100;
         IsAlive = true;
         characterBase.PlayReviveAnim();
+    }
+
+    private void LoadAnimator()
+    {
+        PrefabStatsLoader characterLoader = GetComponent<PrefabStatsLoader>();
+
+        string currentSkin = PrefabStatsManager.Instance.GetSkinSelected(characterLoader.prefabName);
+
+        // Find the corresponding AnimatorController from the list of characterAnimators
+        foreach (var characterAnimator in characterAnimators)
+        {
+            if (characterAnimator.characterType == currentSkin)
+            {
+                animator.runtimeAnimatorController = characterAnimator.animatorController;
+                SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+                spriteRenderer.sprite = characterAnimator.spriteRenderer;
+                return;
+            }
+        }
+
+        // Fallback if no matching AnimatorController is found
+        Debug.LogWarning($"No AnimatorController found for skin: {currentSkin}, using default.");
+    }
+
+    public Sprite GetSpriteRenderer(string characterType)
+    {   
+        foreach (var characterAnimator in characterAnimators)
+        {
+            if (characterAnimator.characterType == characterType)
+            {
+                return characterAnimator.spriteRenderer;
+            }
+        }
+
+        return null;
+    }
+
+    [System.Serializable]
+    public class CharacterAnimator
+    {
+        public string characterType; // e.g., "male", "female", "warrior", etc.
+        public RuntimeAnimatorController animatorController;
+        public Sprite spriteRenderer;
     }
 }

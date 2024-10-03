@@ -31,6 +31,8 @@ public static class SoundManager {
 
     private static AudioClip GetAudioClip(Sound sound)
     {
+        Debug.Log("GET AUDIO CLIP");
+        Debug.Log("Lenght: " + GameAssets.i.soundAudioClipArray.Length);
         foreach (GameAssets.SoundAudioClip soundAudioClip in GameAssets.i.soundAudioClipArray)
         {
             if (soundAudioClip.sound == sound)

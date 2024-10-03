@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a3e14d872f72b48be5414356a9e9d9, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  bestWave: 3
+  deleteFiles: 1
+  bestWave: 0
   moneyAmount: 0
   lastGameWave: 0
   hasToMove: 0

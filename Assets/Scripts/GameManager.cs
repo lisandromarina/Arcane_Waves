@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -39,6 +40,8 @@ public class GameManager : MonoBehaviour
 
     private Dictionary<Button, GameObject> buttonPrefabMap = new Dictionary<Button, GameObject>();
 
+    [Header("Movement Joystick")]
+    public InputActionAsset playerController;
 
     [Header("Game Over Settings")]
     public GameObject gameOverPanel;
@@ -70,17 +73,57 @@ public class GameManager : MonoBehaviour
     {
         UpdateMoneyUI();
 
-        waveManager = GetComponent<WaveManager>();
+        PrefabStatsManager.Instance.LoadStatsFromJson();
 
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        Vector3 spawnPosition = new Vector3(-1.4f, 6.1f, 0f);
+        GameObject playerGO = Instantiate(PrefabManager.Instance.playerPrefab, spawnPosition, Quaternion.identity);
+        player = playerGO.GetComponent<Player>();
+        PlayerInput playerInput = playerGO.AddComponent<PlayerInput>();
+
+        // Assign the InputActionAsset and set the default action map
+        playerInput.actions = playerController;  // Assign your InputActionAsset here
+        playerInput.defaultActionMap = "Player";
+        JoystickController joystickController = GetComponent<JoystickController>();
+        joystickController.enabled = true;
+
+        playerInput.enabled = false;  // Temporarily disable to make sure the InputActionAsset is applied first
+        playerInput.enabled = true;
 
         if (player != null)
         {
             player.onDeath += CheckGameOver;
         }
 
+
+        waveManager = GetComponent<WaveManager>();
+        waveManager.enabled = true;
+
         InstantiateButtonGrid();
         UpdateButtonLabels();
+
+        GameObject mainCamera = GameObject.FindWithTag("MainCamera");
+
+        // Check if the main camera exists
+        if (mainCamera != null)
+        {
+            // Get the GameCamera component attached to the main camera
+            GameCamera gameCamera = mainCamera.GetComponent<GameCamera>();
+
+            // Enable the GameCamera component
+            if (gameCamera != null)
+            {
+                gameCamera.enabled = true;
+                Debug.Log("GameCamera component enabled.");
+            }
+            else
+            {
+                Debug.LogError("GameCamera component not found on the main camera!");
+            }
+        }
+        else
+        {
+            Debug.LogError("Main camera not found!");
+        }
     }
 
     void UpdateMoneyUI()
