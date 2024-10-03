@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using System.Collections.Generic;
+using static Player;
 
 public class PlayerMainMenu : MonoBehaviour
 {
@@ -12,10 +13,13 @@ public class PlayerMainMenu : MonoBehaviour
     private bool isAttacking = false;  // State to check if the player is attacking
     private bool isMoving = false;      // State to check if the player is moving
 
-    private Character_Base animator;   // Reference to the animation handler
+    private Character_Base characterBase;   // Reference to the animation handler
+    private Animator animator;
     public GameConfig gameConfig;       // Reference to the GameConfig ScriptableObject
 
     private Action stopMovementAction;
+
+    private List<CharacterAnimator> characterAnimators; // List of character types and their animators
     void Awake()
     {
         waypoints = new List<Vector3>
@@ -29,10 +33,11 @@ public class PlayerMainMenu : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Character_Base>();
-
-        animator.PlayMoveAnim(Vector3.zero); // Start default movement animation
-
+        characterBase = GetComponent<Character_Base>();
+        animator = GetComponent<Animator>();
+        characterBase.PlayMoveAnim(Vector3.zero); // Start default movement animation
+        characterAnimators = GetComponent<Player>().GetCharacterAnimators();
+        LoadAnimator();
         LoadPlayerState();
     }
 
@@ -72,7 +77,7 @@ public class PlayerMainMenu : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, speed * Time.deltaTime);
 
         // Play the move animation in the direction of the next waypoint
-        animator.PlayMoveAnim((targetWaypoint - transform.position).normalized);
+        characterBase.PlayMoveAnim((targetWaypoint - transform.position).normalized);
 
         // Check if the player has reached the waypoint
         if (Vector3.Distance(transform.position, targetWaypoint) < 0.1f)
@@ -87,8 +92,8 @@ public class PlayerMainMenu : MonoBehaviour
         if (other.CompareTag("Enemy") && !isAttacking)
         {
             isAttacking = true; // Set attacking state to true
-            animator.PlayMoveAnim(Vector3.zero);
-            animator.PlayAttackAnim(isAttacking); // Play the attack animation
+            characterBase.PlayMoveAnim(Vector3.zero);
+            characterBase.PlayAttackAnim(isAttacking); // Play the attack animation
 
             // "Kill" the enemy and wait for the death animation to complete
             other.GetComponent<EnemyMainMenu>().Kill(() =>
@@ -101,7 +106,7 @@ public class PlayerMainMenu : MonoBehaviour
     private void ResumeMovementAfterAttack()
     {
         isAttacking = false; // Reset attacking state
-        animator.PlayAttackAnim(false); // Reset attack animation
+        characterBase.PlayAttackAnim(false); // Reset attack animation
     }
 
     private int CalculateWaypointIndex(int wave)
@@ -116,7 +121,7 @@ public class PlayerMainMenu : MonoBehaviour
     private void StopMovement()
     {
         isMoving = false; // Set moving state to false
-        animator.PlayMoveAnim(Vector3.zero); // Play idle animation
+        characterBase.PlayMoveAnim(Vector3.zero); // Play idle animation
 
         stopMovementAction?.Invoke();
 
@@ -162,5 +167,27 @@ public class PlayerMainMenu : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void LoadAnimator()
+    {
+        PrefabStatsLoader characterLoader = GetComponent<PrefabStatsLoader>();
+
+        string currentSkin = PrefabStatsManager.Instance.GetSkinSelected(characterLoader.prefabName);
+
+        // Find the corresponding AnimatorController from the list of characterAnimators
+        foreach (var characterAnimator in characterAnimators)
+        {
+            if (characterAnimator.characterType == currentSkin)
+            {
+                animator.runtimeAnimatorController = characterAnimator.animatorController;
+                SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+                spriteRenderer.sprite = characterAnimator.spriteRenderer;
+                return;
+            }
+        }
+
+        // Fallback if no matching AnimatorController is found
+        Debug.LogWarning($"No AnimatorController found for skin: {currentSkin}, using default.");
     }
 }

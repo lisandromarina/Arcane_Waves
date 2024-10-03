@@ -23,6 +23,8 @@ public class GameAssets : MonoBehaviour
 
     public Transform damagePopup;
 
+    public GameObject PlayerPrefab;
+
     public SoundAudioClip[] soundAudioClipArray;
 
     [System.Serializable]

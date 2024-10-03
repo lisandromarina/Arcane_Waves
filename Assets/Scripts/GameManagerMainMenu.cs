@@ -15,17 +15,25 @@ public class GameManagerMainMenu : MonoBehaviour
 
     private int amountMoney = 0;
 
-    [SerializeField] private GameObject playerPrefab;
     private PlayerMainMenu player;
 
     private void Awake()
     {
         Instance = this;
+    }
 
-        GameObject playerGO = RespawnPrefab(playerPrefab, Vector2.zero);
+    private void Start()
+    {
+        GameObject playerGO = RespawnPrefab(GameAssets.i.PlayerPrefab, new Vector3(5, -96, 0));
         GameObject gridGO = GameObject.Find("AdventurePanel");
 
         player = playerGO.GetComponent<PlayerMainMenu>();
+        player.speed = 25;
+        player.gameConfig = gameConfig;
+
+        player.enabled = true;
+
+        playerGO.GetComponent<Player>().enabled = false;
         if (gridGO != null)
         {
             // Set the player's parent to the grid GameObject's transform
@@ -35,12 +43,36 @@ public class GameManagerMainMenu : MonoBehaviour
         {
             Debug.LogWarning("Grid GameObject not found. Make sure it exists in the scene.");
         }
-    }
 
-    private void Start()
-    {
+
+        enableCamera();
         InitializeGame();
         SoundManager.PlaySound(SoundManager.Sound.PlayMainMenuMusic, false, 0.16f);
+    }
+
+    private void enableCamera()
+    {
+        GameObject mainCamera = GameObject.FindWithTag("MainCamera");
+
+        if (mainCamera != null)
+        {
+            CameraFollow cameraFollow = mainCamera.GetComponent<CameraFollow>();
+
+            if (cameraFollow != null)
+            {
+                // Enable the CameraFollow component
+                cameraFollow.enabled = true;
+                Debug.Log("CameraFollow enabled");
+            }
+            else
+            {
+                Debug.LogWarning("CameraFollow component not found on Main Camera!");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Main Camera not found in the scene!");
+        }
     }
 
     private void InitializeGame()

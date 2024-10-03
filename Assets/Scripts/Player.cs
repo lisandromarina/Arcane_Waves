@@ -77,6 +77,11 @@ public class Player : BaseCharacter
         }
     }
 
+    public List<CharacterAnimator> GetCharacterAnimators()
+    {
+        return characterAnimators;
+    }
+
     public void Revive()
     {
         health = 100;

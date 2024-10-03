@@ -160,7 +160,6 @@ public class GameManager : MonoBehaviour
 
                     PrefabStatsLoader characterLoader = alliesList[i].GetComponent<PrefabStatsLoader>();
 
-                    Debug.Log("characterLoader.prefabName " + (characterLoader.prefabName));
                     string[] skins = FindFirstObjectByType<PrefabStatsManager>().GetListOfSkins(characterLoader.prefabName);
 
 

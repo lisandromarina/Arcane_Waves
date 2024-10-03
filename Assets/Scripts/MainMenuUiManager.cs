@@ -300,5 +300,44 @@ public class MainMenuUiManager : MonoBehaviour
             InstantiateButtonGrid();
         }
 
+        if(selectedPrefab.tag == "Player")
+        {
+            Transform player = FindPlayerInAdventurePanel(AdventurePanel);
+
+            if (player != null)
+            {
+                Debug.Log("Player found");
+                player.GetComponent<PlayerMainMenu>().LoadAnimator();
+                // Player found, do something
+            }
+            else
+            {
+                Debug.LogWarning("Player not found in AdventurePanel!");
+            }
+        }
+
+    }
+
+    private Transform FindPlayerInAdventurePanel(Transform parent)
+    {
+        // Loop through each child of the parent
+        foreach (Transform child in parent)
+        {
+            // Check if the child has the tag "Player"
+            if (child.CompareTag("Player"))
+            {
+                Debug.Log("Player found: " + child.name);
+                return child;  // Return the player if found
+            }
+
+            // Recursive search in case the child has more children
+            Transform found = FindPlayerInAdventurePanel(child);
+            if (found != null)
+            {
+                return found;  // Return the found player
+            }
+        }
+
+        return null;  // Return null if no player is found
     }
 }
