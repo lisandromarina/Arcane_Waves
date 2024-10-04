@@ -8,12 +8,14 @@ public abstract class IACharacter : BaseCharacter
         Search,
         Chasing,
         Attacking,
+        Spelling,
         Dead
     }
 
     public State currentState;
     public float detectionRadius = 10f; // Radius to detect targets
     protected Transform targetTransform;
+    protected bool isSpelling = false;
 
     protected override void Update()
     {
@@ -79,6 +81,15 @@ public abstract class IACharacter : BaseCharacter
                 }
                 break;
 
+            case State.Spelling:
+                if (!isSpelling)
+                {
+                    isSpelling = true;
+                    Debug.Log("CAST SPELL 1");
+                    CastSpell();
+                }
+                break;
+
             case State.Attacking:
                 // Logic implemented in base
                 break;
@@ -91,6 +102,7 @@ public abstract class IACharacter : BaseCharacter
 
     public virtual void Search()
     {
+
         // Default search behavior can be overridden by derived classes
     }
 
@@ -98,6 +110,12 @@ public abstract class IACharacter : BaseCharacter
     {
         Gizmos.color = Color.blue; // Set the color of the gizmo
         Gizmos.DrawWireSphere(transform.position, detectionRadius); // Draw the wireframe sphere
+    }
+
+    protected virtual void CastSpell()
+    {
+        Debug.Log("CastSpell aiCharacter");
+        // No default behavior; do nothing if not overridden
     }
 
     protected void MoveTowards(Transform target)

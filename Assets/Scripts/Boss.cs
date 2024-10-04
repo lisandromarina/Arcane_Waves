@@ -34,31 +34,30 @@ public class Boss : EnemyRange
 
     protected override void Update()
     {
-        base.Update();
 
-        // Skip other behaviors if healing is in progress
-        if (isCastingHealing)
+        // Prioritize healing if health is below threshold
+        if (!hasCastSpell && IsHealthBelowThreshold(0.45f))
         {
-            return;
-        }
-
-        // If preparing for special skill, move towards the player
-        if (isPreparingForSpecialSkill)
-        {
-            PrepareForSpecialSkill();
+            Debug.Log("CastHealing outisde");
+            CastHealing();
             return; // Stop further processing in this frame
         }
 
-        // Heal if health is below threshold
-        if (!hasCastSpell && IsHealthBelowThreshold(0.45f))
+        base.Update(); // Process other logic only if not healing
+
+        // If preparing for special skill, move towards the player
+        if (isPreparingForSpecialSkill && !isCastingHealing)
         {
-            CastHealing();
+            PrepareForSpecialSkill();
             return; // Stop further processing in this frame
         }
     }
 
     protected override void DamageTrigger()
     {
+        // Do nothing if healing is in progress
+        if (isCastingHealing) return;
+
         base.DamageTrigger(); // Call base class method for ranged attack
 
         // Increment the ranged attack counter
@@ -78,26 +77,31 @@ public class Boss : EnemyRange
 
     private void CastHealing()
     {
-        Debug.Log("Casting healing");
+        Debug.Log("CastHealing");
+        // Stop all other actions and enter the healing state
         isCastingHealing = true;
-        hasCastSpell = true;
-        characterBase.PlayAttackAnim(false);
-        currentState = State.Search;
-        characterBase.PlayHealingAnim(true);
+        canAttack = false;
+        hasCastSpell = true; // Mark that the spell has been cast
+        currentState = State.Spelling;
+        isPreparingForSpecialSkill = false;
+        //isSpelling = false; // Ensure casting state is reset
+        //characterBase.PlayHealingAnim(true); // Trigger healing animation
     }
 
     public void OnHealAnimationEnds()
     {
-        characterBase.PlayHealingAnim(false);
-        characterBase.PlayAttackAnim(true);
         isCastingHealing = false;
-        currentState = State.Search;
+        characterBase.PlayHealingAnim(false); // Stop healing animation
+        isSpelling = false;
+        canAttack = true;
+        currentState = State.Search; // Return to search state after healing
     }
 
     public void OnHealAnimation()
     {
-        Heal(maxHealth);
+        Heal(maxHealth); // Heal the boss to full health
     }
+
     private void PrepareForSpecialSkill()
     {
         if (GetPlayerTransform() == null) return;
@@ -109,32 +113,43 @@ public class Boss : EnemyRange
         }
         else
         {
-            // Once in range, perform the special skill
-            CastSpecialSkill();
+            currentState = State.Spelling;
             isPreparingForSpecialSkill = false;
         }
     }
 
-    private void CastSpecialSkill()
+    protected override void CastSpell()
     {
-        Debug.Log("Casting special skill: Jump Attack!");
-
-        // Enable the damage radius indicator
-        if (damageRadiusIndicator != null)
+        if (isCastingHealing)
         {
-            damageRadiusIndicator.enabled = true;
-            StartCoroutine(jumpSkillScript.AnimateRadius(2f)); // Adjust the duration as needed
+            Debug.Log("Healing is in progress...");
+            isAttacking = false;
+            characterBase.PlayAttackAnim(false);
+            characterBase.PlayHealingAnim(true); // Start healing animation
+        }
+        else
+        {
+
+            Debug.Log("Casting special skill: Jump Attack!");
+
+            // Enable the damage radius indicator
+            if (damageRadiusIndicator != null)
+            {
+                damageRadiusIndicator.enabled = true;
+                StartCoroutine(jumpSkillScript.AnimateRadius(2f)); // Adjust the duration as needed
+            }
+
+            // Trigger the jump animation
+            characterBase.PlaySpecialSkillAnim("Jump");
+
+            // Reset the ranged attack counter
+            rangedAttackCount = 0;
+
+            // Set the special skill cooldown
+            isSpecialSkillReady = false;
+            Invoke(nameof(ResetSpecialSkillCooldown), specialSkillCooldown);
         }
 
-        // Trigger the jump animation
-        characterBase.PlaySpecialSkillAnim("Jump");
-
-        // Reset the ranged attack counter
-        rangedAttackCount = 0;
-
-        // Set the special skill cooldown
-        isSpecialSkillReady = false;
-        Invoke(nameof(ResetSpecialSkillCooldown), specialSkillCooldown);
     }
 
     private void ResetSpecialSkillCooldown()
@@ -161,6 +176,9 @@ public class Boss : EnemyRange
         {
             damageRadiusIndicator.enabled = false;
         }
+
+        isSpelling = false;
+        currentState = State.Search; // Resume searching after spell
     }
 
     private bool IsPlayerInSkillRange()

@@ -154,7 +154,7 @@ public class WaveManager : MonoBehaviour
             new EnemyWave(enemyPrefabs[0], 15)
         });
 
-        waves.Add(new List<EnemyWave> {
+       waves.Add(new List<EnemyWave> {
             new EnemyWave(enemyPrefabs[0], 5),
             new EnemyWave(enemyPrefabs[1], 3),
             new EnemyWave(enemyPrefabs[0], 5),
@@ -199,7 +199,6 @@ public class WaveManager : MonoBehaviour
             new EnemyWave(enemyPrefabs[5], 5),
             new EnemyWave(enemyPrefabs[6], 15)
         });
-
     }
 
     public int GetCurrentWave()

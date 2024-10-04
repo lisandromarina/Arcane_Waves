@@ -10,6 +10,7 @@ public class BaseCharacter : Health
     [SerializeField] protected List<string> attackTags = new List<string> { "Player", "Ally", "Barrel", "Training" };
 
     public bool isAttacking = false;
+    protected bool canAttack = true;
     public Collider2D target = null;
     private Dictionary<Collider2D, Health> detectedTargets = new Dictionary<Collider2D, Health>();
 
@@ -137,8 +138,11 @@ public class BaseCharacter : Health
 
     public void StartAttack()
     {
-        isAttacking = true;
-        PlayAttackAnimation(true);
+        if (canAttack)
+        {
+            isAttacking = true;
+            PlayAttackAnimation(true);
+        }
     }
 
     public void AttackSound()
