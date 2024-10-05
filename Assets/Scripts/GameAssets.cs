@@ -24,6 +24,7 @@ public class GameAssets : MonoBehaviour
     public Transform damagePopup;
 
     public GameObject PlayerPrefab;
+    public GameObject BeamGuy;
 
     public SoundAudioClip[] soundAudioClipArray;
 

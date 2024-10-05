@@ -1,0 +1,98 @@
+using UnityEngine;
+
+public class DoubleTapDetector : MonoBehaviour
+{
+    public float doubleTapTime = 0.3f; // Time interval for double tap
+    private float lastTapTime = 0f;     // Time of the last tap
+    private bool isCastingSpell = false; // Flag to indicate if the spell is currently being cast
+    private bool respawnOnLeft = true;   // Flag to toggle between left and right respawn
+
+    void Update()
+    {
+        // Check if there is at least one touch
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            // Detect the end of the touch
+            if (touch.phase == TouchPhase.Ended)
+            {
+                // Check if the spell is already being cast
+                if (isCastingSpell)
+                {
+                    return; // Ignore the double tap if casting is in progress
+                }
+
+                // Check the time since the last tap
+                if (Time.time - lastTapTime < doubleTapTime)
+                {
+                    // Double tap detected
+                    OnDoubleTap();
+                }
+
+                // Update the last tap time
+                lastTapTime = Time.time;
+            }
+        }
+    }
+
+    private void OnDoubleTap()
+    {
+        // Start casting the spell
+        isCastingSpell = true;
+        onSkillClick();
+    }
+
+    public void onSkillClick()
+    {
+        Vector3 playerPosition = GameObject.FindWithTag("Player").transform.position;
+
+        // Determine respawn position based on the current side
+        Camera mainCamera = Camera.main;
+        Vector3 respawnPosition = Vector3.zero;
+        if (mainCamera != null)
+        {
+            Vector3 edgeOfCamera;
+            if (respawnOnLeft)
+            {
+                // Get the left edge of the camera in world space
+                edgeOfCamera = mainCamera.ViewportToWorldPoint(new Vector3(0, 0.5f, mainCamera.nearClipPlane));
+                // Position BeamGuy at the same Y as the player but on the left edge of the camera's X
+                respawnPosition = new Vector3(edgeOfCamera.x + 15, playerPosition.y, 0); // Maintain the player's Y position
+            }
+            else
+            {
+                // Get the right edge of the camera in world space
+                edgeOfCamera = mainCamera.ViewportToWorldPoint(new Vector3(1, 0.5f, mainCamera.nearClipPlane));
+                // Position BeamGuy at the same Y as the player but on the right edge of the camera's X
+                respawnPosition = new Vector3(edgeOfCamera.x - 15, playerPosition.y, 0); // Maintain the player's Y position
+            }
+        }
+
+        // Create the BeamGuy
+        GameObject beamGuy = Instantiate(GameAssets.i.BeamGuy, respawnPosition, Quaternion.identity);
+
+        // Flip the BeamGuy based on the respawn side
+        Vector3 beamGuyScale = beamGuy.transform.localScale;
+        beamGuyScale.x = respawnOnLeft ? beamGuyScale.x *  1 : beamGuyScale.x  * - 1; // Flip if respawning on the right
+        beamGuy.transform.localScale = beamGuyScale;
+
+        // Subscribe to the OnBeamGuyDestroyed event
+        BeamGuy beamGuyScript = beamGuy.GetComponent<BeamGuy>();
+        if (beamGuyScript != null)
+        {
+            beamGuyScript.OnBeamGuyDestroyed += HandleBeamGuyDestroyed;
+            beamGuyScript.SetLeftRespawn(respawnOnLeft);
+        }
+
+        // Toggle the respawn side for the next double tap
+        respawnOnLeft = !respawnOnLeft;
+    }
+
+
+    private void HandleBeamGuyDestroyed()
+    {
+        // Reset the casting state when the BeamGuy is destroyed
+        isCastingSpell = false;
+    }
+}

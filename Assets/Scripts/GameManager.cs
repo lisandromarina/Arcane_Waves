@@ -505,4 +505,25 @@ public class GameManager : MonoBehaviour
     {
         return isGameOver;
     }
+
+    public void onSkillClick()
+    {
+
+        Vector3 playerPosition = GameObject.FindWithTag("Player").transform.position;
+
+        // Move the BeamGuy to the left edge of the camera
+        Camera mainCamera = Camera.main;
+        Vector3 respawnPosition = Vector3.zero;
+        if (mainCamera != null)
+        {
+            // Get the left edge of the camera in world space, keeping the Y position from the player
+            Vector3 leftEdgeOfCamera = mainCamera.ViewportToWorldPoint(new Vector3(0, 0.5f, mainCamera.nearClipPlane));
+            // Position BeamGuy at the same Y as the player but on the left edge of the camera's X
+            respawnPosition = new Vector3(leftEdgeOfCamera.x + 15, playerPosition.y, 0); // Maintain the player's Y position
+        }
+
+
+        GameObject beamGuy = Instantiate(GameAssets.i.BeamGuy, respawnPosition, Quaternion.identity);
+        /*beamGuy.GetComponent<BeamGuy>().castSpell();*/
+    }
 }

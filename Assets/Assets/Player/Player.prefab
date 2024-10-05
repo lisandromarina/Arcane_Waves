@@ -230,6 +230,8 @@ MonoBehaviour:
     animatorController: {fileID: 9100000, guid: b8eebf06267bd7b47a1add573965f63d,
       type: 2}
     spriteRenderer: {fileID: 107026210, guid: 13f847beb3ad18941825a0e722ede25e, type: 3}
+  beamSkill: {fileID: 4698670666403865409, guid: 62c8a95b761919843a9d783c0aa2b54a,
+    type: 3}
 --- !u!114 &4383394169563885351
 MonoBehaviour:
   m_ObjectHideFlags: 0

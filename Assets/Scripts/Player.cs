@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 public class Player : BaseCharacter
 {
     private Rigidbody2D rb;
     private Vector2 movementInput;
     private bool isMoving = false;
+    private Vector2 lastDirection = Vector2.right; // Keeps track of the last direction the player moved
 
     [SerializeField] public PlayerAttributes savedStats;
     [SerializeField] private float stopDistanceThreshold = 0.1f;
 
     [SerializeField] private List<CharacterAnimator> characterAnimators; // List of character types and their animators
+
+    [SerializeField] private GameObject beamSkill;
 
     private PlayerInput playerInput;
     private InputAction moveAction;
@@ -51,6 +55,7 @@ public class Player : BaseCharacter
         if (movementInput.magnitude > stopDistanceThreshold)
         {
             isMoving = true;
+            lastDirection = direction; // Store the last direction the player moved
             characterBase.PlayMoveAnim(direction);
         }
         else
@@ -75,6 +80,7 @@ public class Player : BaseCharacter
             isMoving = false;
             characterBase.PlayMoveAnim(Vector3.zero);
         }
+        Debug.Log(lastDirection);
     }
 
     public List<CharacterAnimator> GetCharacterAnimators()
@@ -112,7 +118,7 @@ public class Player : BaseCharacter
     }
 
     public Sprite GetSpriteRenderer(string characterType)
-    {   
+    {
         foreach (var characterAnimator in characterAnimators)
         {
             if (characterAnimator.characterType == characterType)
@@ -122,6 +128,56 @@ public class Player : BaseCharacter
         }
 
         return null;
+    }
+
+    public void castSpell()
+    {
+        // Play the special skill animation
+        characterBase.PlaySpecialSkillAnim("beam");
+
+        Vector3 spawnPosition;
+        float beamHalfWidth = 0;
+        bool flipBeam = false;
+
+        // Instantiate the beam skill at the player's position
+        GameObject beamInstance = Instantiate(beamSkill, transform.position, Quaternion.identity);
+
+        // Get the size of the beam's sprite renderer (if it has one)
+        SpriteRenderer beamSpriteRenderer = beamInstance.GetComponent<SpriteRenderer>();
+        if (beamSpriteRenderer != null)
+        {
+            // Get half of the beam's width
+            beamHalfWidth = beamSpriteRenderer.bounds.size.x / 2;
+        }
+
+        // Check the player's last movement direction
+        if (lastDirection.x > 0) // Moving right
+        {
+            // Set the spawn position 3 units to the right of the player
+            spawnPosition = transform.position + new Vector3(1 + beamHalfWidth, -5, 0);
+        }
+        else if (lastDirection.x < 0) // Moving left
+        {
+            // Set the spawn position 3 units to the left of the player
+            spawnPosition = transform.position + new Vector3(-1 - beamHalfWidth, -5, 0);
+
+            // Flip the beam to face left
+            flipBeam = true;
+        }
+        else
+        {
+            // If the player isn't moving horizontally, default to right
+            spawnPosition = transform.position + new Vector3(3 + beamHalfWidth, 0, 0);
+        }
+
+        // Set the beam's position
+        beamInstance.transform.position = spawnPosition;
+
+        // Flip the beam horizontally if the player is moving left
+        if (flipBeam)
+        {
+            beamSpriteRenderer.flipX = true;
+        }
     }
 
     [System.Serializable]
