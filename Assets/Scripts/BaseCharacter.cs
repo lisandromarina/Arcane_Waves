@@ -149,7 +149,7 @@ public class BaseCharacter : Health
     {
         if(gameObject.tag == "Player")
         {
-            SoundManager.PlaySound(SoundManager.Sound.MeleeAttack, false);
+            SoundManager.PlaySound(SoundManager.Sound.MeleeAttack, false, 0.16f);
         }
     }
 
@@ -157,7 +157,7 @@ public class BaseCharacter : Health
     {
         if (gameObject.tag == "Player")
         {
-            SoundManager.PlaySound(SoundManager.Sound.MeleeAttack, false);
+            SoundManager.PlaySound(SoundManager.Sound.MeleeAttack, false, 0.16f);
         }
     }
 

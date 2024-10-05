@@ -9,10 +9,11 @@ public static class SoundManager {
     {
         PlayMainMenuMusic,
         BattleMusic,
-        MeleeAttack
+        MeleeAttack,
+        BeamAttack
     }
 
-    public static void PlaySound(Sound sound, bool loop = false, float volume = 1f)
+    public static GameObject PlaySound(Sound sound, bool loop = false, float volume = 0.1f)
     {
         GameObject soundGameObject = new GameObject("Sound");
         AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
@@ -32,6 +33,31 @@ public static class SoundManager {
         else
         {
             Debug.LogWarning("Audio clip is null, check your GameAssets setup.");
+        }
+
+        return soundGameObject;
+    }
+
+    public static void FadeOutSound(GameObject soundGameObject, float fadeDuration)
+    {
+        if (soundGameObject != null)
+        {
+            AudioSource audioSource = soundGameObject.GetComponent<AudioSource>();
+
+            if (audioSource != null)
+            {
+                // Attach a FadeOutHandler to handle the fade out over time
+                FadeOutHandler fadeOutHandler = soundGameObject.AddComponent<FadeOutHandler>();
+                fadeOutHandler.Setup(audioSource, fadeDuration);
+            }
+            else
+            {
+                Debug.LogWarning("AudioSource not found on the sound object.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Sound GameObject is null.");
         }
     }
 

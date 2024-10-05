@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        //SoundManager.PlaySound(SoundManager.Sound.BattleMusic, true, 0.16f);
+        SoundManager.PlaySound(SoundManager.Sound.BattleMusic, true, 0.1f);
 
         UpdateMoneyUI();
 

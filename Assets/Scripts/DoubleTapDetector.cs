@@ -71,7 +71,8 @@ public class DoubleTapDetector : MonoBehaviour
 
         // Create the BeamGuy
         GameObject beamGuy = Instantiate(GameAssets.i.BeamGuy, respawnPosition, Quaternion.identity);
-
+        GameObject soundBeam = SoundManager.PlaySound(SoundManager.Sound.BeamAttack, false, 0.40f);
+        SoundManager.FadeOutSound(soundBeam, 2.1f);
         // Flip the BeamGuy based on the respawn side
         Vector3 beamGuyScale = beamGuy.transform.localScale;
         beamGuyScale.x = respawnOnLeft ? beamGuyScale.x *  1 : beamGuyScale.x  * - 1; // Flip if respawning on the right
