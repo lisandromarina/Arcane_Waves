@@ -7,6 +7,17 @@ public class DoubleTapDetector : MonoBehaviour
     private bool isCastingSpell = false; // Flag to indicate if the spell is currently being cast
     private bool respawnOnLeft = true;   // Flag to toggle between left and right respawn
 
+    [SerializeField] private RectTransform barPanelRectTransform; // Reference to the Bar panel RectTransform
+    private Canvas canvas;
+
+    private void Start()
+    {
+        canvas = FindObjectOfType<Canvas>();
+        if (canvas == null)
+        {
+            Debug.LogError("Canvas not found. Ensure DoubleTapDetector is a child of a Canvas.");
+        }
+    }
     void Update()
     {
         // Check if there is at least one touch
@@ -15,7 +26,7 @@ public class DoubleTapDetector : MonoBehaviour
             Touch touch = Input.GetTouch(0);
 
             // Detect the end of the touch
-            if (touch.phase == TouchPhase.Ended)
+            if (touch.phase == TouchPhase.Ended && !IsTouchOverPanel(touch.position, barPanelRectTransform))
             {
                 // Check if the spell is already being cast
                 if (isCastingSpell)
@@ -95,5 +106,22 @@ public class DoubleTapDetector : MonoBehaviour
     {
         // Reset the casting state when the BeamGuy is destroyed
         isCastingSpell = false;
+    }
+
+    private bool IsTouchOverPanel(Vector2 touchPosition, RectTransform panelRectTransform)
+    {
+        if (panelRectTransform == null) return false;
+
+        // Convert screen point to local point in panel space
+        Vector2 localPoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            panelRectTransform,
+            touchPosition,
+            canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
+            out localPoint
+        );
+
+        // Check if the localPoint is within the panel's bounds
+        return panelRectTransform.rect.Contains(localPoint);
     }
 }

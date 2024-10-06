@@ -39746,6 +39746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doubleTapTime: 0.3
+  barPanelRectTransform: {fileID: 908119554}
 --- !u!1 &1219178919
 GameObject:
   m_ObjectHideFlags: 0
