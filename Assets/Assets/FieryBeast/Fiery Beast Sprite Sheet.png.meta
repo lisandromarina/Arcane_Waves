@@ -1,0 +1,1348 @@
+fileFormatVersion: 2
+guid: 254cfb13402541f4e93f62134ca8f10d
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 379
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 150d2f533c9fd5a4ea9e5c45702769cb
+      internalID: -390496433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 379
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b6520f4832490946a0d21b2998d89eb
+      internalID: -393857910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 379
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d6f7a49b82169347826a86b17a430ed
+      internalID: -888940404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 379
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 205d1c8ea7fbc57428fd13034de48b62
+      internalID: 986090798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 379
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdadd9e9b633b86499f79fb18d83b0ab
+      internalID: 861506114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 379
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c23e83c8acbc9dd4d9392fa4898ab23e
+      internalID: -1240310113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 379
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74c1b8b023dbf23448424ca6545b244c
+      internalID: 729732376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 379
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd4f94147ad8d91469f90e14dfc9ea15
+      internalID: 1172593197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 315
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdf363b2a95008e4a96db142fe802062
+      internalID: -110164037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 315
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f33429a829c49aa4ea589c8d1b88649f
+      internalID: 381537686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 315
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34a0f011db2349f4e871bf2058bdb848
+      internalID: -299360279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 315
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7636dcaa12d62a44f8eab365f9a60443
+      internalID: 1063906726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 315
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35fdd142ce54c3d4ba1541105d4e8704
+      internalID: -1789317647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 315
+        width: 65
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfeeb496f6677d84583c2d0272774fb1
+      internalID: 1734812760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 251
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4454767ec192e74a9759163be179dad
+      internalID: 608181696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_18
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 251
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93225a92ddb9f5447bd14d4f04e2ac2b
+      internalID: -1427170333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_20
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 251
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e0017c4b7cf9d04f9f5733f6d5b8da0
+      internalID: -2080549633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_21
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 251
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c97f9534cdcefc488bcca7c8f22c9e6
+      internalID: 1410393274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_22
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 251
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4a87635571771e4f963ae6f9363b78a
+      internalID: -530979269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_23
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 251
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe0466066c211f9418565446f8699608
+      internalID: -399826897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_24
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 251
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e998b50a22ef154386ea1b399ddf527
+      internalID: 369350533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_25
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 251
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2711fb06bc972bc4586e5ba3f45c42ef
+      internalID: 2019718695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_26
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 187
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cd7542b555f129468a3d1cfda28ef61
+      internalID: -38545103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_27
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 187
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54376c7ccc4b1c942b2dab5c8c465fb1
+      internalID: 1596557015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_29
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 187
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a8416ff5960e8e4ca6d67dd1c4cd9c3
+      internalID: 917752357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_30
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 187
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d192d03758265b54094fc592ca38252f
+      internalID: -305713280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_31
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 187
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ba1abb93b3ef71429fa96448e427c67
+      internalID: 299771825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_32
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 187
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 409e69cb7407b7c449675cbbab964a77
+      internalID: 272806109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_34
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 187
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ac7ad7ba6684084a99399a6a4d4ed79
+      internalID: 678628221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_35
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 187
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96d10239d2641c546a9ae6a7efda36e3
+      internalID: 600972760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_36
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 117
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38bd9a87c37a5b540aa67c51d99fb601
+      internalID: 1986536814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_37
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 53
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77a235079924e0648a65a4a7c9f98008
+      internalID: 85801158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_38
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 53
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41fa56163386a784f902a268bddcac5a
+      internalID: 515194399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_39
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 117
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 516de38f913e1af45aac8b50a948aa48
+      internalID: -865500941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_40
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 54
+        width: 64
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e76c88ad4cba6a342be082cd3580f6a7
+      internalID: -406515269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_41
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 118
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afe393d6024303a41ac147a4936a47c0
+      internalID: -926288906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_42
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 119
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7ffdeb7c58c4d24f8f484b55cc58985
+      internalID: 416886044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_43
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 53
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d107ab97cbae17646947bde7c91e4f8f
+      internalID: 1752875703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_44
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 119
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7124dc1ce7de73d4abcc50905d37597e
+      internalID: 843758010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_45
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 53
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45faac4bf365e3041ba9d554248f998a
+      internalID: 852287732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_46
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 119
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb258f85d4027a74795d37f2d7950d42
+      internalID: -656120209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_47
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 118
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d126410a525657c49b60e80a6a44be92
+      internalID: 52534711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_48
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 90
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a5693e43443d1345bdd078e81b421c3
+      internalID: 941639317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_49
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 117
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 799dbd3febcf0aa4a93ffa400623f201
+      internalID: 105550575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_50
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 53
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 972ff49d1e85bec4ab9d07e04a3f79b6
+      internalID: 857214418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_51
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 53
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 743828e3d392c524bac3a98dbb4e545d
+      internalID: -919864902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_52
+      rect:
+        serializedVersion: 2
+        x: 697
+        y: 53
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4daa41949d8c3e348b4a80509822add7
+      internalID: 384015428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_54
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 30
+        width: 12
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3457aad5215d0cb498038c21bd5b3847
+      internalID: 1296927683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_55
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a14fc7515413e04383b626ae5a5b968
+      internalID: -46489997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_56
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfbe93feb51d77f439518e77c44a50f3
+      internalID: -373102572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_57
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82db212045f74a140b758a7a1872bcab
+      internalID: -395878419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_58
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d7b2c5df719868459d4639dcde92518
+      internalID: -1579606232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_62
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96b54a89b6b7937458189ff08c3cac05
+      internalID: 625752207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_64
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6fccb1ad13ac624cb9a0774b51ee2e4
+      internalID: -1360936372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fiery Beast Sprite Sheet_65
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 248ba2d8bbbedfa47a8a8065588c0e66
+      internalID: -983991481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: ccbea25242f58e54183fbd118eddde62
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Fiery Beast Sprite Sheet_0: -390496433
+      Fiery Beast Sprite Sheet_1: -393857910
+      Fiery Beast Sprite Sheet_10: -299360279
+      Fiery Beast Sprite Sheet_11: 1063906726
+      Fiery Beast Sprite Sheet_12: -1789317647
+      Fiery Beast Sprite Sheet_13: 1734812760
+      Fiery Beast Sprite Sheet_14: -1602606002
+      Fiery Beast Sprite Sheet_15: 2088548995
+      Fiery Beast Sprite Sheet_16: 608181696
+      Fiery Beast Sprite Sheet_17: 94143980
+      Fiery Beast Sprite Sheet_18: -1427170333
+      Fiery Beast Sprite Sheet_19: 2113945394
+      Fiery Beast Sprite Sheet_2: -888940404
+      Fiery Beast Sprite Sheet_20: -2080549633
+      Fiery Beast Sprite Sheet_21: 1410393274
+      Fiery Beast Sprite Sheet_22: -530979269
+      Fiery Beast Sprite Sheet_23: -399826897
+      Fiery Beast Sprite Sheet_24: 369350533
+      Fiery Beast Sprite Sheet_25: 2019718695
+      Fiery Beast Sprite Sheet_26: -38545103
+      Fiery Beast Sprite Sheet_27: 1596557015
+      Fiery Beast Sprite Sheet_28: 269261352
+      Fiery Beast Sprite Sheet_29: 917752357
+      Fiery Beast Sprite Sheet_3: 986090798
+      Fiery Beast Sprite Sheet_30: -305713280
+      Fiery Beast Sprite Sheet_31: 299771825
+      Fiery Beast Sprite Sheet_32: 272806109
+      Fiery Beast Sprite Sheet_33: 1234896352
+      Fiery Beast Sprite Sheet_34: 678628221
+      Fiery Beast Sprite Sheet_35: 600972760
+      Fiery Beast Sprite Sheet_36: 1986536814
+      Fiery Beast Sprite Sheet_37: 85801158
+      Fiery Beast Sprite Sheet_38: 515194399
+      Fiery Beast Sprite Sheet_39: -865500941
+      Fiery Beast Sprite Sheet_4: 861506114
+      Fiery Beast Sprite Sheet_40: -406515269
+      Fiery Beast Sprite Sheet_41: -926288906
+      Fiery Beast Sprite Sheet_42: 416886044
+      Fiery Beast Sprite Sheet_43: 1752875703
+      Fiery Beast Sprite Sheet_44: 843758010
+      Fiery Beast Sprite Sheet_45: 852287732
+      Fiery Beast Sprite Sheet_46: -656120209
+      Fiery Beast Sprite Sheet_47: 52534711
+      Fiery Beast Sprite Sheet_48: 941639317
+      Fiery Beast Sprite Sheet_49: 105550575
+      Fiery Beast Sprite Sheet_5: -1240310113
+      Fiery Beast Sprite Sheet_50: 857214418
+      Fiery Beast Sprite Sheet_51: -919864902
+      Fiery Beast Sprite Sheet_52: 384015428
+      Fiery Beast Sprite Sheet_53: -1741717754
+      Fiery Beast Sprite Sheet_54: 1296927683
+      Fiery Beast Sprite Sheet_55: -46489997
+      Fiery Beast Sprite Sheet_56: -373102572
+      Fiery Beast Sprite Sheet_57: -395878419
+      Fiery Beast Sprite Sheet_58: -1579606232
+      Fiery Beast Sprite Sheet_59: 1376855530
+      Fiery Beast Sprite Sheet_6: 729732376
+      Fiery Beast Sprite Sheet_60: -1614267308
+      Fiery Beast Sprite Sheet_61: 1216825593
+      Fiery Beast Sprite Sheet_62: 625752207
+      Fiery Beast Sprite Sheet_63: -1315975384
+      Fiery Beast Sprite Sheet_64: -1360936372
+      Fiery Beast Sprite Sheet_65: -983991481
+      Fiery Beast Sprite Sheet_7: 1172593197
+      Fiery Beast Sprite Sheet_8: -110164037
+      Fiery Beast Sprite Sheet_9: 381537686
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

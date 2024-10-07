@@ -85,7 +85,6 @@ public abstract class IACharacter : BaseCharacter
                 if (!isSpelling)
                 {
                     isSpelling = true;
-                    Debug.Log("CAST SPELL 1");
                     CastSpell();
                 }
                 break;

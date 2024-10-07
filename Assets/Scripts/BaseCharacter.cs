@@ -136,7 +136,7 @@ public class BaseCharacter : Health
         Debug.Log("Player's damage upgraded to: " + baseDamage);
     }
 
-    public void StartAttack()
+    public virtual void StartAttack()
     {
         if (canAttack)
         {
