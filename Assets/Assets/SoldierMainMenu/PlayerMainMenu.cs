@@ -129,14 +129,17 @@ public class PlayerMainMenu : MonoBehaviour
 
     public void LoadPlayerState()
     {
-        Debug.Log("Loading");
-        // Load the waypoint index from GameConfig
+
         int currentWaypointIndex = CalculateWaypointIndex(gameConfig.bestWave);
-        Debug.Log("currentWaypointIndex: " + currentWaypointIndex);
+        GameObject mainCamera = GameObject.FindWithTag("MainCamera");
+
         if (currentWaypointIndex >= 0 && currentWaypointIndex < waypoints.Count)
         {
             Debug.Log("Here");
             transform.position = waypoints[currentWaypointIndex]; // Set player position to the saved waypoint
+
+            //mainCamera.GetComponent<CameraFollow>().hasToFollow = true;
+
         }
         else
         {

@@ -14,6 +14,7 @@ public class GameManagerMainMenu : MonoBehaviour
     public LoadManager loadManager;
 
     private int amountMoney = 0;
+    private CameraFollow cameraFollow;
 
     private PlayerMainMenu player;
 
@@ -56,7 +57,7 @@ public class GameManagerMainMenu : MonoBehaviour
 
         if (mainCamera != null)
         {
-            CameraFollow cameraFollow = mainCamera.GetComponent<CameraFollow>();
+            cameraFollow = mainCamera.GetComponent<CameraFollow>();
 
             if (cameraFollow != null)
             {
