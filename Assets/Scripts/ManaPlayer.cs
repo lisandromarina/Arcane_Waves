@@ -11,6 +11,7 @@ public class ManaPlayer : BaseCharacter
 
     private Color normalColor = new Color(0.02f, 0.2f, 1.0f); // 0052FF
     private Color readyColor = Color.white;
+    private bool isVisible = true;
 
     protected override void Awake()
     {
@@ -50,33 +51,40 @@ public class ManaPlayer : BaseCharacter
 
     }
 
+    public void SetIsVisible(bool isVisible)
+    {
+        this.isVisible = isVisible;
+    }
+
     private void UpdateManaBar()
     {
         if (manaBar != null)
         {
-            // Calculate the fill amount as a percentage
-            float fillAmount = (float)mana / maxMana;
-
-            // Clamp fill amount between 0 and 1
-            fillAmount = Mathf.Clamp(fillAmount, 0f, 1f);
-            manaBar.fillAmount = fillAmount;
-
-            // Show mana bar only when the player is alive
-            bool shouldShowManaBar = IsAlive;
-            manaBarTransform.gameObject.SetActive(shouldShowManaBar);
-
-            // Change color based on fill amount
-            if (fillAmount >= 1.0f)
+            if (isVisible)
             {
-                manaBar.color = readyColor; // Change color to indicate ready state
-            }
-            else
-            {
-                manaBar.color = normalColor; // Reset to normal color
-            }
+                float fillAmount = (float)mana / maxMana;
 
-            // Log the current state
-            Debug.Log($"Updating mana bar: Mana = {mana}, Max Mana = {maxMana}, Fill Amount = {fillAmount}");
+                // Clamp fill amount between 0 and 1
+                fillAmount = Mathf.Clamp(fillAmount, 0f, 1f);
+                manaBar.fillAmount = fillAmount;
+
+                // Show mana bar only when the player is alive
+                bool shouldShowManaBar = IsAlive;
+                manaBarTransform.gameObject.SetActive(shouldShowManaBar);
+
+                // Change color based on fill amount
+                if (fillAmount >= 1.0f)
+                {
+                    manaBar.color = readyColor; // Change color to indicate ready state
+                }
+                else
+                {
+                    manaBar.color = normalColor; // Reset to normal color
+                }
+
+                // Log the current state
+                Debug.Log($"Updating mana bar: Mana = {mana}, Max Mana = {maxMana}, Fill Amount = {fillAmount}");
+            }
         }
     }
 

@@ -33,6 +33,8 @@ public class PlayerMainMenu : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("GetComponent<ManaPlayer>() == null " + (GetComponent<ManaPlayer>() == null));
+        GetComponent<ManaPlayer>().SetIsVisible(false);
         characterBase = GetComponent<Character_Base>();
         animator = GetComponent<Animator>();
         characterBase.PlayMoveAnim(Vector3.zero); // Start default movement animation
