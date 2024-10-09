@@ -119,6 +119,16 @@ public class MainMenuUiManager : MonoBehaviour
             upgradeDetailsPanel.gameObject.SetActive(false);
             cardsPanel.gameObject.SetActive(true);
         }
+
+        //destroy possible popup when changing the scene
+        GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
+        foreach (GameObject obj in allObjects)
+        {
+            if (obj.name.Contains("DamagePopup"))
+            {
+                Destroy(obj);
+            }
+        }
     }
 
     public void SetFilter(string filterTag)
