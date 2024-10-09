@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : BaseCharacter
+public class Player : ManaPlayer
 {
     private Rigidbody2D rb;
     private Vector2 movementInput;
@@ -76,6 +76,12 @@ public class Player : BaseCharacter
             isMoving = false;
             characterBase.PlayMoveAnim(Vector3.zero);
         }
+    }
+
+    protected override void DamageTrigger()
+    {
+        base.DamageTrigger();
+        RegenerateMana(1);
     }
 
     public List<CharacterAnimator> GetCharacterAnimators()

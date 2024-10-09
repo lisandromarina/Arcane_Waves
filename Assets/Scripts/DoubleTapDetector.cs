@@ -10,6 +10,8 @@ public class DoubleTapDetector : MonoBehaviour
     [SerializeField] private RectTransform barPanelRectTransform; // Reference to the Bar panel RectTransform
     private Canvas canvas;
 
+    private Player player; // Reference to the Player script
+
     private void Start()
     {
         canvas = FindObjectOfType<Canvas>();
@@ -17,7 +19,15 @@ public class DoubleTapDetector : MonoBehaviour
         {
             Debug.LogError("Canvas not found. Ensure DoubleTapDetector is a child of a Canvas.");
         }
+
+        // Find the player in the scene
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        if (player == null)
+        {
+            Debug.LogError("Player not found in the scene.");
+        }
     }
+
     void Update()
     {
         // Check if there is at least one touch
@@ -49,9 +59,20 @@ public class DoubleTapDetector : MonoBehaviour
 
     private void OnDoubleTap()
     {
-        // Start casting the spell
-        isCastingSpell = true;
-        onSkillClick();
+        // Check if the player has enough mana before casting
+        if (player != null && player.HasEnoughMana())
+        {
+            // Start casting the spell
+            isCastingSpell = true;
+            onSkillClick();
+
+            // Deduct mana cost
+            player.UseMana();
+        }
+        else
+        {
+            Debug.Log("Not enough mana to cast the special skill.");
+        }
     }
 
     public void onSkillClick()
@@ -86,7 +107,7 @@ public class DoubleTapDetector : MonoBehaviour
         SoundManager.FadeOutSound(soundBeam, 2.1f);
         // Flip the BeamGuy based on the respawn side
         Vector3 beamGuyScale = beamGuy.transform.localScale;
-        beamGuyScale.x = respawnOnLeft ? beamGuyScale.x *  1 : beamGuyScale.x  * - 1; // Flip if respawning on the right
+        beamGuyScale.x = respawnOnLeft ? beamGuyScale.x * 1 : beamGuyScale.x * -1; // Flip if respawning on the right
         beamGuy.transform.localScale = beamGuyScale;
 
         // Subscribe to the OnBeamGuyDestroyed event
@@ -100,7 +121,6 @@ public class DoubleTapDetector : MonoBehaviour
         // Toggle the respawn side for the next double tap
         respawnOnLeft = !respawnOnLeft;
     }
-
 
     private void HandleBeamGuyDestroyed()
     {
