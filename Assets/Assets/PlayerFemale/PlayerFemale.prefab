@@ -124,10 +124,12 @@ MonoBehaviour:
   - Enemy
   - Barrel
   - Training
+  attackOffset: {x: -4, y: -10}
   isAttacking: 0
   target: {fileID: 0}
   savedStats: {fileID: 11400000, guid: 3827bb6ed48da8d459ed8c4745ec8be3, type: 2}
   stopDistanceThreshold: 0.1
+  characterAnimators: []
 --- !u!95 &-6889511743541280880
 Animator:
   serializedVersion: 5

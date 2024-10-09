@@ -8,6 +8,8 @@ public class BaseCharacter : Health
     [SerializeField] protected float attackRange = 1f;
     [SerializeField] protected int baseDamage = 10;
     [SerializeField] protected List<string> attackTags = new List<string> { "Player", "Ally", "Barrel", "Training" };
+    [SerializeField] protected Vector2 attackOffset = Vector2.zero; // New offset field
+
 
     public bool isAttacking = false;
     protected bool canAttack = true;
@@ -60,7 +62,10 @@ public class BaseCharacter : Health
 
     private void DetectTargets()
     {
-        Collider2D[] targetsInRange = Physics2D.OverlapCircleAll(transform.position, attackRange);
+        // Calculate the attack position by applying the offset to the character's position
+        Vector2 attackPosition = (Vector2)transform.position + attackOffset;
+
+        Collider2D[] targetsInRange = Physics2D.OverlapCircleAll(attackPosition, attackRange);
 
         detectedTargets.Clear();
         foreach (var collider in targetsInRange)
@@ -198,6 +203,6 @@ public class BaseCharacter : Health
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.DrawWireSphere((Vector2)transform.position + attackOffset, attackRange);
     }
 }

@@ -69,6 +69,9 @@ MonoBehaviour:
   attackTags:
   - Player
   - Ally
+  attackOffset: {x: 0, y: -12}
+  isAttacking: 0
+  target: {fileID: 0}
   currentState: 1
   detectionRadius: 90
   moneyReward: 1

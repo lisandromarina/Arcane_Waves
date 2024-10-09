@@ -91,6 +91,9 @@ MonoBehaviour:
   - Player
   - Ally
   - Training
+  attackOffset: {x: 0, y: -10}
+  isAttacking: 0
+  target: {fileID: 0}
   currentState: 1
   detectionRadius: 190
   moneyReward: 30

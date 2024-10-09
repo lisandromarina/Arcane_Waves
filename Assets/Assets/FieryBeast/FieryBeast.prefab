@@ -226,6 +226,7 @@ MonoBehaviour:
   castRadius: 150
   numberOfSpells: 20
   warningDuration: 2
+  specialDamage: 150
   mana: 0
   maxMana: 5
 --- !u!1001 &3400971254393701461

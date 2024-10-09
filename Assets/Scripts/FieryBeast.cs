@@ -8,11 +8,12 @@ public class FieryBeast : Enemy
     [SerializeField] private GameObject warningCirclePrefab;  // The warning circle prefab
     [SerializeField] private float castRadius = 150f;   // The radius around the FieryBeast to spawn the spells
     [SerializeField] private int numberOfSpells = 10;  // Number of spells to instantiate around the beast
-    [SerializeField] private float warningDuration = 2f;  // How long to show the warning circle before the spell
+    [SerializeField] private float warningDuration = 4f;  // How long to show the warning circle before the spell
 
     private List<Vector3> spellPositions = new List<Vector3>(); // Store spell positions
     private bool isCasting = false; // Track if casting spell
     private float castTimer = 0f; // Timer to track the warning duration
+    public int specialDamage = 150;
 
     private List<GameObject> warningCircles = new List<GameObject>();
 
@@ -98,7 +99,7 @@ public class FieryBeast : Enemy
             // Instantiate the spell first to access its sprite properties
             GameObject spellInstance = Instantiate(spellPrefab, spellPosition, Quaternion.identity);
             spellInstance.GetComponent<FireSkill>().SetTargets(attackTags);
-            spellInstance.GetComponent<FireSkill>().SetDamage(baseDamage);
+            spellInstance.GetComponent<FireSkill>().SetDamage(specialDamage);
             // Adjust the position of the spell based on its sprite bounds
             SpriteRenderer spriteRenderer = spellInstance.GetComponent<SpriteRenderer>();
 
@@ -119,6 +120,8 @@ public class FieryBeast : Enemy
         isCasting = false;
         currentState = State.Search;
         canAttack = true;
+        isSpelling = false;
+
     }
 
 
