@@ -48,7 +48,7 @@ public class GameManagerMainMenu : MonoBehaviour
 
         enableCamera();
         InitializeGame();
-        SoundManager.PlaySound(SoundManager.Sound.PlayMainMenuMusic, false, 0.16f);
+        SoundManager.PlaySound(SoundManager.Sound.PlayMainMenuMusic, true, 0.16f);
     }
 
     private void enableCamera()
