@@ -309,6 +309,12 @@ public class MainMenuUiManager : MonoBehaviour
             BaseCharacter character = selectedPrefab.GetComponent<BaseCharacter>();
             character.SetAttackRange(100);
 
+            ManaPlayer manaPlayer = selectedPrefab.GetComponent<ManaPlayer>();
+            if (manaPlayer != null)
+            {
+                manaPlayer.SetIsVisible(false);
+            }
+
             cardsPanel.gameObject.SetActive(false);
             upgradeDetailsPanel.gameObject.SetActive(true);
 
