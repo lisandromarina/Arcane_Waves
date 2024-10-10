@@ -53,7 +53,6 @@ public class ManaPlayer : BaseCharacter
 
     public void SetIsVisible(bool isVisible)
     {
-        Debug.Log("isVisible: " + isVisible);
         this.isVisible = isVisible;
     }
 
@@ -70,7 +69,7 @@ public class ManaPlayer : BaseCharacter
                 manaBar.fillAmount = fillAmount;
 
                 // Show mana bar only when the player is alive
-                bool shouldShowManaBar = IsAlive;
+                bool shouldShowManaBar = IsAlive && fillAmount != 0;
                 manaBarTransform.gameObject.SetActive(shouldShowManaBar);
 
                 // Change color based on fill amount

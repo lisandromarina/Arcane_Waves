@@ -218,7 +218,7 @@ MonoBehaviour:
   - Enemy
   - Barrel
   - Training
-  attackOffset: {x: 0, y: -2}
+  attackOffset: {x: -2, y: -2}
   isAttacking: 0
   target: {fileID: 0}
   maxMana: 20
