@@ -162,6 +162,11 @@ public class MainMenuUiManager : MonoBehaviour
         {
             buttonSelected = clickedButton;
             selectedPrefab = GameManagerMainMenu.Instance.RespawnPrefab(associatedPrefab, new Vector2(-23, 122));
+            ManaPlayer manaPlayer = selectedPrefab.GetComponent<ManaPlayer>();
+            if(manaPlayer != null)
+            {
+                manaPlayer.SetIsVisible(false);
+            }
             selectedPrefab.transform.localScale = new Vector3(150, 150, 0);
             BaseCharacter character = selectedPrefab.GetComponent<BaseCharacter>();
             character.SetAttackRange(100);

@@ -53,6 +53,7 @@ public class ManaPlayer : BaseCharacter
 
     public void SetIsVisible(bool isVisible)
     {
+        Debug.Log("isVisible: " + isVisible);
         this.isVisible = isVisible;
     }
 
