@@ -65,12 +65,16 @@ MonoBehaviour:
   maxHealth: 100
   speed: 25
   attackRange: 90
-  baseDamage: 8
+  baseDamage: 25
   attackTags:
   - Player
   - Ally
+  attackOffset: {x: 0, y: 0}
+  isAttacking: 0
+  target: {fileID: 0}
   currentState: 1
   detectionRadius: 170
+  moneyReward: 0
 --- !u!212 &3330792334263390105
 SpriteRenderer:
   m_ObjectHideFlags: 0

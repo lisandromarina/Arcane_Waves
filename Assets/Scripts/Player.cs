@@ -9,6 +9,8 @@ public class Player : ManaPlayer
     private Vector2 movementInput;
     private bool isMoving = false;
 
+    public ParticleSystem dust;
+
     [SerializeField] public PlayerAttributes savedStats;
     [SerializeField] private float stopDistanceThreshold = 0.1f;
 
@@ -52,7 +54,7 @@ public class Player : ManaPlayer
         if (movementInput.magnitude > stopDistanceThreshold)
         {
             isMoving = true;
-            characterBase.PlayMoveAnim(direction);
+            characterBase.PlayMoveAnimWithDust(direction, dust);
         }
         else
         {
@@ -130,6 +132,13 @@ public class Player : ManaPlayer
 
         return null;
     }
+
+    public void CreateDust()
+    {
+        dust.Play();
+    }
+
+
 
     [System.Serializable]
     public class CharacterAnimator

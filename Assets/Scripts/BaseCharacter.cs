@@ -136,7 +136,7 @@ public class BaseCharacter : Health
 
     public void UpgradeDamage()
     {
-        int increment = Mathf.RoundToInt(baseDamage * 1.5f);
+        int increment = Mathf.RoundToInt(baseDamage * 0.15f);
         this.baseDamage = baseDamage + increment;
         Debug.Log("Player's damage upgraded to: " + baseDamage);
     }

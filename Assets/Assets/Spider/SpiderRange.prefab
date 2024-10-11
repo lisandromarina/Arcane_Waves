@@ -63,10 +63,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f40543e99045c1c4b9db2ec5558324c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
+  maxHealth: 40
   speed: 30
   attackRange: 60
-  baseDamage: 4
+  baseDamage: 15
   attackTags:
   - Player
   - Ally
