@@ -11,6 +11,8 @@ public class Projectile : MonoBehaviour
     private bool isDestroying = false;
     private SpriteRenderer spriteRenderer;
     private List<string> attackTargets;
+    private bool isMoving = false;
+    [SerializeField] private ParticleSystem dust;
 
     private void Awake()
     {
@@ -63,6 +65,16 @@ public class Projectile : MonoBehaviour
     {
         Vector3 direction = (destination - transform.position).normalized;
         transform.position += direction * speed * Time.deltaTime;
+
+        // Start the dust effect once when the projectile begins moving
+        if (!isMoving)
+        {
+            isMoving = true;
+            if (dust != null && !dust.isPlaying)
+            {
+                dust.Play(); // Play dust once
+            }
+        }
 
         // Flip the sprite based on the direction
         FlipSprite();
