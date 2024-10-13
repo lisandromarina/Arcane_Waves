@@ -8,7 +8,8 @@ public class FieryBeast : Enemy
     [SerializeField] private GameObject warningCirclePrefab;  // The warning circle prefab
     [SerializeField] private float castRadius = 150f;   // The radius around the FieryBeast to spawn the spells
     [SerializeField] private int numberOfSpells = 10;  // Number of spells to instantiate around the beast
-    [SerializeField] private float warningDuration = 4f;  // How long to show the warning circle before the spell
+    [SerializeField] private float warningDuration = 0f;  // How long to show the warning circle before the spell
+    [SerializeField] private ParticleSystem dust;
 
     private List<Vector3> spellPositions = new List<Vector3>(); // Store spell positions
     private bool isCasting = false; // Track if casting spell
@@ -20,10 +21,50 @@ public class FieryBeast : Enemy
     public int mana = 0;            // Current mana
     public int maxMana = 5;         // Mana needed to cast a spell
 
+
+    void Update()
+    {
+        base.Update();
+
+        if (isCasting)
+        {
+            castTimer += Time.deltaTime;
+
+            if (castTimer >= warningDuration)
+            {
+                currentState = State.Spelling;
+            }
+        }
+    }
     protected override void DamageTrigger()
     {
         base.DamageTrigger();
+        dust.Play();
         ChargeMana();
+    }
+
+    protected override void MoveTowards(Transform target)
+    {
+        base.MoveTowards(target);
+        // Move towards the target until within attack range
+        Vector3 direction = (target.position - transform.position).normalized;
+
+        // Adjust dust particle effect position based on movement direction
+        Vector3 dustPosition = dust.transform.localPosition;
+        float offset = 0.1f; // Offset value to place the dust to the left or right of the beast
+
+        if (direction.x < 0)
+        {
+            // Moving left, set dust position to the left of the beast
+            dustPosition.x = -Mathf.Abs(offset);
+        }
+        else
+        {
+            // Moving right, set dust position to the right of the beast
+            dustPosition.x = Mathf.Abs(offset);
+        }
+
+        dust.transform.localPosition = dustPosition;
     }
 
     private void ChargeMana()
@@ -32,24 +73,18 @@ public class FieryBeast : Enemy
 
         if (mana >= maxMana)
         {
-            StartSpellCast();
+            ShowWarnings();
             mana = 0;
         }
     }
 
-    private void StartSpellCast()
+    private void ShowWarnings()
     {
         Debug.Log("FieryBeast starts casting a spell!");
         canAttack = false;
-        currentState = State.Idle;
         isAttacking = false;
         characterBase.PlayAttackAnim(false);
-        // Clear any previous warning circles
-        foreach (GameObject warningCircle in warningCircles)
-        {
-            Destroy(warningCircle);
-        }
-        warningCircles.Clear();
+        currentState = State.Idle;
 
         // Spawn the warning circles at random positions around the FieryBeast
         Vector3 fieryBeastPosition = transform.position;
@@ -80,16 +115,7 @@ public class FieryBeast : Enemy
         Debug.Log("FieryBeast casts a spell!");
 
         characterBase.PlaySpecialSkillAnim("specialSkill");
-
-        // Destroy all warning circles before casting spells
-        foreach (GameObject warningCircle in warningCircles)
-        {
-            Destroy(warningCircle);
-        }
-        warningCircles.Clear(); // Clear the list after destruction
-
-        // Instantiate the actual spell at each stored position (from warning circle)
-        
+       
     }
 
     public void SpawnSpellsInRadius()
@@ -122,30 +148,6 @@ public class FieryBeast : Enemy
         canAttack = true;
         isSpelling = false;
 
-    }
-
-
-    void Update()
-    {
-        base.Update();
-
-        // If we are in the process of casting a spell, track the time
-        if (isCasting)
-        {
-            canAttack = false;
-            currentState = State.Idle;
-            isAttacking = false;
-
-            castTimer += Time.deltaTime;
-
-            // Once the warning duration has passed, cast the spell
-            if (castTimer >= warningDuration)
-            {
-
-                currentState = State.Spelling;
-                //CastSpell();
-            }
-        }
     }
 
     public void SpecialAttackEnds()

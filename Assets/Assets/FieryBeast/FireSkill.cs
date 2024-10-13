@@ -9,11 +9,11 @@ public class FireSkill : MonoBehaviour
     private int damage;
     private bool isMoving = false;
 
-    [SerializeField] private ParticleSystem dust;  // Reference to the particle system for the dust effect
+    //[SerializeField] private ParticleSystem dust;  // Reference to the particle system for the dust effect
 
     private bool animationFinished = false;
     private float destroyTime = 0f;
-    private float waitDuration = 1f;  // Time to wait before destroying the object (1 second)
+    private float waitDuration = 2f;  // Time to wait before destroying the object (1 second)
 
     // Start is called before the first frame update
     void Start()
@@ -31,9 +31,9 @@ public class FireSkill : MonoBehaviour
             // Check if the current animation is the "FireSkill" and if it is finished
             if (stateInfo.IsName("FireSkill") && stateInfo.normalizedTime >= 1.0f)
             {
-                animationFinished = true;  // Mark the animation as finished
-                
-                destroyTime = Time.time + waitDuration;  // Set the time when the object should be destroyed
+                //animationFinished = true;  // Mark the animation as finished
+                Destroy(gameObject);
+               // destroyTime = Time.time + waitDuration;  // Set the time when the object should be destroyed
             }
         }
 
@@ -46,14 +46,14 @@ public class FireSkill : MonoBehaviour
 
     public void StartDust()
     {
-        if (!isMoving)
+        /*if (!isMoving)
         {
             isMoving = true;
             if (dust != null && !dust.isPlaying)
             {
                 dust.Play(); // Play dust once
             }
-        }
+        }*/
     }
 
     public void SetTargets(List<string> targets)
@@ -66,16 +66,19 @@ public class FireSkill : MonoBehaviour
         this.damage = damage;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void TriggerDamage()
     {
-        Debug.Log("Collision with: " + collision.tag);
-
-        if (attackTargets.Contains(collision.tag))
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 0.5f); // Adjust the radius as needed
+        foreach (var collider in hitColliders)
         {
-            Health targetHealth = collision.GetComponent<Health>();
-            if (targetHealth != null && targetHealth.IsAlive)
+            Debug.Log("Checking collision with: " + collider.tag);
+            if (attackTargets.Contains(collider.tag))
             {
-                targetHealth.TakeDamage(damage);
+                Health targetHealth = collider.GetComponent<Health>();
+                if (targetHealth != null && targetHealth.IsAlive)
+                {
+                    targetHealth.TakeDamage(damage);
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Health : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class Health : MonoBehaviour
     protected Image healthBar;
     protected Transform healthBarTransform;
 
+    private SpriteRenderer sprite;
+    private bool canTakeDamage;
+    private int flickAmount = 3;
+    private float flickDuration = .1f;
     protected virtual void Awake()
     {
         health = maxHealth;
@@ -35,6 +40,10 @@ public class Health : MonoBehaviour
             // Initially hide the health bar
             healthBarTransform.gameObject.SetActive(false);
         }
+
+        canTakeDamage = true;
+
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     private void UpdateHealthBar()
@@ -58,9 +67,15 @@ public class Health : MonoBehaviour
         Debug.Log($"{gameObject.name} taking damage");
         DamagePopup.Create(gameObject.transform.position + new Vector3(0, 15), damage);
 
+
         if (health <= 0)
         {
             Die();
+        }
+        else
+        {
+            Debug.Log("Start courutine flicker");
+            StartCoroutine(DamageFlicker());
         }
 
         UpdateHealthBar();
@@ -92,7 +107,7 @@ public class Health : MonoBehaviour
         if (!IsAlive) return; // Cannot heal a dead character
 
         health += healAmount;
-
+        StartCoroutine(HealthFlicker());
         if (health > maxHealth)
         {
             health = maxHealth;
@@ -101,5 +116,31 @@ public class Health : MonoBehaviour
         Debug.Log($"{gameObject.name} healed by {healAmount}. Current health: {health}");
 
         UpdateHealthBar();
+    }
+
+    IEnumerator DamageFlicker()
+    {
+        canTakeDamage = false;
+        for (int i = 0; i < flickAmount; i++)
+        {
+            sprite.color = new Color(1f,1f,1f,.5f);
+            yield return new WaitForSeconds(flickDuration);
+            sprite.color =  Color.white;
+            yield return new WaitForSeconds(flickDuration);
+            canTakeDamage = true;
+        }
+    }
+
+    IEnumerator HealthFlicker()
+    {
+        canTakeDamage = false;
+        for (int i = 0; i < flickAmount; i++)
+        {
+            sprite.color = Color.green;
+            yield return new WaitForSeconds(flickDuration);
+            sprite.color = Color.white;
+            yield return new WaitForSeconds(flickDuration);
+            canTakeDamage = true;
+        }
     }
 }

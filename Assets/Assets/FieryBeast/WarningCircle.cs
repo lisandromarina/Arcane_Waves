@@ -7,6 +7,8 @@ public class WarningCircle : MonoBehaviour
     public float duration = 4f; // Duration for the scale to reach full size
     private float scaleTime; // Time elapsed since the instance was created
     private Vector3 targetScale; // Final scale of the circle
+    private bool isMoving = false;
+    [SerializeField] private ParticleSystem dust;  // Reference to the particle system for the dust effect
 
     private void Start()
     {
@@ -17,6 +19,7 @@ public class WarningCircle : MonoBehaviour
 
     private void Update()
     {
+        StartDust();
         scaleTime += Time.deltaTime;
 
         // Calculate the interpolation factor
@@ -31,6 +34,18 @@ public class WarningCircle : MonoBehaviour
         {
             // Optionally, keep the circle around for some time or destroy it
             Destroy(gameObject); // Uncomment if you want to destroy after growing
+        }
+    }
+
+    public void StartDust()
+    {
+        if (!isMoving)
+        {
+            isMoving = true;
+            if (dust != null && !dust.isPlaying)
+            {
+                dust.Play(); // Play dust once
+            }
         }
     }
 }

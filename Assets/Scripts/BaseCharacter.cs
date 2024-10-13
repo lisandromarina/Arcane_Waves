@@ -11,9 +11,9 @@ public class BaseCharacter : Health
     [SerializeField] protected Vector2 attackOffset = Vector2.zero; // New offset field
 
 
-    public bool isAttacking = false;
+    protected bool isAttacking = false;
     protected bool canAttack = true;
-    public Collider2D target = null;
+    protected Collider2D target = null;
     private Dictionary<Collider2D, Health> detectedTargets = new Dictionary<Collider2D, Health>();
 
     protected override void Awake()

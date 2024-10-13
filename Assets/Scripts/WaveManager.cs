@@ -133,7 +133,6 @@ public class WaveManager : MonoBehaviour
 
     void SpawnEnemy(GameObject enemyPrefab)
     {
-        Debug.Log("Spawn");
         int randomSpawnIndex = UnityEngine.Random.Range(0, spawnPoints.Length);
         Transform spawnPoint = spawnPoints[randomSpawnIndex];
 
@@ -150,7 +149,7 @@ public class WaveManager : MonoBehaviour
 
     private void InitializeWaves()
     {
-       waves.Add(new List<EnemyWave> {
+      /* waves.Add(new List<EnemyWave> {
             new EnemyWave(enemyPrefabs[0], 15)
         });
 
@@ -212,7 +211,7 @@ public class WaveManager : MonoBehaviour
             new EnemyWave(enemyPrefabs[5], 5),
             new EnemyWave(enemyPrefabs[6], 15),
             new EnemyWave(enemyPrefabs[2], 10)
-        });
+        });*/
 
         waves.Add(new List<EnemyWave> {
             new EnemyWave(enemyPrefabs[8], 1)

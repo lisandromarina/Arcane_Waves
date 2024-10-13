@@ -117,7 +117,7 @@ public abstract class IACharacter : BaseCharacter
         // No default behavior; do nothing if not overridden
     }
 
-    protected void MoveTowards(Transform target)
+    protected virtual void MoveTowards(Transform target)
     {
         // Move towards the target until within attack range
         Vector3 direction = (target.position - transform.position).normalized;
