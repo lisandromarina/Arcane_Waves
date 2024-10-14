@@ -14,7 +14,7 @@ public class PrefabStatsManager : MonoBehaviour
     private List<PrefabStats> defaultPrefabs = new List<PrefabStats>
     {
         new PrefabStats {
-            prefabName = "Player_1",
+            prefabName = "Player",
             health = 150,
             attackPower = 10,
             attackRange = 25,
@@ -127,9 +127,11 @@ public class PrefabStatsManager : MonoBehaviour
     // Get stats for a specific prefab by name
     public PrefabStats GetPrefabStats(string prefabName)
     {
-        return prefabStatsCollection.prefabsStats.Find(p => p.prefabName == prefabName);
-    }
+        // Remove "(clone)" from the prefabName if it exists
+        string cleanedName = prefabName.Replace("(Clone)", "").Trim();
 
+        return prefabStatsCollection.prefabsStats.Find(p => p.prefabName == cleanedName);
+    }
     // Method to calculate upgrade cost based on prefab's baseCost and costMultiplier
     public int CalculateUpgradeCost(PrefabStats prefabStats)
     {
@@ -170,7 +172,7 @@ public class PrefabStatsManager : MonoBehaviour
                 UpgradeTank(prefabStats);
                 break;
 
-            case "Player_1":
+            case "Player":
                 UpgradePlayer(prefabStats);
                 break;
 

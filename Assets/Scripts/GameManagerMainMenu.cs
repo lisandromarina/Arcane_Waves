@@ -29,7 +29,7 @@ public class GameManagerMainMenu : MonoBehaviour
         GameObject gridGO = GameObject.Find("AdventurePanel");
 
         player = playerGO.GetComponent<PlayerMainMenu>();
-        player.speed = 25;
+        player.speed = 50;
         player.gameConfig = gameConfig;
 
         player.enabled = true;

@@ -70,10 +70,9 @@ public class MainMenuUiManager : MonoBehaviour
             {
                 if (text.name == "Cost") // Match the text name
                 {
-                    PrefabStatsLoader characterLoader = selectedPrefab.GetComponent<PrefabStatsLoader>();
+                    //PrefabStatsLoader characterLoader = selectedPrefab.GetComponent<PrefabStatsLoader>();
                     PrefabStatsManager statsManager = FindObjectOfType<PrefabStatsManager>();
-                    PrefabStats stats = statsManager.GetPrefabStats(characterLoader.prefabName);
-                    Debug.Log(statsManager.CalculateUpgradeCost(stats));
+                    PrefabStats stats = statsManager.GetPrefabStats(selectedPrefab.name);
                     text.text = statsManager.CalculateUpgradeCost(stats).ToString();
                     break;
                 }
@@ -176,9 +175,9 @@ public class MainMenuUiManager : MonoBehaviour
 
 
             //VERIFY IF THE PREFABS HAS SOME SKIN
-            PrefabStatsLoader characterLoader = selectedPrefab.GetComponent<PrefabStatsLoader>();
-            string currentSkin = PrefabStatsManager.Instance.GetSkinSelected(characterLoader.prefabName);
-            string[] skins = PrefabStatsManager.Instance.GetListOfSkins(characterLoader.prefabName);
+            //PrefabStatsLoader characterLoader = selectedPrefab.GetComponent<PrefabStatsLoader>();
+            string currentSkin = PrefabStatsManager.Instance.GetSkinSelected(selectedPrefab.name);
+            string[] skins = PrefabStatsManager.Instance.GetListOfSkins(selectedPrefab.name);
 
             if(skins.Length <= 0)
             {
@@ -231,10 +230,10 @@ public class MainMenuUiManager : MonoBehaviour
                 if (buttonImage != null)
                 {
 
-                    PrefabStatsLoader characterLoader = playerPrefabs[i].GetComponent<PrefabStatsLoader>();
+                    //PrefabStatsLoader characterLoader = playerPrefabs[i].GetComponent<PrefabStatsLoader>();
 
-                    Debug.Log("characterLoader.prefabName " + (characterLoader.prefabName));
-                    string[] skins = FindFirstObjectByType<PrefabStatsManager>().GetListOfSkins(characterLoader.prefabName);
+                    //Debug.Log("characterLoader.prefabName " + (characterLoader.prefabName));
+                    string[] skins = FindFirstObjectByType<PrefabStatsManager>().GetListOfSkins(playerPrefabs[i].name);
 
 
                     SpriteRenderer prefabSpriteRenderer = null;
@@ -242,7 +241,7 @@ public class MainMenuUiManager : MonoBehaviour
                     {
                         Player player = playerPrefabs[i].GetComponent<Player>();
 
-                        string skinSelected = PrefabStatsManager.Instance.GetSkinSelected(characterLoader.prefabName);
+                        string skinSelected = PrefabStatsManager.Instance.GetSkinSelected(playerPrefabs[i].name);
 
                         buttonImage.sprite = player.GetSpriteRenderer(skinSelected);
                     }
@@ -272,20 +271,21 @@ public class MainMenuUiManager : MonoBehaviour
 
     private void onUpgradeCharacterClick()
     {
-        PrefabStatsLoader characterLoader = selectedPrefab.GetComponent<PrefabStatsLoader>();
+        //PrefabStatsLoader characterLoader = selectedPrefab.GetComponent<PrefabStatsLoader>();
 
-        PrefabStatsManager.Instance.TryUpgradePrefab(characterLoader.prefabName);
+        PrefabStatsManager.Instance.TryUpgradePrefab(selectedPrefab.name);
         UpdateUI();
     }
 
     public void onSkinChange()
     {
-        PrefabStatsLoader characterLoader = selectedPrefab.GetComponent<PrefabStatsLoader>();
+        //PrefabStatsLoader characterLoader = selectedPrefab.GetComponent<PrefabStatsLoader>();
         // Get current skin selected
-        string currentSkin = PrefabStatsManager.Instance.GetSkinSelected(characterLoader.prefabName);
-
+        Debug.Log("selectedPrefab.name " + selectedPrefab.name);
+        string currentSkin = PrefabStatsManager.Instance.GetSkinSelected(selectedPrefab.name);
+        Debug.Log("currentSkin " + currentSkin);
         // Get the list of skins
-        string[] skins = PrefabStatsManager.Instance.GetListOfSkins(characterLoader.prefabName);
+        string[] skins = PrefabStatsManager.Instance.GetListOfSkins(selectedPrefab.name);
 
         // Find the index of the current skin
         int currentIndex = Array.IndexOf(skins, currentSkin);
@@ -294,7 +294,7 @@ public class MainMenuUiManager : MonoBehaviour
         int nextIndex = (currentIndex + 1) % skins.Length;
 
         // Set the new skin
-        PrefabStatsManager.Instance.SetSkinSelected(characterLoader.prefabName, skins[nextIndex]);
+        PrefabStatsManager.Instance.SetSkinSelected(selectedPrefab.name, skins[nextIndex]);
 
         // Debug log to show the new skin selected
         Debug.Log("New skin selected: " + skins[nextIndex]);

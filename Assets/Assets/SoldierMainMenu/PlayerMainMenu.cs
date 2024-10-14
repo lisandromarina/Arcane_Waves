@@ -137,7 +137,6 @@ public class PlayerMainMenu : MonoBehaviour
 
         if (currentWaypointIndex >= 0 && currentWaypointIndex < waypoints.Count)
         {
-            Debug.Log("Here");
             transform.position = waypoints[currentWaypointIndex]; // Set player position to the saved waypoint
 
             //mainCamera.GetComponent<CameraFollow>().hasToFollow = true;
@@ -176,9 +175,9 @@ public class PlayerMainMenu : MonoBehaviour
 
     public void LoadAnimator()
     {
-        PrefabStatsLoader characterLoader = GetComponent<PrefabStatsLoader>();
+        //PrefabStatsLoader characterLoader = GetComponent<PrefabStatsLoader>();
 
-        string currentSkin = PrefabStatsManager.Instance.GetSkinSelected(characterLoader.prefabName);
+        string currentSkin = PrefabStatsManager.Instance.GetSkinSelected(name);
 
         // Find the corresponding AnimatorController from the list of characterAnimators
         foreach (var characterAnimator in characterAnimators)

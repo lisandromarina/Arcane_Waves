@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 5298544508667037105}
   - component: {fileID: 5621055526999966560}
   - component: {fileID: 5292069968016390607}
-  - component: {fileID: 4383394169563885351}
   - component: {fileID: 3462134077714260725}
   m_Layer: 6
   m_Name: Player
@@ -220,12 +219,9 @@ MonoBehaviour:
   - Barrel
   - Training
   attackOffset: {x: -2, y: -2}
-  isAttacking: 0
-  target: {fileID: 0}
   maxMana: 20
   specialSkillManaCost: 20
   dust: {fileID: 1526513520845506645}
-  savedStats: {fileID: 11400000, guid: 3827bb6ed48da8d459ed8c4745ec8be3, type: 2}
   stopDistanceThreshold: 0.1
   characterAnimators:
   - characterType: male
@@ -236,19 +232,6 @@ MonoBehaviour:
     animatorController: {fileID: 9100000, guid: b8eebf06267bd7b47a1add573965f63d,
       type: 2}
     spriteRenderer: {fileID: 107026210, guid: 13f847beb3ad18941825a0e722ede25e, type: 3}
---- !u!114 &4383394169563885351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2017500373387490843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffbe9fe3685a6724c8bd68347eabc9ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabName: Player_1
 --- !u!114 &3462134077714260725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,7 +245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypoints: []
-  speed: 5
+  speed: 50
   gameConfig: {fileID: 0}
 --- !u!1 &2024441594571777898
 GameObject:

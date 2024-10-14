@@ -11,7 +11,6 @@ public class Player : ManaPlayer
 
     public ParticleSystem dust;
 
-    [SerializeField] public PlayerAttributes savedStats;
     [SerializeField] private float stopDistanceThreshold = 0.1f;
 
     [SerializeField] private List<CharacterAnimator> characterAnimators; // List of character types and their animators
@@ -100,9 +99,9 @@ public class Player : ManaPlayer
 
     private void LoadAnimator()
     {
-        PrefabStatsLoader characterLoader = GetComponent<PrefabStatsLoader>();
+        //PrefabStatsLoader characterLoader = GetComponent<PrefabStatsLoader>();
 
-        string currentSkin = PrefabStatsManager.Instance.GetSkinSelected(characterLoader.prefabName);
+        string currentSkin = PrefabStatsManager.Instance.GetSkinSelected(name);
 
         // Find the corresponding AnimatorController from the list of characterAnimators
         foreach (var characterAnimator in characterAnimators)

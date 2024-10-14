@@ -45,7 +45,7 @@ public class WaveUIManager : MonoBehaviour, IWaveUIManager
         if (waveScoreText != null)
         {
             waveScoreText.text = "Wave: " + currentWave;
-            waveText.text = currentWave.ToString();
+            waveText.text = "WAVE\n\n" + currentWave.ToString();
         }
     }
 

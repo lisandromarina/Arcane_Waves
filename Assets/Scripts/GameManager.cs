@@ -158,9 +158,11 @@ public class GameManager : MonoBehaviour
                 if (buttonImage != null)
                 {
 
-                    PrefabStatsLoader characterLoader = alliesList[i].GetComponent<PrefabStatsLoader>();
+                    //PrefabStatsLoader characterLoader = alliesList[i].GetComponent<PrefabStatsLoader>();
 
-                    string[] skins = FindFirstObjectByType<PrefabStatsManager>().GetListOfSkins(characterLoader.prefabName);
+
+                    string prefabsName = alliesList[i].name;
+                    string[] skins = FindFirstObjectByType<PrefabStatsManager>().GetListOfSkins(prefabsName);
 
 
                     SpriteRenderer prefabSpriteRenderer = null;
@@ -168,7 +170,7 @@ public class GameManager : MonoBehaviour
                     {
                         Player player = alliesList[i].GetComponent<Player>();
 
-                        string skinSelected = PrefabStatsManager.Instance.GetSkinSelected(characterLoader.prefabName);
+                        string skinSelected = PrefabStatsManager.Instance.GetSkinSelected(prefabsName);
 
                         buttonImage.sprite = player.GetSpriteRenderer(skinSelected);
                     }
